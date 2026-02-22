@@ -18,5 +18,13 @@ class Track:
         self.powertrain_weight = powertrain_weight
 
     def to_dict(self) -> Dict[str, Any]:
-        """Tracks are static data, but we can serialize the identifier if needed."""
-        return {"name": self.name}
+        """Serialize track data for the frontend."""
+        return {
+            "name": self.name,
+            "country": self.country,
+            "laps": self.laps,
+            "base_lap_time": self.base_lap_time,
+            "aero_weight": self.aero_weight,
+            "chassis_weight": self.chassis_weight,
+            "powertrain_weight": self.powertrain_weight
+        }

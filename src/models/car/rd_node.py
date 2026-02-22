@@ -32,9 +32,13 @@ class RDNode:
         self.mutually_exclusive.append(node_id)
 
     def to_dict(self) -> Dict[str, Any]:
-        """Serialize for save state. We only need mutable state data, the tree structure is static."""
+        """Serialize for both save state and API consumption."""
         return {
             "node_id": self.node_id,
+            "name": self.name,
+            "description": self.description,
+            "cost": self.cost,
+            "base_time_to_complete": self.base_time_to_complete,
             "state": self.state,
             "progress_time": self.progress_time
         }

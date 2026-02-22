@@ -1,15 +1,39 @@
 {
     "team_name": "Player Racing",
     "season": 1,
-    "current_race_index": 0,
+    "current_race_index": 3,
     "finance_manager": {
         "balance": 140000000,
         "cost_cap": 140000000,
-        "spent_under_cap": 0
+        "spent_under_cap": 10000000
+    },
+    "championship_manager": {
+        "driver_standings": {
+            "Max Verstappen": 75,
+            "Lewis Hamilton": 48,
+            "Lando Norris": 45,
+            "Oscar Piastri": 34,
+            "Carlos Sainz": 22,
+            "Charles Leclerc": 34,
+            "George Russell": 24,
+            "Fernando Alonso": 8,
+            "Sergio Perez": 10,
+            "Esteban Ocon": 1,
+            "Alex Albon": 2
+        },
+        "constructor_standings": {
+            "Red Bull Racing": 85,
+            "Mercedes": 72,
+            "McLaren": 79,
+            "Ferrari": 56,
+            "Aston Martin": 8,
+            "Alpine": 1,
+            "Williams": 2
+        }
     },
     "car": {
         "aero": {
-            "downforce": 50,
+            "downforce": 55,
             "drag_efficiency": 50
         },
         "chassis": {
@@ -20,6 +44,47 @@
             "power_output": 50,
             "reliability": 80
         }
+    },
+    "rd_manager": {
+        "active_project": "powertrain_power",
+        "nodes": [
+            {
+                "node_id": "aero_b1",
+                "name": "Concept Aero",
+                "description": "Baseline aerodynamic testing in the wind tunnel.",
+                "cost": 2000000,
+                "base_time_to_complete": 2,
+                "state": "COMPLETED",
+                "progress_time": 2
+            },
+            {
+                "node_id": "aero_adv",
+                "name": "High Downforce Concept",
+                "description": "Aggressive wing angles.",
+                "cost": 5000000,
+                "base_time_to_complete": 4,
+                "state": "AVAILABLE",
+                "progress_time": 0
+            },
+            {
+                "node_id": "aero_eff",
+                "name": "Low Drag Concept",
+                "description": "Slippery design. Great for straights, bad in corners.",
+                "cost": 5000000,
+                "base_time_to_complete": 4,
+                "state": "AVAILABLE",
+                "progress_time": 0
+            },
+            {
+                "node_id": "powertrain_power",
+                "name": "Aggressive Engine Mapping",
+                "description": "Huge power, reduces reliability and adds weight for cooling.",
+                "cost": 8000000,
+                "base_time_to_complete": 3,
+                "state": "IN_PROGRESS",
+                "progress_time": 1
+            }
+        ]
     },
     "drivers": [
         {
