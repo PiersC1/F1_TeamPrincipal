@@ -15,6 +15,7 @@ const Dashboard = ({ gameState, onNavigate }) => {
     const rawAiTeams = gameState.ai_teams || {};
 
     // Calculate all drivers including those with 0 points
+    const playerDriverNames = new Set(rawDrivers.map(d => d.name));
     const allDrivers = [
         ...rawDrivers.map(d => ({ name: d.name, pts: driverPoints[d.name] || 0 })),
         ...Object.values(rawAiTeams).flatMap(t => t.drivers.map(d => ({ name: d.name, pts: driverPoints[d.name] || 0 })))
@@ -110,16 +111,19 @@ const Dashboard = ({ gameState, onNavigate }) => {
                     <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-800 text-slate-400 font-medium uppercase tracking-wider text-sm shrink-0">
                         <Trophy size={18} className="text-yellow-500" /> Driver's Championship
                     </div>
-                    <div className="space-y-4 overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
-                        {allDrivers.length > 0 ? allDrivers.map((item, index) => (
-                            <div key={item.name} className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <span className={`w-6 text-center font-bold ${index === 0 ? 'text-yellow-500' : 'text-slate-500'}`}>{index + 1}</span>
-                                    <span className="text-slate-200 font-medium">{item.name}</span>
+                    <div className="space-y-2 overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                        {allDrivers.length > 0 ? allDrivers.map((item, index) => {
+                            const isPlayer = playerDriverNames.has(item.name);
+                            return (
+                                <div key={item.name} className={`flex items-center justify-between p-2 rounded-lg ${isPlayer ? 'bg-f1accent/10 border border-f1accent/30' : 'hover:bg-slate-800/30'}`}>
+                                    <div className="flex items-center gap-4">
+                                        <span className={`w-6 text-center font-bold ${index === 0 ? 'text-yellow-500' : 'text-slate-500'}`}>{index + 1}</span>
+                                        <span className={`font-medium ${isPlayer ? 'text-white' : 'text-slate-200'}`}>{item.name} {isPlayer && <span className="ml-2 text-xs text-f1accent border border-f1accent rounded px-1">YOU</span>}</span>
+                                    </div>
+                                    <span className={`font-bold ${item.pts > 0 ? (isPlayer ? 'text-white' : 'text-f1accent') : 'text-slate-600'}`}>{item.pts} pts</span>
                                 </div>
-                                <span className={`font-bold ${item.pts > 0 ? 'text-f1accent' : 'text-slate-600'}`}>{item.pts} pts</span>
-                            </div>
-                        )) : <div className="text-center text-slate-600 italic py-8">No Competitors Found</div>}
+                            );
+                        }) : <div className="text-center text-slate-600 italic py-8">No Competitors Found</div>}
                     </div>
                 </div>
 
@@ -127,16 +131,19 @@ const Dashboard = ({ gameState, onNavigate }) => {
                     <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-800 text-slate-400 font-medium uppercase tracking-wider text-sm shrink-0">
                         <Trophy size={18} className="text-yellow-500" /> Constructors' Championship
                     </div>
-                    <div className="space-y-4 overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
-                        {allTeams.length > 0 ? allTeams.map((item, index) => (
-                            <div key={item.name} className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <span className={`w-6 text-center font-bold ${index === 0 ? 'text-yellow-500' : 'text-slate-500'}`}>{index + 1}</span>
-                                    <span className="text-slate-200 font-medium">{item.name}</span>
+                    <div className="space-y-2 overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                        {allTeams.length > 0 ? allTeams.map((item, index) => {
+                            const isPlayer = item.name === gameState.team_name;
+                            return (
+                                <div key={item.name} className={`flex items-center justify-between p-2 rounded-lg ${isPlayer ? 'bg-f1accent/10 border border-f1accent/30' : 'hover:bg-slate-800/30'}`}>
+                                    <div className="flex items-center gap-4">
+                                        <span className={`w-6 text-center font-bold ${index === 0 ? 'text-yellow-500' : 'text-slate-500'}`}>{index + 1}</span>
+                                        <span className={`font-medium ${isPlayer ? 'text-white' : 'text-slate-200'}`}>{item.name} {isPlayer && <span className="ml-2 text-xs text-f1accent border border-f1accent rounded px-1">YOU</span>}</span>
+                                    </div>
+                                    <span className={`font-bold ${item.pts > 0 ? (isPlayer ? 'text-white' : 'text-f1accent') : 'text-slate-600'}`}>{item.pts} pts</span>
                                 </div>
-                                <span className={`font-bold ${item.pts > 0 ? 'text-f1accent' : 'text-slate-600'}`}>{item.pts} pts</span>
-                            </div>
-                        )) : <div className="text-center text-slate-600 italic py-8">No Teams Found</div>}
+                            );
+                        }) : <div className="text-center text-slate-600 italic py-8">No Teams Found</div>}
                     </div>
                 </div>
             </div>

@@ -47,7 +47,8 @@ def get_rookie_pool():
 
 # --- Pydantic Models for Input ---
 class RaceSimRequest(BaseModel):
-    strategy: str
+    d1_strategy: list[str]
+    d2_strategy: list[str]
 
 class RDBuyRequest(BaseModel):
     node_id: str
@@ -203,7 +204,24 @@ def simulate_race(request: RaceSimRequest):
         return {"status": "season_complete"}
         
     track = calendar[game_state.current_race_index]
-    entries = game_state.get_all_race_entries()
+    # Compile strategies for entries
+    player_d1_name = game_state.drivers[0].name
+    player_d2_name = game_state.drivers[1].name
+    
+    # We must rebuild entries with the explicit strategies injected
+    from src.simulators.race_simulator import RaceEntry
+    
+    entries = []
+    # Player Team
+    entries.append(RaceEntry(game_state.drivers[0], game_state.car, game_state.team_name, request.d1_strategy))
+    entries.append(RaceEntry(game_state.drivers[1], game_state.car, game_state.team_name, request.d2_strategy))
+    
+    # AI Teams (Basic random strategy generation for now)
+    import random
+    ai_strats = [["Medium", "Hard"], ["Soft", "Hard"], ["Soft", "Medium", "Medium"]]
+    for team_name, data in game_state.ai_teams.items():
+        entries.append(RaceEntry(data["drivers"][0], data["car"], team_name, random.choice(ai_strats)))
+        entries.append(RaceEntry(data["drivers"][1], data["car"], team_name, random.choice(ai_strats)))
     
     # Simple Quali pace sort
     q_sim = RaceSimulator(entries, track)
@@ -229,7 +247,7 @@ def simulate_race(request: RaceSimRequest):
     return {
         "status": "success",
         "track": track.name,
-        "strategy_used": request.strategy,
         "grid": grid,
-        "race_results": results["standings"]
+        "race_results": results["standings"],
+        "race_log": results["log"]
     }

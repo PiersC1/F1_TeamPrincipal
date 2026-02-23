@@ -1,11 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { Flag, Settings, ArrowRight, Activity, ArrowLeft } from 'lucide-react';
+import { Flag, Settings, ArrowRight, Activity, ArrowLeft, Play, Pause, FastForward } from 'lucide-react';
 
 const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
     const [calendar, setCalendar] = useState(null);
     const [simResults, setSimResults] = useState(null);
-    const [strategy, setStrategy] = useState("Balanced");
+    const [d1Strategy, setD1Strategy] = useState(["Soft", "Hard"]);
+    const [d2Strategy, setD2Strategy] = useState(["Medium", "Hard"]);
     const [loading, setLoading] = useState(false);
+
+    // Playback state
+    const [currentLap, setCurrentLap] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [playbackSpeed, setPlaybackSpeed] = useState(2000); // ms per lap
+    const [isRaceFinished, setIsRaceFinished] = useState(false);
+
+    useEffect(() => {
+        let timer;
+        if (isPlaying && simResults && simResults.race_log) {
+            timer = setInterval(() => {
+                setCurrentLap(prev => {
+                    if (prev >= simResults.race_log.length - 1) {
+                        setIsPlaying(false);
+                        setIsRaceFinished(true);
+                        return prev;
+                    }
+                    return prev + 1;
+                });
+            }, playbackSpeed);
+        }
+        return () => clearInterval(timer);
+    }, [isPlaying, simResults, playbackSpeed]);
 
     useEffect(() => {
         fetch('http://localhost:8000/api/calendar')
@@ -41,13 +65,21 @@ const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
             const response = await fetch('http://localhost:8000/api/race/simulate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ strategy })
+                body: JSON.stringify({
+                    d1_strategy: d1Strategy,
+                    d2_strategy: d2Strategy
+                })
             });
 
             if (response.ok) {
                 const data = await response.json();
                 setSimResults(data);
                 refreshState(); // Pull the new championship standings behind the scenes
+
+                // Initialize telemetry playback engine
+                setCurrentLap(0);
+                setIsRaceFinished(false);
+                setIsPlaying(true);
             }
         } catch (err) {
             console.error(err);
@@ -56,51 +88,93 @@ const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
         }
     };
 
-    // --- Post Race Results View ---
+    // --- Live Telemetry & Post Race Results View ---
     if (simResults) {
+        const lapData = simResults.race_log?.[currentLap] || {
+            standings: simResults.race_results,
+            lap: currentTrack.laps
+        };
+
         return (
-            <div className="p-8 max-w-4xl mx-auto">
-                <div className="text-center border-b border-slate-800 pb-8 mb-8">
-                    <h1 className="text-4xl font-black italic tracking-tighter text-white uppercase mb-2">Race Classification</h1>
-                    <p className="text-xl text-f1accent">{currentTrack.name}</p>
+            <div className="p-8 max-w-5xl mx-auto flex flex-col h-full">
+                {/* Header & Controls */}
+                <div className="flex justify-between items-end border-b border-slate-800 pb-6 mb-6 shrink-0">
+                    <div>
+                        <h1 className="text-4xl font-black italic tracking-tighter text-white uppercase mb-2 flex items-center gap-3">
+                            {isRaceFinished ? "Race Classification" : <><span className="w-3 h-3 rounded-full bg-f1red animate-pulse"></span> Live Telemetry</>}
+                        </h1>
+                        <p className="text-xl text-f1accent">{simResults.track} • Lap {lapData.lap} / {simResults.race_log ? simResults.race_log.length : currentTrack.laps}</p>
+                    </div>
+
+                    {!isRaceFinished && (
+                        <div className="flex bg-f1panel rounded-xl border border-slate-800 overflow-hidden shadow-lg">
+                            <button onClick={() => setIsPlaying(!isPlaying)} className="p-3 bg-slate-800 hover:bg-slate-700 text-white transition-colors border-r border-slate-700">
+                                {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+                            </button>
+                            <button onClick={() => setPlaybackSpeed(2000)} className={`px-4 py-2 font-bold text-sm ${playbackSpeed === 2000 ? 'bg-f1accent text-slate-900' : 'text-slate-400 hover:bg-slate-800 transition-colors border-r border-slate-800'}`}>1x</button>
+                            <button onClick={() => setPlaybackSpeed(500)} className={`px-4 py-2 font-bold text-sm ${playbackSpeed === 500 ? 'bg-f1accent text-slate-900' : 'text-slate-400 hover:bg-slate-800 transition-colors border-r border-slate-800'}`}>4x</button>
+                            <button onClick={() => setPlaybackSpeed(50)} className={`px-4 py-2 font-bold text-sm flex items-center gap-1 ${playbackSpeed === 50 ? 'bg-f1accent text-slate-900' : 'text-slate-400 hover:bg-slate-800 transition-colors'}`}>
+                                <FastForward size={14} /> Max
+                            </button>
+                        </div>
+                    )}
                 </div>
 
-                <div className="bg-f1panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl mb-8">
-                    <table className="w-full text-left">
-                        <thead className="bg-slate-800/50 text-slate-400 text-sm uppercase tracking-wider">
-                            <tr>
-                                <th className="p-4 w-16 text-center">POS</th>
-                                <th className="p-4">Driver</th>
-                                <th className="p-4 hidden md:table-cell">Constructor</th>
-                                <th className="p-4 text-right">Time</th>
-                                <th className="p-4 w-24 text-center">PTS</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-800/50">
-                            {simResults.race_results.map((r, i) => (
-                                <tr key={i} className={`hover:bg-slate-800/30 transition-colors ${r.team === "Player Racing" ? "bg-f1accent/10" : ""}`}>
-                                    <td className="p-4 text-center font-bold text-slate-500">{i + 1}</td>
-                                    <td className="p-4 font-medium text-white">{r.driver}</td>
-                                    <td className="p-4 text-slate-400 hidden md:table-cell">{r.team}</td>
-                                    <td className="p-4 text-right font-mono text-sm text-slate-300">
-                                        {i === 0 ? `${r.total_time.toFixed(3)}s` : `+${(r.total_time - simResults.race_results[0].total_time).toFixed(3)}s`}
-                                    </td>
-                                    <td className={`p-4 text-center font-bold ${i < 10 ? 'text-f1green' : 'text-slate-600'}`}>
-                                        {i < 10 ? `+${[25, 18, 15, 12, 10, 8, 6, 4, 2, 1][i]}` : '-'}
-                                    </td>
+                {/* Grid Table */}
+                <div className="bg-f1panel rounded-2xl border border-slate-800 flex-1 overflow-hidden shadow-2xl flex flex-col mb-6 min-h-0">
+                    <div className="overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                        <table className="w-full text-left relative">
+                            <thead className="bg-slate-800/90 text-slate-400 text-sm uppercase tracking-wider sticky top-0 z-10 backdrop-blur-sm">
+                                <tr>
+                                    <th className="p-4 w-16 text-center">POS</th>
+                                    <th className="p-4">Driver</th>
+                                    <th className="p-4 hidden md:table-cell">Constructor</th>
+                                    <th className="p-4 w-32 text-center hidden sm:table-cell">Tire Life</th>
+                                    <th className="p-4 w-20 text-center">Pit</th>
+                                    <th className="p-4 w-32 text-right">Interval</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-slate-800/50">
+                                {lapData.standings.map((r, i) => {
+                                    const isPlayer = r.team === gameState.team_name;
+                                    return (
+                                        <tr key={r.driver} className={`hover:bg-slate-800/30 transition-all duration-300 ${isPlayer ? "bg-f1accent/10 border-l-4 border-f1accent" : ""}`}>
+                                            <td className="p-4 text-center font-bold text-slate-500">{i + 1}</td>
+                                            <td className={`p-4 font-medium line-clamp-1 ${isPlayer ? 'text-white font-bold' : 'text-slate-300'}`}>
+                                                {r.driver} {isPlayer && <span className="ml-2 text-[10px] text-slate-900 bg-f1accent rounded px-1.5 py-0.5 uppercase tracking-wider">YOU</span>}
+                                            </td>
+                                            <td className="p-4 text-slate-400 hidden md:table-cell">{r.team}</td>
+                                            <td className="p-4 text-center hidden sm:table-cell">
+                                                {r.wear !== undefined ? (
+                                                    <div className="w-full h-1.5 bg-slate-800 rounded-full mx-auto overflow-hidden">
+                                                        <div className={`h-full ${r.wear > 75 ? 'bg-f1red' : r.wear > 50 ? 'bg-yellow-500' : 'bg-f1green'}`} style={{ width: `${Math.max(0, 100 - r.wear)}%` }} />
+                                                    </div>
+                                                ) : <span className="text-slate-600">-</span>}
+                                            </td>
+                                            <td className="p-4 text-center text-slate-500 text-xs font-bold">{r.stops ? `${r.stops} Stops` : '-'}</td>
+                                            <td className="p-4 text-right font-mono text-sm text-slate-300 whitespace-nowrap">
+                                                {i === 0 ? "Leader" : r.interval !== undefined ? `+${r.interval.toFixed(3)}s` : `+${(r.total_time - lapData.standings[0].total_time).toFixed(3)}s`}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div className="flex justify-end">
-                    <button
-                        onClick={() => onNavigate('dashboard')}
-                        className="flex items-center gap-2 bg-f1accent hover:bg-blue-400 text-slate-900 font-bold px-8 py-4 rounded-xl transition-all shadow-lg"
-                    >
-                        Continue to Hub <ArrowRight size={20} />
-                    </button>
+                {/* Post Race Exit Button */}
+                <div className="h-16 shrink-0 flex justify-end items-center transition-opacity duration-500">
+                    {isRaceFinished ? (
+                        <button
+                            onClick={() => onNavigate('dashboard')}
+                            className="flex items-center gap-2 bg-f1accent hover:bg-blue-400 text-slate-900 font-bold px-8 py-4 rounded-xl shadow-lg border-2 border-transparent animate-in slide-in-from-bottom-4"
+                        >
+                            Continue to Hub <ArrowRight size={20} />
+                        </button>
+                    ) : (
+                        <div className="text-slate-500 italic text-sm">Awaiting Checkered Flag...</div>
+                    )}
                 </div>
             </div>
         );
@@ -162,21 +236,56 @@ const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
 
                     <div className="bg-f1panel rounded-2xl p-6 border border-slate-800 shadow-xl flex flex-col items-start gap-4">
                         <div className="flex items-center gap-3 w-full text-slate-400 font-medium uppercase tracking-wider text-sm">
-                            <Settings size={18} className="text-slate-300" /> Race Strategy
+                            <Settings size={18} className="text-slate-300" /> Tire Strategies
                         </div>
-                        <select
-                            value={strategy}
-                            onChange={(e) => setStrategy(e.target.value)}
-                            className="w-full bg-slate-800 border border-slate-700 text-white rounded-lg p-3 outline-none focus:border-f1accent"
-                        >
-                            <option value="Balanced">Balanced (Standard Wear)</option>
-                            <option value="Aggressive">Aggressive (High Pace, High Wear)</option>
-                            <option value="Conserve">Conserve (Low Pace, 1-Stop)</option>
-                        </select>
+
+                        {/* Strategy Driver 1 */}
+                        <div className="w-full bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                            <h3 className="text-white font-bold mb-3">{gameState.drivers[0]?.name || "Driver 1"}</h3>
+                            <div className="flex flex-wrap gap-2 mb-3">
+                                {d1Strategy.map((tire, i) => (
+                                    <div key={i} className="flex items-center">
+                                        <span className={`px-2 py-1 text-xs font-bold rounded ${tire === 'Soft' ? 'bg-f1red text-white' : tire === 'Medium' ? 'bg-yellow-500 text-slate-900' : 'bg-white text-slate-900'}`}>
+                                            {tire.charAt(0)}
+                                        </span>
+                                        {i < d1Strategy.length - 1 && <ArrowRight size={12} className="text-slate-500 mx-1" />}
+                                    </div>
+                                ))}
+                                {d1Strategy.length === 0 && <span className="text-sm text-slate-500 italic">No tires equipped (DNS)</span>}
+                            </div>
+                            <div className="flex gap-2">
+                                <button onClick={() => setD1Strategy([...d1Strategy, "Soft"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-f1red">Soft</button>
+                                <button onClick={() => setD1Strategy([...d1Strategy, "Medium"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-yellow-500">Med</button>
+                                <button onClick={() => setD1Strategy([...d1Strategy, "Hard"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-white">Hard</button>
+                                <button onClick={() => setD1Strategy(d1Strategy.slice(0, -1))} disabled={d1Strategy.length === 0} className="flex-1 py-1 bg-slate-800 hover:bg-slate-700 text-xs text-slate-400 rounded disabled:opacity-50">Undo</button>
+                            </div>
+                        </div>
+
+                        {/* Strategy Driver 2 */}
+                        <div className="w-full bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                            <h3 className="text-white font-bold mb-3">{gameState.drivers[1]?.name || "Driver 2"}</h3>
+                            <div className="flex flex-wrap gap-2 mb-3">
+                                {d2Strategy.map((tire, i) => (
+                                    <div key={i} className="flex items-center">
+                                        <span className={`px-2 py-1 text-xs font-bold rounded ${tire === 'Soft' ? 'bg-f1red text-white' : tire === 'Medium' ? 'bg-yellow-500 text-slate-900' : 'bg-white text-slate-900'}`}>
+                                            {tire.charAt(0)}
+                                        </span>
+                                        {i < d2Strategy.length - 1 && <ArrowRight size={12} className="text-slate-500 mx-1" />}
+                                    </div>
+                                ))}
+                                {d2Strategy.length === 0 && <span className="text-sm text-slate-500 italic">No tires equipped (DNS)</span>}
+                            </div>
+                            <div className="flex gap-2">
+                                <button onClick={() => setD2Strategy([...d2Strategy, "Soft"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-f1red">Soft</button>
+                                <button onClick={() => setD2Strategy([...d2Strategy, "Medium"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-yellow-500">Med</button>
+                                <button onClick={() => setD2Strategy([...d2Strategy, "Hard"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-white">Hard</button>
+                                <button onClick={() => setD2Strategy(d2Strategy.slice(0, -1))} disabled={d2Strategy.length === 0} className="flex-1 py-1 bg-slate-800 hover:bg-slate-700 text-xs text-slate-400 rounded disabled:opacity-50">Undo</button>
+                            </div>
+                        </div>
 
                         <button
                             onClick={handleSimulate}
-                            disabled={loading}
+                            disabled={loading || d1Strategy.length === 0 || d2Strategy.length === 0}
                             className="w-full flex justify-center items-center gap-2 bg-f1accent hover:bg-blue-400 disabled:bg-slate-700 disabled:text-slate-500 text-slate-900 font-bold px-6 py-4 rounded-xl transition-all shadow-lg mt-4"
                         >
                             {loading ? <Activity className="animate-spin" /> : <><Flag size={20} /> Start Race Simulation</>}

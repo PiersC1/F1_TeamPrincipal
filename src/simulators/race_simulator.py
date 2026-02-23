@@ -4,13 +4,23 @@ from typing import List, Dict, Any
 from src.models.car.car import Car
 from src.models.personnel.driver import Driver
 from src.models.world.track import Track
+from src.models.car.tire.tire_compound import COMPOUNDS, TireCompound
+
+from src.models.car.car import Car
+from src.models.personnel.driver import Driver
+from src.models.world.track import Track
 
 class RaceEntry:
     """Helper class to couple a driver and a car for the simulator."""
-    def __init__(self, driver: Driver, car: Car, team_name: str):
+    def __init__(self, driver: Driver, car: Car, team_name: str, strategy: List[str] = None):
         self.driver = driver
         self.car = car
         self.team_name = team_name
+        
+        # Strategy parsing (default to a 1-stop Soft->Hard if missing)
+        strategy = strategy or ["Soft", "Hard"]
+        self.compounds_remaining = [COMPOUNDS[comp] for comp in strategy]
+        self.current_compound = self.compounds_remaining.pop(0) if self.compounds_remaining else COMPOUNDS["Hard"]
         
         # Runtime simulation state
         self.current_lap_time = 0.0
@@ -48,49 +58,78 @@ class RaceSimulator:
         driver_consist = entry.driver.consistency # 1-100
         
         # The higher the rating, the more seconds we subtract from the base lap time
-        car_advantage = (normalized_car_perf / 100) * 2.0 
-        driver_advantage = (driver_speed / 100) * 1.5
+        car_advantage = (normalized_car_perf / 100) * 3.5 
+        driver_advantage = (driver_speed / 100) * 2.0
         
         # Consistency affects the randomness of the lap
         mistake_chance = (100 - driver_consist) / 100 
         mistake_penalty = random.uniform(0.0, 1.5) if random.random() < mistake_chance else 0.0
         
-        # Tire wear penalty: up to 3 seconds lost if tires are dead
-        tire_penalty = (entry.tire_wear / 100) * 3.0
+        # Tire wear penalty: up to 1.8 seconds lost if tires are dead
+        tire_penalty = (entry.tire_wear / 100) * 1.8
         
-        # Base math
+        # Base math including the compound pace advantage
         raw_lap = self.base_lap_time - car_advantage - driver_advantage + mistake_penalty + tire_penalty
+        raw_lap -= entry.current_compound.pace_advantage # Softs are fundamentally faster
         return raw_lap
         
     def _apply_tire_wear(self, entry: RaceEntry):
-        """Calculates tire wear based on chassis preservation and driver management."""
-        base_wear = 2.0 # Wear per lap
+        """Calculates tire wear based on chassis preservation, driver management, and compound softness."""
+        base_wear = 2.1 # Base wear per lap
         chassis_eff = entry.car.chassis.tire_preservation / 100
         driver_eff = entry.driver.tire_management / 100
         
+        # Apply the compound's specific degradation multiplier
+        compound_wear = base_wear * entry.current_compound.wear_rate
+        
         # High stats reduce wear by up to 30% each
-        wear = base_wear * (1 - (chassis_eff * 0.3)) * (1 - (driver_eff * 0.3))
+        wear = compound_wear * (1 - (chassis_eff * 0.3)) * (1 - (driver_eff * 0.3))
         entry.tire_wear = min(100.0, entry.tire_wear + wear)
 
     def run_race(self) -> Dict[str, Any]:
         """Executes the headless simulation and returns the logs/results."""
         for lap in range(1, self.total_laps + 1):
-            lap_data = {"lap": lap, "times": {}}
             
             for entry in self.entries:
                 lap_time = self._calculate_lap_time(entry)
                 self._apply_tire_wear(entry)
                 
-                # Rudimentary static pitstop strategy: pit at 70% wear
-                if entry.tire_wear > 70.0:
+                # Pitstop Strategy logic: Pit if wear is over 70% AND we have tires left in the strategy
+                if entry.tire_wear > 70.0 and entry.compounds_remaining:
                     lap_time += 22.0 # Pitlane loss
                     entry.tire_wear = 0.0
+                    entry.current_compound = entry.compounds_remaining.pop(0)
+                    entry.pit_stops += 1
+                elif entry.tire_wear > 95.0:
+                    # Blowout prevention: if strategy is empty but tires are literally dead, force an emergent Hard stop
+                    lap_time += 25.0
+                    entry.tire_wear = 0.0
+                    entry.current_compound = COMPOUNDS["Hard"]
                     entry.pit_stops += 1
                 
                 entry.current_lap_time = lap_time
                 entry.total_race_time += lap_time
                 
-                lap_data["times"][entry.driver.name] = lap_time
+            # Sort current standings for this lap
+            lap_standings = sorted(self.entries, key=lambda e: e.total_race_time)
+            leader_time = lap_standings[0].total_race_time
+            
+            lap_data = {
+                "lap": lap,
+                "standings": [
+                    {
+                        "driver": e.driver.name, 
+                        "team": e.team_name, 
+                        "lap_time": e.current_lap_time,
+                        "total_time": e.total_race_time,
+                        "interval": e.total_race_time - leader_time,
+                        "stops": e.pit_stops,
+                        "wear": e.tire_wear,
+                        "compound": e.current_compound.name
+                    }
+                    for e in lap_standings
+                ]
+            }
                 
             self.race_log.append(lap_data)
             
