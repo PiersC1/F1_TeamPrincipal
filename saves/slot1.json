@@ -1,110 +1,954 @@
 {
-    "team_name": "Player Racing",
+    "team_name": "Prema",
     "season": 1,
-    "current_race_index": 3,
+    "current_race_index": 10,
     "finance_manager": {
-        "balance": 140000000,
+        "balance": 66000000,
         "cost_cap": 140000000,
-        "spent_under_cap": 10000000
+        "spent_under_cap": 14000000
     },
     "championship_manager": {
         "driver_standings": {
-            "Max Verstappen": 75,
-            "Lewis Hamilton": 48,
-            "Lando Norris": 45,
-            "Oscar Piastri": 34,
-            "Carlos Sainz": 22,
-            "Charles Leclerc": 34,
-            "George Russell": 24,
-            "Fernando Alonso": 8,
-            "Sergio Perez": 10,
-            "Esteban Ocon": 1,
-            "Alex Albon": 2
+            "Max Verstappen": 250,
+            "Lando Norris": 168,
+            "Lewis Hamilton": 143,
+            "Oscar Piastri": 115,
+            "Charles Leclerc": 100,
+            "George Russell": 84,
+            "Fernando Alonso": 64,
+            "Carlos Sainz": 52,
+            "Sergio Perez": 24,
+            "Alex Albon": 2,
+            "Daniel Ricciardo": 2,
+            "Esteban Ocon": 2,
+            "Yuki Tsunoda": 1,
+            "Pierre Gasly": 3
         },
         "constructor_standings": {
-            "Red Bull Racing": 85,
-            "Mercedes": 72,
-            "McLaren": 79,
-            "Ferrari": 56,
-            "Aston Martin": 8,
-            "Alpine": 1,
-            "Williams": 2
+            "Red Bull Racing": 274,
+            "McLaren": 283,
+            "Mercedes": 227,
+            "Ferrari": 152,
+            "Aston Martin": 64,
+            "Williams": 2,
+            "RB": 3,
+            "Alpine": 5
         }
     },
     "car": {
         "aero": {
-            "downforce": 55,
-            "drag_efficiency": 50
+            "downforce": 82,
+            "drag_efficiency": 80
         },
         "chassis": {
-            "weight_reduction": 50,
-            "tire_preservation": 50
+            "weight_reduction": 80,
+            "tire_preservation": 78
         },
         "powertrain": {
-            "power_output": 50,
-            "reliability": 80
+            "power_output": 85,
+            "reliability": 82
         }
     },
     "rd_manager": {
-        "active_project": "powertrain_power",
+        "active_project": "power_unit_l1",
         "nodes": [
             {
-                "node_id": "aero_b1",
-                "name": "Concept Aero",
-                "description": "Baseline aerodynamic testing in the wind tunnel.",
+                "node_id": "aero_research_l1",
+                "name": "Baseline Aero Mapping",
+                "description": "Comprehensive wind tunnel correlation program.",
                 "cost": 2000000,
+                "time_to_complete": 2,
                 "base_time_to_complete": 2,
                 "state": "COMPLETED",
-                "progress_time": 2
+                "progress_time": 2,
+                "effects": {
+                    "aero.downforce": 5
+                },
+                "dependencies": [],
+                "mutually_exclusive": []
             },
             {
-                "node_id": "aero_adv",
-                "name": "High Downforce Concept",
-                "description": "Aggressive wing angles.",
-                "cost": 5000000,
-                "base_time_to_complete": 4,
-                "state": "AVAILABLE",
-                "progress_time": 0
-            },
-            {
-                "node_id": "aero_eff",
-                "name": "Low Drag Concept",
-                "description": "Slippery design. Great for straights, bad in corners.",
-                "cost": 5000000,
-                "base_time_to_complete": 4,
-                "state": "AVAILABLE",
-                "progress_time": 0
-            },
-            {
-                "node_id": "powertrain_power",
-                "name": "Aggressive Engine Mapping",
-                "description": "Huge power, reduces reliability and adds weight for cooling.",
-                "cost": 8000000,
+                "node_id": "floor_edge_v1",
+                "name": "Floor Edge Refinement",
+                "description": "Improved sealing of floor edges for cleaner airflow.",
+                "cost": 3500000,
+                "time_to_complete": 3,
                 "base_time_to_complete": 3,
+                "state": "AVAILABLE",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 8
+                },
+                "dependencies": [
+                    "aero_research_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "front_wing_v1",
+                "name": "Front Wing Revision 1",
+                "description": "Enhanced front-end load for improved turn-in.",
+                "cost": 4000000,
+                "time_to_complete": 3,
+                "base_time_to_complete": 3,
+                "state": "AVAILABLE",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 10
+                },
+                "dependencies": [
+                    "aero_research_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "rear_wing_v1",
+                "name": "Rear Wing Efficiency Pass",
+                "description": "Balanced rear stability improvements.",
+                "cost": 4000000,
+                "time_to_complete": 3,
+                "base_time_to_complete": 3,
+                "state": "AVAILABLE",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 9
+                },
+                "dependencies": [
+                    "aero_research_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "sidepod_v1",
+                "name": "Sidepod Undercut Concept",
+                "description": "Aggressive undercut to improve airflow to the floor.",
+                "cost": 4500000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.drag_efficiency": 6
+                },
+                "dependencies": [
+                    "floor_edge_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "cooling_layout_v1",
+                "name": "Compact Cooling Layout",
+                "description": "Tighter packaging for reduced bodywork drag.",
+                "cost": 5000000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.drag_efficiency": 8
+                },
+                "dependencies": [
+                    "sidepod_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "high_df_package_l1",
+                "name": "High Downforce Package I",
+                "description": "Maximum cornering grip configuration.",
+                "cost": 7000000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 20,
+                    "aero.drag_efficiency": -8
+                },
+                "dependencies": [
+                    "front_wing_v1",
+                    "rear_wing_v1"
+                ],
+                "mutually_exclusive": [
+                    "low_drag_package_l1"
+                ]
+            },
+            {
+                "node_id": "low_drag_package_l1",
+                "name": "Low Drag Package I",
+                "description": "Streamlined aero for top-speed circuits.",
+                "cost": 7000000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.drag_efficiency": 18,
+                    "aero.downforce": -5
+                },
+                "dependencies": [
+                    "front_wing_v1",
+                    "rear_wing_v1"
+                ],
+                "mutually_exclusive": [
+                    "high_df_package_l1"
+                ]
+            },
+            {
+                "node_id": "high_df_package_l2",
+                "name": "High Downforce Package II",
+                "description": "Refined vortex control for peak grip.",
+                "cost": 9000000,
+                "time_to_complete": 5,
+                "base_time_to_complete": 5,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 28,
+                    "aero.drag_efficiency": -10
+                },
+                "dependencies": [
+                    "high_df_package_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "low_drag_package_l2",
+                "name": "Low Drag Package II",
+                "description": "Ultra-slim rear bodywork and beam wing.",
+                "cost": 9000000,
+                "time_to_complete": 5,
+                "base_time_to_complete": 5,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.drag_efficiency": 25,
+                    "aero.downforce": -6
+                },
+                "dependencies": [
+                    "low_drag_package_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "floor_tunnel_v2",
+                "name": "Venturi Tunnel Optimization",
+                "description": "Maximizing ground effect efficiency.",
+                "cost": 8000000,
+                "time_to_complete": 5,
+                "base_time_to_complete": 5,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 22
+                },
+                "dependencies": [
+                    "floor_edge_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "porpoising_fix",
+                "name": "Porpoising Suppression Kit",
+                "description": "Stability upgrades to control ride oscillations.",
+                "cost": 6000000,
+                "time_to_complete": 3,
+                "base_time_to_complete": 3,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.tire_preservation": 10
+                },
+                "dependencies": [
+                    "floor_tunnel_v2"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "chassis_weight_l1",
+                "name": "Carbon Layup Optimization",
+                "description": "Refined composite layering for lighter chassis.",
+                "cost": 5000000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "COMPLETED",
+                "progress_time": 4,
+                "effects": {
+                    "chassis.weight_reduction": 8
+                },
+                "dependencies": [],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "chassis_weight_l2",
+                "name": "Titanium Fastener Program",
+                "description": "Exotic fasteners shave critical grams.",
+                "cost": 6500000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "AVAILABLE",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.weight_reduction": 12
+                },
+                "dependencies": [
+                    "chassis_weight_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "suspension_geo_v1",
+                "name": "Suspension Geometry Revamp",
+                "description": "Improved mechanical grip through kinematic redesign.",
+                "cost": 5500000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "AVAILABLE",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.tire_preservation": 12
+                },
+                "dependencies": [],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "pullrod_conversion",
+                "name": "Pullrod Rear Suspension",
+                "description": "Lower center of gravity rear packaging.",
+                "cost": 8000000,
+                "time_to_complete": 6,
+                "base_time_to_complete": 6,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.weight_reduction": 6,
+                    "aero.downforce": 6
+                },
+                "dependencies": [
+                    "suspension_geo_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "brake_ducts_v1",
+                "name": "Brake Duct Optimization",
+                "description": "Reduced drag with better cooling balance.",
+                "cost": 3000000,
+                "time_to_complete": 2,
+                "base_time_to_complete": 2,
+                "state": "AVAILABLE",
+                "progress_time": 0,
+                "effects": {
+                    "aero.drag_efficiency": 6
+                },
+                "dependencies": [
+                    "aero_research_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "power_unit_l1",
+                "name": "ICE Combustion Upgrade I",
+                "description": "Refined combustion chamber for better efficiency.",
+                "cost": 7000000,
+                "time_to_complete": 5,
+                "base_time_to_complete": 5,
                 "state": "IN_PROGRESS",
-                "progress_time": 1
+                "progress_time": 4,
+                "effects": {
+                    "powertrain.power_output": 15
+                },
+                "dependencies": [],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "ers_deploy_l1",
+                "name": "ERS Deployment Mapping",
+                "description": "Smarter hybrid energy deployment.",
+                "cost": 6000000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "powertrain.power_output": 10
+                },
+                "dependencies": [
+                    "power_unit_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "power_unit_l2",
+                "name": "ICE Combustion Upgrade II",
+                "description": "Higher compression and fuel flow optimization.",
+                "cost": 9000000,
+                "time_to_complete": 6,
+                "base_time_to_complete": 6,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "powertrain.power_output": 25,
+                    "powertrain.reliability": -5
+                },
+                "dependencies": [
+                    "power_unit_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "turbo_efficiency",
+                "name": "Turbo Efficiency Program",
+                "description": "Reduced turbo lag and better boost curve.",
+                "cost": 8500000,
+                "time_to_complete": 5,
+                "base_time_to_complete": 5,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "powertrain.power_output": 18
+                },
+                "dependencies": [
+                    "power_unit_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "reliability_l1",
+                "name": "Reliability Reinforcement I",
+                "description": "Strengthened internals for endurance.",
+                "cost": 5000000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "powertrain.reliability": 12
+                },
+                "dependencies": [
+                    "power_unit_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "reliability_l2",
+                "name": "Reliability Reinforcement II",
+                "description": "Advanced metallurgy in key components.",
+                "cost": 7500000,
+                "time_to_complete": 5,
+                "base_time_to_complete": 5,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "powertrain.reliability": 20
+                },
+                "dependencies": [
+                    "reliability_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "gearbox_casing_l1",
+                "name": "Lightweight Gearbox Casing",
+                "description": "Reduced mass at rear of the car.",
+                "cost": 6000000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "AVAILABLE",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.weight_reduction": 10
+                },
+                "dependencies": [
+                    "chassis_weight_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "active_diff_mapping",
+                "name": "Differential Mapping Suite",
+                "description": "Sharper traction control on corner exit.",
+                "cost": 4000000,
+                "time_to_complete": 3,
+                "base_time_to_complete": 3,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.tire_preservation": 8
+                },
+                "dependencies": [
+                    "gearbox_casing_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "beam_wing_v2",
+                "name": "Beam Wing Evolution",
+                "description": "Enhanced rear flow conditioning.",
+                "cost": 6500000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 12
+                },
+                "dependencies": [
+                    "rear_wing_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "micro_aero_details",
+                "name": "Micro-Aero Detailing",
+                "description": "Refined bargeboards and small winglets.",
+                "cost": 5500000,
+                "time_to_complete": 3,
+                "base_time_to_complete": 3,
+                "state": "AVAILABLE",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 10,
+                    "aero.drag_efficiency": 4
+                },
+                "dependencies": [
+                    "aero_research_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "ultimate_df_spec",
+                "name": "Ultimate Downforce Spec",
+                "description": "Extreme Monaco-level aero configuration.",
+                "cost": 12000000,
+                "time_to_complete": 6,
+                "base_time_to_complete": 6,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 40,
+                    "aero.drag_efficiency": -15
+                },
+                "dependencies": [
+                    "high_df_package_l2",
+                    "floor_tunnel_v2"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "ultimate_slipstream_spec",
+                "name": "Ultimate Slipstream Spec",
+                "description": "Low-drag Monza-focused package.",
+                "cost": 12000000,
+                "time_to_complete": 6,
+                "base_time_to_complete": 6,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.drag_efficiency": 40,
+                    "aero.downforce": -10
+                },
+                "dependencies": [
+                    "low_drag_package_l2",
+                    "cooling_layout_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "power_unit_l3",
+                "name": "ICE Ultimate Evolution",
+                "description": "Peak power qualifying engine mode.",
+                "cost": 14000000,
+                "time_to_complete": 7,
+                "base_time_to_complete": 7,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "powertrain.power_output": 40,
+                    "powertrain.reliability": -10
+                },
+                "dependencies": [
+                    "power_unit_l2"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "hybrid_efficiency_mastery",
+                "name": "Hybrid Efficiency Mastery",
+                "description": "Optimized energy harvesting systems.",
+                "cost": 10000000,
+                "time_to_complete": 6,
+                "base_time_to_complete": 6,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "powertrain.power_output": 20,
+                    "powertrain.reliability": 10
+                },
+                "dependencies": [
+                    "ers_deploy_l1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "chassis_balance_suite",
+                "name": "Chassis Balance Optimization",
+                "description": "Mass redistribution for ideal weight balance.",
+                "cost": 8500000,
+                "time_to_complete": 5,
+                "base_time_to_complete": 5,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.weight_reduction": 6,
+                    "chassis.tire_preservation": 10
+                },
+                "dependencies": [
+                    "chassis_weight_l2",
+                    "suspension_geo_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "adaptive_cooling",
+                "name": "Adaptive Cooling Louvres",
+                "description": "Dynamic bodywork cooling solutions.",
+                "cost": 7500000,
+                "time_to_complete": 4,
+                "base_time_to_complete": 4,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.drag_efficiency": 12,
+                    "powertrain.reliability": 8
+                },
+                "dependencies": [
+                    "cooling_layout_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "tyre_wear_modeling",
+                "name": "Advanced Tyre Wear Modeling",
+                "description": "Simulation-driven degradation management.",
+                "cost": 5000000,
+                "time_to_complete": 3,
+                "base_time_to_complete": 3,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.tire_preservation": 15
+                },
+                "dependencies": [
+                    "suspension_geo_v1"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "ultimate_mech_grip",
+                "name": "Ultimate Mechanical Grip Package",
+                "description": "Maximum traction and tire longevity setup.",
+                "cost": 11000000,
+                "time_to_complete": 6,
+                "base_time_to_complete": 6,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.tire_preservation": 30,
+                    "chassis.weight_reduction": 5
+                },
+                "dependencies": [
+                    "pullrod_conversion",
+                    "tyre_wear_modeling"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "lightweight_battery_pack",
+                "name": "Lightweight Battery Pack",
+                "description": "Reduced ERS mass with advanced cells.",
+                "cost": 9000000,
+                "time_to_complete": 5,
+                "base_time_to_complete": 5,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "chassis.weight_reduction": 10,
+                    "powertrain.power_output": 8
+                },
+                "dependencies": [
+                    "hybrid_efficiency_mastery"
+                ],
+                "mutually_exclusive": []
+            },
+            {
+                "node_id": "final_championship_spec",
+                "name": "Championship Final Evolution",
+                "description": "Full-system integration for peak performance.",
+                "cost": 20000000,
+                "time_to_complete": 8,
+                "base_time_to_complete": 8,
+                "state": "LOCKED",
+                "progress_time": 0,
+                "effects": {
+                    "aero.downforce": 25,
+                    "aero.drag_efficiency": 20,
+                    "chassis.weight_reduction": 15,
+                    "chassis.tire_preservation": 20,
+                    "powertrain.power_output": 30,
+                    "powertrain.reliability": 15
+                },
+                "dependencies": [
+                    "ultimate_df_spec",
+                    "ultimate_mech_grip",
+                    "power_unit_l3",
+                    "lightweight_battery_pack"
+                ],
+                "mutually_exclusive": []
             }
         ]
     },
     "drivers": [
         {
-            "id": "97837da2-ce33-443b-95db-3d5c39ecca91",
-            "name": "Player Driver 1",
-            "salary": 5000000,
-            "rating": 85,
-            "speed": 88,
-            "consistency": 90,
-            "tire_management": 80
+            "id": "4b33247d-0b6e-4624-a0e9-d8f7c3f7cf2c",
+            "name": "Kimi Antonelli",
+            "salary": 1800000,
+            "rating": 79,
+            "speed": 83,
+            "consistency": 70,
+            "tire_management": 71
         },
         {
-            "id": "8128b492-d903-44d9-8601-22b0e3ac6689",
-            "name": "Player Driver 2",
-            "salary": 2000000,
-            "rating": 75,
-            "speed": 78,
-            "consistency": 70,
-            "tire_management": 75
+            "id": "68472d9e-6a04-4ecc-8c23-2729f8d15b8a",
+            "name": "Oliver Bearman",
+            "salary": 1200000,
+            "rating": 76,
+            "speed": 79,
+            "consistency": 72,
+            "tire_management": 70
         }
     ],
-    "technical_director": null
+    "technical_director": null,
+    "ai_teams": {
+        "Red Bull Racing": {
+            "drivers": [
+                {
+                    "id": "2d28136a-b4c9-42b5-8e5f-72bd53fc2f38",
+                    "name": "Max Verstappen",
+                    "salary": 55000000,
+                    "rating": 98,
+                    "speed": 99,
+                    "consistency": 98,
+                    "tire_management": 95
+                },
+                {
+                    "id": "a80c29aa-8724-431c-a5c5-9b7b5228c009",
+                    "name": "Sergio Perez",
+                    "salary": 10000000,
+                    "rating": 85,
+                    "speed": 86,
+                    "consistency": 80,
+                    "tire_management": 89
+                }
+            ]
+        },
+        "Ferrari": {
+            "drivers": [
+                {
+                    "id": "723706e1-b4ee-42ea-a04d-031109dcb848",
+                    "name": "Charles Leclerc",
+                    "salary": 34000000,
+                    "rating": 94,
+                    "speed": 97,
+                    "consistency": 88,
+                    "tire_management": 88
+                },
+                {
+                    "id": "7bdd61e8-90c3-423b-8529-51c2c9552f7a",
+                    "name": "Carlos Sainz",
+                    "salary": 12000000,
+                    "rating": 90,
+                    "speed": 90,
+                    "consistency": 92,
+                    "tire_management": 90
+                }
+            ]
+        },
+        "McLaren": {
+            "drivers": [
+                {
+                    "id": "69946cd2-b66c-444f-b8c6-66266b017b42",
+                    "name": "Lando Norris",
+                    "salary": 20000000,
+                    "rating": 93,
+                    "speed": 95,
+                    "consistency": 93,
+                    "tire_management": 91
+                },
+                {
+                    "id": "3f87a4c1-9e0d-4e13-a629-ff18412427bd",
+                    "name": "Oscar Piastri",
+                    "salary": 8000000,
+                    "rating": 89,
+                    "speed": 92,
+                    "consistency": 88,
+                    "tire_management": 85
+                }
+            ]
+        },
+        "Mercedes": {
+            "drivers": [
+                {
+                    "id": "968cc2b4-2801-427e-b725-019930a142ca",
+                    "name": "Lewis Hamilton",
+                    "salary": 45000000,
+                    "rating": 95,
+                    "speed": 94,
+                    "consistency": 96,
+                    "tire_management": 98
+                },
+                {
+                    "id": "c208dbc3-b4e3-4960-8160-453d4a48dc3d",
+                    "name": "George Russell",
+                    "salary": 18000000,
+                    "rating": 91,
+                    "speed": 92,
+                    "consistency": 90,
+                    "tire_management": 88
+                }
+            ]
+        },
+        "Aston Martin": {
+            "drivers": [
+                {
+                    "id": "81840db2-90e2-41c1-9c35-50d9661d69d4",
+                    "name": "Fernando Alonso",
+                    "salary": 18000000,
+                    "rating": 92,
+                    "speed": 90,
+                    "consistency": 95,
+                    "tire_management": 94
+                },
+                {
+                    "id": "b655e472-0ee4-4fd6-9ea6-aa87de7ecd2e",
+                    "name": "Lance Stroll",
+                    "salary": 3000000,
+                    "rating": 81,
+                    "speed": 82,
+                    "consistency": 75,
+                    "tire_management": 80
+                }
+            ]
+        },
+        "Alpine": {
+            "drivers": [
+                {
+                    "id": "70090016-38f4-4356-b1d8-be9d7538fc49",
+                    "name": "Pierre Gasly",
+                    "salary": 6000000,
+                    "rating": 86,
+                    "speed": 87,
+                    "consistency": 86,
+                    "tire_management": 84
+                },
+                {
+                    "id": "f81a4715-de3d-4b6f-97fb-e64c3c8ad4ad",
+                    "name": "Esteban Ocon",
+                    "salary": 6000000,
+                    "rating": 86,
+                    "speed": 86,
+                    "consistency": 85,
+                    "tire_management": 86
+                }
+            ]
+        },
+        "Williams": {
+            "drivers": [
+                {
+                    "id": "c7380298-ca96-4de9-89a2-cbdc72e2d7f2",
+                    "name": "Alex Albon",
+                    "salary": 3000000,
+                    "rating": 87,
+                    "speed": 89,
+                    "consistency": 85,
+                    "tire_management": 87
+                },
+                {
+                    "id": "342d51e0-e55e-4ebc-8b72-a59f180be68f",
+                    "name": "Logan Sargeant",
+                    "salary": 1000000,
+                    "rating": 75,
+                    "speed": 76,
+                    "consistency": 70,
+                    "tire_management": 72
+                }
+            ]
+        },
+        "RB": {
+            "drivers": [
+                {
+                    "id": "83eb73ff-be19-4b66-8871-f4de96bc4a7a",
+                    "name": "Yuki Tsunoda",
+                    "salary": 2000000,
+                    "rating": 84,
+                    "speed": 87,
+                    "consistency": 78,
+                    "tire_management": 82
+                },
+                {
+                    "id": "08d8b21e-c255-4191-b673-cd99552d6815",
+                    "name": "Daniel Ricciardo",
+                    "salary": 2000000,
+                    "rating": 83,
+                    "speed": 84,
+                    "consistency": 83,
+                    "tire_management": 83
+                }
+            ]
+        },
+        "Sauber": {
+            "drivers": [
+                {
+                    "id": "c94494b0-a67b-4dc9-aae0-f66d6c338011",
+                    "name": "Valtteri Bottas",
+                    "salary": 10000000,
+                    "rating": 86,
+                    "speed": 88,
+                    "consistency": 85,
+                    "tire_management": 84
+                },
+                {
+                    "id": "fba9007b-dc4d-43e5-b04b-453dc529b45c",
+                    "name": "Zhou Guanyu",
+                    "salary": 2000000,
+                    "rating": 80,
+                    "speed": 81,
+                    "consistency": 83,
+                    "tire_management": 84
+                }
+            ]
+        },
+        "Haas": {
+            "drivers": [
+                {
+                    "id": "092fe6ce-47d8-4177-a793-386e143daf0b",
+                    "name": "Nico Hulkenberg",
+                    "salary": 2000000,
+                    "rating": 85,
+                    "speed": 88,
+                    "consistency": 84,
+                    "tire_management": 81
+                },
+                {
+                    "id": "81579bec-fc7d-405c-9a81-3014909b57a8",
+                    "name": "Kevin Magnussen",
+                    "salary": 5000000,
+                    "rating": 82,
+                    "speed": 84,
+                    "consistency": 78,
+                    "tire_management": 80
+                }
+            ]
+        }
+    }
 }

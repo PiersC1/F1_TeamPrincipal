@@ -29,23 +29,21 @@ app.add_middleware(
 )
 
 # Global in-memory game state
+# We keep a placeholder default state until 'load' or 'new_game' is called.
 game_state = GameState()
 save_manager = SaveLoadManager()
+is_game_loaded = False # Useful flag for the frontend to know if menu is needed
 
-def init_new_game():
-    """Initializes dummy data if no save file exists."""
-    global game_state
-    game_state = GameState()
-    d1 = Driver("Player Driver 1", 5_000_000, rating=85, speed=88, consistency=90, tire_management=80)
-    d2 = Driver("Player Driver 2", 2_000_000, rating=75, speed=78, consistency=70, tire_management=75)
-    game_state.drivers.extend([d1, d2])
-
-# Try to load existing save on boot
-_loaded_data = save_manager.load_game("slot1")
-if _loaded_data:
-    game_state.load_from_dict(_loaded_data)
-else:
-    init_new_game()
+# --- Dummy Rookie Pool generator ---
+def get_rookie_pool():
+    return [
+        Driver("Liam Lawson", 1_500_000, 78, 80, 75, 74),
+        Driver("Oliver Bearman", 1_200_000, 76, 79, 72, 70),
+        Driver("Kimi Antonelli", 1_800_000, 79, 83, 70, 71),
+        Driver("Jack Doohan", 1_000_000, 75, 76, 74, 75),
+        Driver("Theo Pourchaire", 1_100_000, 77, 78, 76, 74),
+        Driver("Felipe Drugovich", 1_000_000, 76, 75, 78, 77)
+    ]
 
 # --- Pydantic Models for Input ---
 class RaceSimRequest(BaseModel):
@@ -54,12 +52,117 @@ class RaceSimRequest(BaseModel):
 class RDBuyRequest(BaseModel):
     node_id: str
 
+class LoadRequest(BaseModel):
+    slot: str
+
+class NewGameExistingRequest(BaseModel):
+    team_name: str
+    save_slot: str = "slot1"
+
+class NewGameCustomRequest(BaseModel):
+    team_name: str
+    driver1_name: str
+    driver2_name: str
+    competitiveness: str # "Backmarker", "Midfield", "Front Runner"
+    save_slot: str = "slot1"
+
 # --- API Endpoints ---
 
 @app.get("/api/state")
 def get_game_state():
     """Returns the full serialized game state to the React frontend."""
+    if not is_game_loaded:
+        return {"status": "no_save_loaded"}
     return game_state.to_dict()
+
+# --- Main Menu Endpoints ---
+@app.get("/api/saves")
+def get_saves():
+    return {"saves": save_manager.get_save_slots()}
+
+@app.post("/api/load")
+def load_game(req: LoadRequest):
+    global game_state, is_game_loaded
+    data = save_manager.load_game(req.slot)
+    if not data:
+        raise HTTPException(status_code=404, detail="Save not found")
+    game_state = GameState()
+    game_state.load_from_dict(data)
+    is_game_loaded = True
+    return {"status": "success"}
+
+@app.get("/api/teams/available")
+def get_available_teams():
+    from src.database.team_database import TeamDatabase
+    teams = TeamDatabase.get_initial_teams()
+    return {"teams": list(teams.keys())}
+    
+@app.get("/api/drivers/available")
+def get_available_drivers():
+    pool = get_rookie_pool()
+    return {"drivers": [d.to_dict() for d in pool]}
+
+@app.post("/api/new_game/existing")
+def new_game_existing(req: NewGameExistingRequest):
+    global game_state, is_game_loaded
+    from src.database.team_database import TeamDatabase
+    
+    db = TeamDatabase.get_initial_teams()
+    if req.team_name not in db:
+        raise HTTPException(status_code=404, detail="Team not found in DB")
+        
+    team_data = db[req.team_name]
+    game_state = GameState()
+    game_state.team_name = req.team_name
+    game_state.finance_manager.balance = team_data["budget"]
+    game_state.car = team_data["car"]
+    game_state.drivers = team_data["drivers"]
+    
+    # Prunes the AI opponents
+    game_state.initialize_ai_grid()
+    
+    is_game_loaded = True
+    save_manager.save_game(req.save_slot, game_state.to_dict())
+    return {"status": "success"}
+
+@app.post("/api/new_game/custom")
+def new_game_custom(req: NewGameCustomRequest):
+    global game_state, is_game_loaded
+    game_state = GameState()
+    game_state.team_name = req.team_name
+    
+    # 1. Grab Drivers
+    pool = get_rookie_pool()
+    d1 = next((d for d in pool if d.name == req.driver1_name), pool[0])
+    d2 = next((d for d in pool if d.name == req.driver2_name), pool[1])
+    game_state.drivers = [d1, d2]
+    
+    # 2. Setup Competitiveness
+    comp = req.competitiveness.lower()
+    from src.models.car.car import Car
+    game_state.car = Car()
+    if comp == "front runner":
+        game_state.car.aero.downforce = 92; game_state.car.aero.drag_efficiency = 90
+        game_state.car.chassis.weight_reduction = 90; game_state.car.chassis.tire_preservation = 88
+        game_state.car.powertrain.power_output = 93; game_state.car.powertrain.reliability = 90
+        game_state.finance_manager.balance = 140_000_000
+    elif comp == "midfield":
+        game_state.car.aero.downforce = 82; game_state.car.aero.drag_efficiency = 80
+        game_state.car.chassis.weight_reduction = 80; game_state.car.chassis.tire_preservation = 78
+        game_state.car.powertrain.power_output = 85; game_state.car.powertrain.reliability = 82
+        game_state.finance_manager.balance = 80_000_000
+    else: # Backmarker
+        game_state.car.aero.downforce = 72; game_state.car.aero.drag_efficiency = 70
+        game_state.car.chassis.weight_reduction = 70; game_state.car.chassis.tire_preservation = 68
+        game_state.car.powertrain.power_output = 75; game_state.car.powertrain.reliability = 70
+        game_state.finance_manager.balance = 50_000_000
+    
+    # Setup grid
+    game_state.initialize_ai_grid()
+        
+    is_game_loaded = True
+    save_manager.save_game(req.save_slot, game_state.to_dict())
+    return {"status": "success"}
 
 @app.get("/api/calendar")
 def get_calendar():

@@ -6,12 +6,25 @@ const Dashboard = ({ gameState, onNavigate }) => {
 
     const { finance_manager, car, season, current_race_index, championship_manager } = gameState;
 
-    // Calculate all drivers
-    const allDrivers = Object.entries(championship_manager?.driver_standings || {})
-        .sort(([, a], [, b]) => b - a);
+    // Get points dict from backend
+    const driverPoints = championship_manager?.driver_standings || {};
+    const teamPoints = championship_manager?.constructor_standings || {};
 
-    const allTeams = Object.entries(championship_manager?.constructor_standings || {})
-        .sort(([, a], [, b]) => b - a);
+    // Safety check in case the API hasn't returned yet
+    const rawDrivers = gameState.drivers || [];
+    const rawAiTeams = gameState.ai_teams || {};
+
+    // Calculate all drivers including those with 0 points
+    const allDrivers = [
+        ...rawDrivers.map(d => ({ name: d.name, pts: driverPoints[d.name] || 0 })),
+        ...Object.values(rawAiTeams).flatMap(t => t.drivers.map(d => ({ name: d.name, pts: driverPoints[d.name] || 0 })))
+    ].sort((a, b) => b.pts - a.pts);
+
+    // Calculate all teams including those with 0 points
+    const allTeams = [
+        { name: gameState.team_name, pts: teamPoints[gameState.team_name] || 0 },
+        ...Object.keys(rawAiTeams).map(name => ({ name, pts: teamPoints[name] || 0 }))
+    ].sort((a, b) => b.pts - a.pts);
 
     const getOverallPerf = () => {
         const aero = car.aero.downforce + car.aero.drag_efficiency;
@@ -92,38 +105,38 @@ const Dashboard = ({ gameState, onNavigate }) => {
             </div>
 
             {/* Championship Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-0">
-                <div className="bg-f1panel rounded-2xl p-6 border border-slate-800 shadow-xl flex flex-col h-full overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 min-h-[400px]">
+                <div className="bg-f1panel rounded-2xl p-6 border border-slate-800 shadow-xl flex flex-col h-full">
                     <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-800 text-slate-400 font-medium uppercase tracking-wider text-sm shrink-0">
                         <Trophy size={18} className="text-yellow-500" /> Driver's Championship
                     </div>
                     <div className="space-y-4 overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
-                        {allDrivers.length > 0 ? allDrivers.map(([name, pts], index) => (
-                            <div key={name} className="flex items-center justify-between">
+                        {allDrivers.length > 0 ? allDrivers.map((item, index) => (
+                            <div key={item.name} className="flex items-center justify-between">
                                 <div className="flex items-center gap-4">
                                     <span className={`w-6 text-center font-bold ${index === 0 ? 'text-yellow-500' : 'text-slate-500'}`}>{index + 1}</span>
-                                    <span className="text-slate-200 font-medium">{name}</span>
+                                    <span className="text-slate-200 font-medium">{item.name}</span>
                                 </div>
-                                <span className="text-f1accent font-bold">{pts} pts</span>
+                                <span className={`font-bold ${item.pts > 0 ? 'text-f1accent' : 'text-slate-600'}`}>{item.pts} pts</span>
                             </div>
-                        )) : <div className="text-center text-slate-600 italic py-8">Round 1 pending...</div>}
+                        )) : <div className="text-center text-slate-600 italic py-8">No Competitors Found</div>}
                     </div>
                 </div>
 
-                <div className="bg-f1panel rounded-2xl p-6 border border-slate-800 shadow-xl flex flex-col h-full overflow-hidden">
+                <div className="bg-f1panel rounded-2xl p-6 border border-slate-800 shadow-xl flex flex-col h-full">
                     <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-800 text-slate-400 font-medium uppercase tracking-wider text-sm shrink-0">
                         <Trophy size={18} className="text-yellow-500" /> Constructors' Championship
                     </div>
                     <div className="space-y-4 overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
-                        {allTeams.length > 0 ? allTeams.map(([name, pts], index) => (
-                            <div key={name} className="flex items-center justify-between">
+                        {allTeams.length > 0 ? allTeams.map((item, index) => (
+                            <div key={item.name} className="flex items-center justify-between">
                                 <div className="flex items-center gap-4">
                                     <span className={`w-6 text-center font-bold ${index === 0 ? 'text-yellow-500' : 'text-slate-500'}`}>{index + 1}</span>
-                                    <span className="text-slate-200 font-medium">{name}</span>
+                                    <span className="text-slate-200 font-medium">{item.name}</span>
                                 </div>
-                                <span className="text-f1accent font-bold">{pts} pts</span>
+                                <span className={`font-bold ${item.pts > 0 ? 'text-f1accent' : 'text-slate-600'}`}>{item.pts} pts</span>
                             </div>
-                        )) : <div className="text-center text-slate-600 italic py-8">Round 1 pending...</div>}
+                        )) : <div className="text-center text-slate-600 italic py-8">No Teams Found</div>}
                     </div>
                 </div>
             </div>

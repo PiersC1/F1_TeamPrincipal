@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import MainMenu from './components/MainMenu';
 import Dashboard from './components/Dashboard';
 import RDTree from './components/RDTree';
 import RaceWeekend from './components/RaceWeekend';
 
 function App() {
   const [gameState, setGameState] = useState(null);
-  const [currentView, setCurrentView] = useState('dashboard'); // 'dashboard', 'rd', 'race'
+  const [currentView, setCurrentView] = useState('main_menu'); // 'main_menu', 'dashboard', 'rd', 'race'
 
   const fetchState = async () => {
     try {
       const res = await fetch('http://localhost:8000/api/state');
       const data = await res.json();
-      setGameState(data);
+
+      if (data.status === "no_save_loaded") {
+        setCurrentView('main_menu');
+        setGameState(null);
+      } else {
+        setGameState(data);
+        // Only force dashboard if they were stuck on menu
+        if (currentView === 'main_menu') {
+          setCurrentView('dashboard');
+        }
+      }
     } catch (err) {
       console.error("Failed to fetch game state. Is FastAPI running?", err);
     }
@@ -48,6 +59,7 @@ function App() {
 
       {/* Main View Area */}
       <main className="flex-1 overflow-y-auto">
+        {currentView === 'main_menu' && <MainMenu onNavigate={setCurrentView} refreshState={fetchState} />}
         {currentView === 'dashboard' && <Dashboard gameState={gameState} onNavigate={setCurrentView} />}
         {currentView === 'rd' && <RDTree gameState={gameState} onNavigate={setCurrentView} refreshState={fetchState} />}
         {currentView === 'race' && <RaceWeekend gameState={gameState} onNavigate={setCurrentView} refreshState={fetchState} />}

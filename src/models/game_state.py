@@ -24,7 +24,13 @@ class GameState:
         self.technical_director: TechnicalDirector | None = None
         self.season = 1
         self.current_race_index = 0
+        self.ai_teams = {} # Populated later
+        
+    def initialize_ai_grid(self):
+        """Builds the AI opposition, ensuring the player's team is excluded."""
         self.ai_teams = TeamDatabase.get_initial_teams()
+        if self.team_name in self.ai_teams:
+            self.ai_teams.pop(self.team_name)
         
     def get_all_race_entries(self) -> List[RaceEntry]:
         """Helper to package the player's team and the AI database into RaceEntries for the simulator."""
@@ -51,7 +57,13 @@ class GameState:
             "car": self.car.to_dict(),
             "rd_manager": self.rd_manager.to_dict(),
             "drivers": [d.to_dict() for d in self.drivers],
-            "technical_director": self.technical_director.to_dict() if self.technical_director else None
+            "technical_director": self.technical_director.to_dict() if self.technical_director else None,
+            "ai_teams": {
+                name: {
+                    "drivers": [d.to_dict() for d in data["drivers"]]
+                }
+                for name, data in self.ai_teams.items()
+            }
         }
         
     def load_from_dict(self, data: Dict[str, Any]):
@@ -62,6 +74,9 @@ class GameState:
         self.team_name = data.get("team_name", "Player Racing")
         self.season = data.get("season", 1)
         self.current_race_index = data.get("current_race_index", 0)
+        
+        # Build the grid now that we know the loaded team name
+        self.initialize_ai_grid()
         
         if "finance_manager" in data:
             self.finance_manager = FinanceManager.from_dict(data["finance_manager"])

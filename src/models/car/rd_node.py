@@ -38,9 +38,13 @@ class RDNode:
             "name": self.name,
             "description": self.description,
             "cost": self.cost,
+            "time_to_complete": self.base_time_to_complete,
             "base_time_to_complete": self.base_time_to_complete,
             "state": self.state,
-            "progress_time": self.progress_time
+            "progress_time": self.progress_time,
+            "effects": self.effects,
+            "dependencies": self.dependencies,
+            "mutually_exclusive": self.mutually_exclusive
         }
         
     def load_from_dict(self, data: Dict[str, Any]):

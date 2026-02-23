@@ -1,3 +1,5 @@
+import os
+import json
 from typing import Dict, Any, List
 from src.models.car.rd_node import RDNode
 from src.models.car.car import Car
@@ -16,28 +18,41 @@ class RDManager:
         self._initialize_default_tree()
 
     def _initialize_default_tree(self):
-        """Hardcodes the initial tree for the MVP. We can load this from JSON later."""
-        # 1. Base Aero Node
-        n1 = RDNode("aero_b1", "Concept Aero", "Baseline aerodynamic testing in the wind tunnel.", cost=2_000_000, time_to_complete=2, effects={"aero.downforce": 5})
-        n1.state = "AVAILABLE" # Root node
+        """Loads the defined research tree from the database JSON file."""
+        # Find path to the database relative to this file
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        json_path = os.path.join(base_dir, "database", "rd_tree.json")
         
-        # 2. Advanced Aero (Requires n1)
-        n2 = RDNode("aero_adv", "High Downforce Concept", "Aggressive wing angles.", cost=5_000_000, time_to_complete=4, effects={"aero.downforce": 15, "aero.drag_efficiency": -5})
-        n2.add_dependency("aero_b1")
-        
-        # 3. Efficient Aero (Requires n1, Mutually Exclusive with n2)
-        n3 = RDNode("aero_eff", "Low Drag Concept", "Slippery design. Great for straights, bad in corners.", cost=5_000_000, time_to_complete=4, effects={"aero.downforce": -5, "aero.drag_efficiency": 15})
-        n3.add_dependency("aero_b1")
-        
-        n2.add_mutually_exclusive("aero_eff")
-        n3.add_mutually_exclusive("aero_adv")
-        
-        # 4. Heavy Powertrain (Tradeoff showcase)
-        n4 = RDNode("powertrain_power", "Aggressive Engine Mapping", "Huge power, reduces reliability and adds weight for cooling.", cost=8_000_000, time_to_complete=3, effects={"powertrain.power_output": 20, "powertrain.reliability": -10, "chassis.weight_reduction": -5})
-        n4.state = "AVAILABLE"
-
-        for node in [n1, n2, n3, n4]:
-            self.nodes[node.node_id] = node
+        try:
+            with open(json_path, 'r') as f:
+                tree_data = json.load(f)
+                
+            for node_data in tree_data:
+                node = RDNode(
+                    node_id=node_data["id"],
+                    name=node_data["name"],
+                    description=node_data["description"],
+                    cost=node_data["cost"],
+                    time_to_complete=node_data["time_to_complete"],
+                    effects=node_data["effects"]
+                )
+                
+                # Add dependencies
+                for dep in node_data.get("requires", []):
+                    node.add_dependency(dep)
+                    
+                # Store mutually exclusive lockouts
+                for lock in node_data.get("locks_out", []):
+                    node.add_mutually_exclusive(lock)
+                    
+                # If no dependencies, it's a starting node
+                if not node.dependencies:
+                    node.state = "AVAILABLE"
+                    
+                self.nodes[node.node_id] = node
+                
+        except Exception as e:
+            print(f"Error loading R&D json tree: {e}")
 
     def update_availability(self):
         """Iterates through nodes and unlocks them if dependencies are met."""

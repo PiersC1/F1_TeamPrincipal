@@ -1,0 +1,545 @@
+[
+    {
+        "id": "aero_research_l1",
+        "name": "Baseline Aero Mapping",
+        "description": "Comprehensive wind tunnel correlation program.",
+        "cost": 2000000,
+        "time_to_complete": 2,
+        "effects": {
+            "aero.downforce": 5
+        },
+        "requires": [],
+        "locks_out": []
+    },
+    {
+        "id": "floor_edge_v1",
+        "name": "Floor Edge Refinement",
+        "description": "Improved sealing of floor edges for cleaner airflow.",
+        "cost": 3500000,
+        "time_to_complete": 3,
+        "effects": {
+            "aero.downforce": 8
+        },
+        "requires": [
+            "aero_research_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "front_wing_v1",
+        "name": "Front Wing Revision 1",
+        "description": "Enhanced front-end load for improved turn-in.",
+        "cost": 4000000,
+        "time_to_complete": 3,
+        "effects": {
+            "aero.downforce": 10
+        },
+        "requires": [
+            "aero_research_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "rear_wing_v1",
+        "name": "Rear Wing Efficiency Pass",
+        "description": "Balanced rear stability improvements.",
+        "cost": 4000000,
+        "time_to_complete": 3,
+        "effects": {
+            "aero.downforce": 9
+        },
+        "requires": [
+            "aero_research_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "sidepod_v1",
+        "name": "Sidepod Undercut Concept",
+        "description": "Aggressive undercut to improve airflow to the floor.",
+        "cost": 4500000,
+        "time_to_complete": 4,
+        "effects": {
+            "aero.drag_efficiency": 6
+        },
+        "requires": [
+            "floor_edge_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "cooling_layout_v1",
+        "name": "Compact Cooling Layout",
+        "description": "Tighter packaging for reduced bodywork drag.",
+        "cost": 5000000,
+        "time_to_complete": 4,
+        "effects": {
+            "aero.drag_efficiency": 8
+        },
+        "requires": [
+            "sidepod_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "high_df_package_l1",
+        "name": "High Downforce Package I",
+        "description": "Maximum cornering grip configuration.",
+        "cost": 7000000,
+        "time_to_complete": 4,
+        "effects": {
+            "aero.downforce": 20,
+            "aero.drag_efficiency": -8
+        },
+        "requires": [
+            "front_wing_v1",
+            "rear_wing_v1"
+        ],
+        "locks_out": [
+            "low_drag_package_l1"
+        ]
+    },
+    {
+        "id": "low_drag_package_l1",
+        "name": "Low Drag Package I",
+        "description": "Streamlined aero for top-speed circuits.",
+        "cost": 7000000,
+        "time_to_complete": 4,
+        "effects": {
+            "aero.drag_efficiency": 18,
+            "aero.downforce": -5
+        },
+        "requires": [
+            "front_wing_v1",
+            "rear_wing_v1"
+        ],
+        "locks_out": [
+            "high_df_package_l1"
+        ]
+    },
+    {
+        "id": "high_df_package_l2",
+        "name": "High Downforce Package II",
+        "description": "Refined vortex control for peak grip.",
+        "cost": 9000000,
+        "time_to_complete": 5,
+        "effects": {
+            "aero.downforce": 28,
+            "aero.drag_efficiency": -10
+        },
+        "requires": [
+            "high_df_package_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "low_drag_package_l2",
+        "name": "Low Drag Package II",
+        "description": "Ultra-slim rear bodywork and beam wing.",
+        "cost": 9000000,
+        "time_to_complete": 5,
+        "effects": {
+            "aero.drag_efficiency": 25,
+            "aero.downforce": -6
+        },
+        "requires": [
+            "low_drag_package_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "floor_tunnel_v2",
+        "name": "Venturi Tunnel Optimization",
+        "description": "Maximizing ground effect efficiency.",
+        "cost": 8000000,
+        "time_to_complete": 5,
+        "effects": {
+            "aero.downforce": 22
+        },
+        "requires": [
+            "floor_edge_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "porpoising_fix",
+        "name": "Porpoising Suppression Kit",
+        "description": "Stability upgrades to control ride oscillations.",
+        "cost": 6000000,
+        "time_to_complete": 3,
+        "effects": {
+            "chassis.tire_preservation": 10
+        },
+        "requires": [
+            "floor_tunnel_v2"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "chassis_weight_l1",
+        "name": "Carbon Layup Optimization",
+        "description": "Refined composite layering for lighter chassis.",
+        "cost": 5000000,
+        "time_to_complete": 4,
+        "effects": {
+            "chassis.weight_reduction": 8
+        },
+        "requires": [],
+        "locks_out": []
+    },
+    {
+        "id": "chassis_weight_l2",
+        "name": "Titanium Fastener Program",
+        "description": "Exotic fasteners shave critical grams.",
+        "cost": 6500000,
+        "time_to_complete": 4,
+        "effects": {
+            "chassis.weight_reduction": 12
+        },
+        "requires": [
+            "chassis_weight_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "suspension_geo_v1",
+        "name": "Suspension Geometry Revamp",
+        "description": "Improved mechanical grip through kinematic redesign.",
+        "cost": 5500000,
+        "time_to_complete": 4,
+        "effects": {
+            "chassis.tire_preservation": 12
+        },
+        "requires": [],
+        "locks_out": []
+    },
+    {
+        "id": "pullrod_conversion",
+        "name": "Pullrod Rear Suspension",
+        "description": "Lower center of gravity rear packaging.",
+        "cost": 8000000,
+        "time_to_complete": 6,
+        "effects": {
+            "chassis.weight_reduction": 6,
+            "aero.downforce": 6
+        },
+        "requires": [
+            "suspension_geo_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "brake_ducts_v1",
+        "name": "Brake Duct Optimization",
+        "description": "Reduced drag with better cooling balance.",
+        "cost": 3000000,
+        "time_to_complete": 2,
+        "effects": {
+            "aero.drag_efficiency": 6
+        },
+        "requires": [
+            "aero_research_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "power_unit_l1",
+        "name": "ICE Combustion Upgrade I",
+        "description": "Refined combustion chamber for better efficiency.",
+        "cost": 7000000,
+        "time_to_complete": 5,
+        "effects": {
+            "powertrain.power_output": 15
+        },
+        "requires": [],
+        "locks_out": []
+    },
+    {
+        "id": "ers_deploy_l1",
+        "name": "ERS Deployment Mapping",
+        "description": "Smarter hybrid energy deployment.",
+        "cost": 6000000,
+        "time_to_complete": 4,
+        "effects": {
+            "powertrain.power_output": 10
+        },
+        "requires": [
+            "power_unit_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "power_unit_l2",
+        "name": "ICE Combustion Upgrade II",
+        "description": "Higher compression and fuel flow optimization.",
+        "cost": 9000000,
+        "time_to_complete": 6,
+        "effects": {
+            "powertrain.power_output": 25,
+            "powertrain.reliability": -5
+        },
+        "requires": [
+            "power_unit_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "turbo_efficiency",
+        "name": "Turbo Efficiency Program",
+        "description": "Reduced turbo lag and better boost curve.",
+        "cost": 8500000,
+        "time_to_complete": 5,
+        "effects": {
+            "powertrain.power_output": 18
+        },
+        "requires": [
+            "power_unit_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "reliability_l1",
+        "name": "Reliability Reinforcement I",
+        "description": "Strengthened internals for endurance.",
+        "cost": 5000000,
+        "time_to_complete": 4,
+        "effects": {
+            "powertrain.reliability": 12
+        },
+        "requires": [
+            "power_unit_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "reliability_l2",
+        "name": "Reliability Reinforcement II",
+        "description": "Advanced metallurgy in key components.",
+        "cost": 7500000,
+        "time_to_complete": 5,
+        "effects": {
+            "powertrain.reliability": 20
+        },
+        "requires": [
+            "reliability_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "gearbox_casing_l1",
+        "name": "Lightweight Gearbox Casing",
+        "description": "Reduced mass at rear of the car.",
+        "cost": 6000000,
+        "time_to_complete": 4,
+        "effects": {
+            "chassis.weight_reduction": 10
+        },
+        "requires": [
+            "chassis_weight_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "active_diff_mapping",
+        "name": "Differential Mapping Suite",
+        "description": "Sharper traction control on corner exit.",
+        "cost": 4000000,
+        "time_to_complete": 3,
+        "effects": {
+            "chassis.tire_preservation": 8
+        },
+        "requires": [
+            "gearbox_casing_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "beam_wing_v2",
+        "name": "Beam Wing Evolution",
+        "description": "Enhanced rear flow conditioning.",
+        "cost": 6500000,
+        "time_to_complete": 4,
+        "effects": {
+            "aero.downforce": 12
+        },
+        "requires": [
+            "rear_wing_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "micro_aero_details",
+        "name": "Micro-Aero Detailing",
+        "description": "Refined bargeboards and small winglets.",
+        "cost": 5500000,
+        "time_to_complete": 3,
+        "effects": {
+            "aero.downforce": 10,
+            "aero.drag_efficiency": 4
+        },
+        "requires": [
+            "aero_research_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "ultimate_df_spec",
+        "name": "Ultimate Downforce Spec",
+        "description": "Extreme Monaco-level aero configuration.",
+        "cost": 12000000,
+        "time_to_complete": 6,
+        "effects": {
+            "aero.downforce": 40,
+            "aero.drag_efficiency": -15
+        },
+        "requires": [
+            "high_df_package_l2",
+            "floor_tunnel_v2"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "ultimate_slipstream_spec",
+        "name": "Ultimate Slipstream Spec",
+        "description": "Low-drag Monza-focused package.",
+        "cost": 12000000,
+        "time_to_complete": 6,
+        "effects": {
+            "aero.drag_efficiency": 40,
+            "aero.downforce": -10
+        },
+        "requires": [
+            "low_drag_package_l2",
+            "cooling_layout_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "power_unit_l3",
+        "name": "ICE Ultimate Evolution",
+        "description": "Peak power qualifying engine mode.",
+        "cost": 14000000,
+        "time_to_complete": 7,
+        "effects": {
+            "powertrain.power_output": 40,
+            "powertrain.reliability": -10
+        },
+        "requires": [
+            "power_unit_l2"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "hybrid_efficiency_mastery",
+        "name": "Hybrid Efficiency Mastery",
+        "description": "Optimized energy harvesting systems.",
+        "cost": 10000000,
+        "time_to_complete": 6,
+        "effects": {
+            "powertrain.power_output": 20,
+            "powertrain.reliability": 10
+        },
+        "requires": [
+            "ers_deploy_l1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "chassis_balance_suite",
+        "name": "Chassis Balance Optimization",
+        "description": "Mass redistribution for ideal weight balance.",
+        "cost": 8500000,
+        "time_to_complete": 5,
+        "effects": {
+            "chassis.weight_reduction": 6,
+            "chassis.tire_preservation": 10
+        },
+        "requires": [
+            "chassis_weight_l2",
+            "suspension_geo_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "adaptive_cooling",
+        "name": "Adaptive Cooling Louvres",
+        "description": "Dynamic bodywork cooling solutions.",
+        "cost": 7500000,
+        "time_to_complete": 4,
+        "effects": {
+            "aero.drag_efficiency": 12,
+            "powertrain.reliability": 8
+        },
+        "requires": [
+            "cooling_layout_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "tyre_wear_modeling",
+        "name": "Advanced Tyre Wear Modeling",
+        "description": "Simulation-driven degradation management.",
+        "cost": 5000000,
+        "time_to_complete": 3,
+        "effects": {
+            "chassis.tire_preservation": 15
+        },
+        "requires": [
+            "suspension_geo_v1"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "ultimate_mech_grip",
+        "name": "Ultimate Mechanical Grip Package",
+        "description": "Maximum traction and tire longevity setup.",
+        "cost": 11000000,
+        "time_to_complete": 6,
+        "effects": {
+            "chassis.tire_preservation": 30,
+            "chassis.weight_reduction": 5
+        },
+        "requires": [
+            "pullrod_conversion",
+            "tyre_wear_modeling"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "lightweight_battery_pack",
+        "name": "Lightweight Battery Pack",
+        "description": "Reduced ERS mass with advanced cells.",
+        "cost": 9000000,
+        "time_to_complete": 5,
+        "effects": {
+            "chassis.weight_reduction": 10,
+            "powertrain.power_output": 8
+        },
+        "requires": [
+            "hybrid_efficiency_mastery"
+        ],
+        "locks_out": []
+    },
+    {
+        "id": "final_championship_spec",
+        "name": "Championship Final Evolution",
+        "description": "Full-system integration for peak performance.",
+        "cost": 20000000,
+        "time_to_complete": 8,
+        "effects": {
+            "aero.downforce": 25,
+            "aero.drag_efficiency": 20,
+            "chassis.weight_reduction": 15,
+            "chassis.tire_preservation": 20,
+            "powertrain.power_output": 30,
+            "powertrain.reliability": 15
+        },
+        "requires": [
+            "ultimate_df_spec",
+            "ultimate_mech_grip",
+            "power_unit_l3",
+            "lightweight_battery_pack"
+        ],
+        "locks_out": []
+    }
+]

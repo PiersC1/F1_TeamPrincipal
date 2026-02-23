@@ -82,7 +82,9 @@ const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
                                     <td className="p-4 text-center font-bold text-slate-500">{i + 1}</td>
                                     <td className="p-4 font-medium text-white">{r.driver}</td>
                                     <td className="p-4 text-slate-400 hidden md:table-cell">{r.team}</td>
-                                    <td className="p-4 text-right font-mono text-sm text-slate-300">{r.total_time.toFixed(3)}s</td>
+                                    <td className="p-4 text-right font-mono text-sm text-slate-300">
+                                        {i === 0 ? `${r.total_time.toFixed(3)}s` : `+${(r.total_time - simResults.race_results[0].total_time).toFixed(3)}s`}
+                                    </td>
                                     <td className={`p-4 text-center font-bold ${i < 10 ? 'text-f1green' : 'text-slate-600'}`}>
                                         {i < 10 ? `+${[25, 18, 15, 12, 10, 8, 6, 4, 2, 1][i]}` : '-'}
                                     </td>
