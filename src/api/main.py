@@ -34,6 +34,21 @@ game_state = GameState()
 save_manager = SaveLoadManager()
 is_game_loaded = False # Useful flag for the frontend to know if menu is needed
 
+def _ensure_state(allow_missing=False):
+    """Auto-recovers the GameState from disk if the backend restarts during a session."""
+    global game_state, is_game_loaded
+    if not is_game_loaded:
+        last_slot = save_manager.get_last_active_slot()
+        if last_slot:
+            data = save_manager.load_game(last_slot)
+            if data:
+                game_state = GameState()
+                game_state.load_from_dict(data)
+                is_game_loaded = True
+                
+        if not is_game_loaded and not allow_missing:
+            raise HTTPException(status_code=400, detail="No active game loaded and no save found.")
+
 # --- Dummy Rookie Pool generator ---
 def get_rookie_pool():
     return [
@@ -47,8 +62,8 @@ def get_rookie_pool():
 
 # --- Pydantic Models for Input ---
 class RaceSimRequest(BaseModel):
-    d1_strategy: list[str]
-    d2_strategy: list[str]
+    d1_strategy: list[dict]
+    d2_strategy: list[dict]
 
 class RDBuyRequest(BaseModel):
     node_id: str
@@ -82,9 +97,26 @@ class NewGameCustomRequest(BaseModel):
 
 # --- API Endpoints ---
 
+@app.post("/api/save")
+def manual_save_game():
+    """Manually saves the game to the active slot."""
+    _ensure_state()
+    save_manager.save_game(game_state.save_slot, game_state.to_dict())
+    return {"status": "success", "slot": game_state.save_slot}
+
+@app.post("/api/quit")
+def quit_game():
+    """Unloads the game state and returns to main menu context."""
+    global game_state, is_game_loaded
+    game_state = GameState()
+    is_game_loaded = False
+    save_manager.clear_last_active_slot()
+    return {"status": "success"}
+
 @app.get("/api/state")
 def get_game_state():
     """Returns the full serialized game state to the React frontend."""
+    _ensure_state(allow_missing=True)
     if not is_game_loaded:
         return {"status": "no_save_loaded"}
     return game_state.to_dict()
@@ -103,6 +135,7 @@ def load_game(req: LoadRequest):
     game_state = GameState()
     game_state.load_from_dict(data)
     is_game_loaded = True
+    save_manager.set_last_active_slot(req.slot)
     return {"status": "success"}
 
 @app.get("/api/teams/available")
@@ -140,6 +173,8 @@ def new_game_existing(req: NewGameExistingRequest):
     game_state.initialize_ai_grid()
     
     is_game_loaded = True
+    game_state.save_slot = req.save_slot
+    save_manager.set_last_active_slot(req.save_slot)
     save_manager.save_game(req.save_slot, game_state.to_dict())
     return {"status": "success"}
 
@@ -183,6 +218,8 @@ def new_game_custom(req: NewGameCustomRequest):
     game_state.initialize_ai_grid()
         
     is_game_loaded = True
+    game_state.save_slot = req.save_slot
+    save_manager.set_last_active_slot(req.save_slot)
     save_manager.save_game(req.save_slot, game_state.to_dict())
     return {"status": "success"}
 
@@ -196,8 +233,7 @@ def get_calendar():
 def advance_season():
     """Ends the current season, records champions, clears points, and loops the calendar, paying out prize money."""
     global game_state, is_game_loaded
-    if not is_game_loaded:
-        raise HTTPException(status_code=400, detail="No active game loaded.")
+    _ensure_state()
         
     # Calculate Prize Money
     team_points = game_state.championship_manager.constructor_standings.get(game_state.team_name, 0)
@@ -205,23 +241,26 @@ def advance_season():
     game_state.finance_manager.balance += prize_money
     
     game_state.championship_manager.end_season()
+    game_state.process_yearly_aging()
     game_state.season += 1
     game_state.current_race_index = 0
-    save_manager.save_game("slot1", game_state.to_dict())
+    save_manager.save_game(game_state.save_slot, game_state.to_dict())
     return {"status": "success", "prize_money": prize_money}
 
 @app.post("/api/cheat/money")
 def cheat_money():
     """Adds $10M to budget."""
+    _ensure_state()
     game_state.finance_manager.cheat_add_funds(10_000_000)
-    save_manager.save_game("slot1", game_state.to_dict())
+    save_manager.save_game(game_state.save_slot, game_state.to_dict())
     return {"status": "success", "new_balance": game_state.finance_manager.balance}
 
 @app.post("/api/rd/start")
 def start_rd_project(request: RDBuyRequest):
     """Attempts to start an R&D project."""
+    _ensure_state()
     if game_state.rd_manager.start_project(request.node_id):
-        save_manager.save_game("slot1", game_state.to_dict())
+        save_manager.save_game(game_state.save_slot, game_state.to_dict())
         return {"status": "success"}
         
     raise HTTPException(status_code=400, detail="Not enough Resource Points or invalid node.")
@@ -229,8 +268,9 @@ def start_rd_project(request: RDBuyRequest):
 @app.post("/api/rd/allocate")
 def allocate_rd_project(request: RDAllocateRequest):
     """Attempts to assign or unassign engineers to an active R&D project."""
+    _ensure_state()
     if game_state.rd_manager.allocate_engineers(request.node_id, request.new_amount):
-        save_manager.save_game("slot1", game_state.to_dict())
+        save_manager.save_game(game_state.save_slot, game_state.to_dict())
         return {"status": "success"}
         
     raise HTTPException(status_code=400, detail="Not enough free engineers or node not active.")
@@ -239,8 +279,7 @@ def allocate_rd_project(request: RDAllocateRequest):
 @app.get("/api/staff/market")
 def get_staff_market():
     """Returns the available free agents."""
-    if not is_game_loaded:
-        raise HTTPException(status_code=400, detail="No active game loaded.")
+    _ensure_state()
         
     market = {}
     for role, lst in game_state.staff_market.items():
@@ -250,6 +289,7 @@ def get_staff_market():
 @app.post("/api/staff/hire")
 def hire_staff(req: HireRequest):
     """Hires a staff member from the market and optionally fires/replaces the incumbent."""
+    _ensure_state()
     # Find the target staff in the market
     target_role = None
     target_staff = None
@@ -315,12 +355,13 @@ def hire_staff(req: HireRequest):
         game_state.powertrain_lead = target_staff
         game_state.relink_rd_manager()
         
-    save_manager.save_game("slot1", game_state.to_dict())
+    save_manager.save_game(game_state.save_slot, game_state.to_dict())
     return {"status": "success", "signing_bonus": signing_bonus, "severance": severance}
 
 @app.post("/api/staff/fire")
 def fire_staff(req: FireRequest):
     """Fires a staff member without directly replacing them (if allowed). Drivers cannot be fired without replacement."""
+    _ensure_state()
     if req.slot in ["driver_0", "driver_1"]:
         raise HTTPException(status_code=400, detail="Drivers must be replaced via hiring, cannot be left empty.")
         
@@ -358,13 +399,46 @@ def fire_staff(req: FireRequest):
         game_state.powertrain_lead = None
         game_state.relink_rd_manager()
         
-    save_manager.save_game("slot1", game_state.to_dict())
+    save_manager.save_game(game_state.save_slot, game_state.to_dict())
     return {"status": "success", "severance": severance}
 
+
+@app.get("/api/race/tire_estimates")
+def get_tire_estimates():
+    """Calculates expected lap life for Soft, Medium, and Hard tires based on the upcoming track's wear multiplier."""
+    _ensure_state()
+    calendar = TrackDatabase.get_calendar()
+    if game_state.current_race_index >= len(calendar):
+        return {"status": "season_complete"}
+        
+    track = calendar[game_state.current_race_index]
+    multiplier = track.tire_wear_multiplier
+    
+    # We define the max "safe" wear as around 60%, before the cliff hits.
+    # Base wear is 2.1 per lap at 1.0x multiplier.
+    base_wear_per_lap = 2.1 * multiplier
+    
+    from src.models.car.tire.tire_compound import COMPOUNDS
+    
+    estimates = {}
+    for name, compound in COMPOUNDS.items():
+        wear_per_lap = base_wear_per_lap * compound.wear_rate
+        # Calculate how many laps it takes to hit 65% wear (the theoretical optimal stop window)
+        estimated_laps = int(65.0 / wear_per_lap) if wear_per_lap > 0 else 0
+        estimates[name] = {"laps": estimated_laps, "pace": compound.pace_advantage}
+        
+    return {
+        "status": "success",
+        "track": track.name,
+        "total_laps": track.laps,
+        "multiplier": multiplier,
+        "estimates": estimates
+    }
 
 @app.post("/api/race/simulate")
 def simulate_race(request: RaceSimRequest):
     """Calculates Quali grid, runs the RaceSimulator, updates Championship points, and advances time."""
+    _ensure_state()
     calendar = TrackDatabase.get_calendar()
     
     if game_state.current_race_index >= len(calendar):
@@ -383,12 +457,57 @@ def simulate_race(request: RaceSimRequest):
     entries.append(RaceEntry(game_state.drivers[0], game_state.car, game_state.team_name, request.d1_strategy))
     entries.append(RaceEntry(game_state.drivers[1], game_state.car, game_state.team_name, request.d2_strategy))
     
-    # AI Teams (Basic random strategy generation for now)
+    # AI Teams (Adaptive strategy generation)
     import random
-    ai_strats = [["Medium", "Hard"], ["Soft", "Hard"], ["Soft", "Medium", "Medium"]]
+    from src.models.car.tire.tire_compound import COMPOUNDS
+    
+    base_wear_per_lap = 2.0 * track.tire_wear_multiplier
+    safe_soft = int(65.0 / (base_wear_per_lap * COMPOUNDS["Soft"].wear_rate))
+    safe_med = int(65.0 / (base_wear_per_lap * COMPOUNDS["Medium"].wear_rate))
+    safe_hard = int(65.0 / (base_wear_per_lap * COMPOUNDS["Hard"].wear_rate))
+    
     for team_name, data in game_state.ai_teams.items():
-        entries.append(RaceEntry(data["drivers"][0], data["car"], team_name, random.choice(ai_strats)))
-        entries.append(RaceEntry(data["drivers"][1], data["car"], team_name, random.choice(ai_strats)))
+        # Generate varied AI strategies per driver
+        for d in data["drivers"]:
+            target_laps = track.laps
+            ai_strat = []
+            
+            # Simple AI rules: try to make it on a 1 or 2 stop, randomly choosing
+            num_stops = random.choice([1, 2, 2]) # Bias towards 2 stops for safety
+            
+            # 15% chance to do a really dumb strategy (staying out too long on Softs)
+            if random.random() < 0.15:
+                laps_first = min(target_laps - 1, int(safe_soft * 1.5))
+                ai_strat.append({"compound": "Soft", "laps": laps_first})
+                if target_laps - laps_first > 0:
+                    ai_strat.append({"compound": "Hard", "laps": target_laps - laps_first})
+            else:
+                if num_stops == 1:
+                    # Medium -> Hard
+                    laps_first = min(safe_med + random.randint(-2, 3), target_laps - 1)
+                    ai_strat.append({"compound": "Medium", "laps": laps_first})
+                    if target_laps - laps_first > 0:
+                        ai_strat.append({"compound": "Hard", "laps": target_laps - laps_first})
+                else:
+                    # Soft -> Medium -> Medium OR Soft -> Hard -> Soft
+                    if random.choice([True, False]):
+                        laps_first = min(safe_soft + random.randint(-1, 2), target_laps - 2)
+                        laps_second = min(safe_med + random.randint(-2, 2), (target_laps - laps_first) - 1)
+                        if laps_second <= 0: laps_second = 1
+                        ai_strat.append({"compound": "Soft", "laps": laps_first})
+                        ai_strat.append({"compound": "Medium", "laps": laps_second})
+                        if target_laps - laps_first - laps_second > 0:
+                            ai_strat.append({"compound": "Medium", "laps": target_laps - laps_first - laps_second})
+                    else:
+                        laps_first = min(safe_soft + random.randint(-1, 2), target_laps - 2)
+                        laps_second = min(safe_hard + random.randint(-2, 5), (target_laps - laps_first) - 1)
+                        if laps_second <= 0: laps_second = 1
+                        ai_strat.append({"compound": "Soft", "laps": laps_first})
+                        ai_strat.append({"compound": "Hard", "laps": laps_second})
+                        if target_laps - laps_first - laps_second > 0:
+                            ai_strat.append({"compound": "Soft", "laps": target_laps - laps_first - laps_second})
+            
+            entries.append(RaceEntry(d, data["car"], team_name, ai_strat))
     
     # Simple Quali pace sort
     q_sim = RaceSimulator(entries, track)
@@ -410,7 +529,7 @@ def simulate_race(request: RaceSimRequest):
     
     game_state.current_race_index += 1
     
-    save_manager.save_game("slot1", game_state.to_dict())
+    save_manager.save_game(game_state.save_slot, game_state.to_dict())
 
     return {
         "status": "success",

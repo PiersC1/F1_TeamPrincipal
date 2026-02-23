@@ -1,56 +1,57 @@
 {
-    "team_name": "Alpine",
-    "season": 1,
+    "team_name": "Sauber",
+    "season": 2,
     "difficulty": "Easy",
-    "save_slot": "slot1",
-    "current_race_index": 1,
+    "save_slot": "SauberRTG",
+    "current_race_index": 2,
     "finance_manager": {
-        "balance": 140000000,
+        "balance": 182200000,
         "cost_cap": 140000000,
-        "spent_under_cap": 0
+        "spent_under_cap": 28000000
     },
     "championship_manager": {
         "driver_standings": {
-            "Max Verstappen": 25,
-            "Lando Norris": 18,
-            "Sergio Perez": 15,
-            "George Russell": 12,
-            "Lewis Hamilton": 10,
-            "Charles Leclerc": 8,
-            "Oscar Piastri": 6,
-            "Carlos Sainz": 4,
-            "Fernando Alonso": 2,
-            "Daniel Ricciardo": 1
+            "Max Verstappen": 50,
+            "Lando Norris": 33,
+            "Oliver Bearman": 23,
+            "Oscar Piastri": 22,
+            "Lewis Hamilton": 14,
+            "George Russell": 14,
+            "Charles Leclerc": 7,
+            "Sergio Perez": 16,
+            "Carlos Sainz": 2,
+            "Fernando Alonso": 3,
+            "Kimi Antonelli": 18
         },
         "constructor_standings": {
-            "Red Bull Racing": 40,
-            "McLaren": 24,
-            "Mercedes": 22,
-            "Ferrari": 12,
-            "Aston Martin": 2,
-            "RB": 1
+            "Red Bull Racing": 66,
+            "McLaren": 55,
+            "Sauber": 41,
+            "Mercedes": 28,
+            "Ferrari": 9,
+            "Aston Martin": 3
         },
-        "last_driver_champion": null,
-        "last_constructor_champion": null
+        "last_driver_champion": "Max Verstappen",
+        "last_constructor_champion": "Red Bull Racing"
     },
     "car": {
         "aero": {
-            "downforce": 83,
-            "drag_efficiency": 80
+            "downforce": 154,
+            "drag_efficiency": 93
         },
         "chassis": {
-            "weight_reduction": 80,
-            "tire_preservation": 80
+            "weight_reduction": 111,
+            "tire_preservation": 97
         },
         "powertrain": {
-            "power_output": 85,
+            "power_output": 104,
             "reliability": 88
         }
     },
     "rd_manager": {
         "is_ai": false,
         "difficulty": "Easy",
-        "resource_points": 536,
+        "resource_points": 2830,
         "total_engineers": 100,
         "active_projects": {},
         "nodes": [
@@ -74,8 +75,8 @@
                 "description": "Improved sealing of floor edges for cleaner airflow.",
                 "rp_cost": 350,
                 "base_workload": 150,
-                "state": "AVAILABLE",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 150.0,
                 "effects": {
                     "aero.downforce": 8
                 },
@@ -90,8 +91,8 @@
                 "description": "Enhanced front-end load for improved turn-in.",
                 "rp_cost": 400,
                 "base_workload": 150,
-                "state": "AVAILABLE",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 150.0,
                 "effects": {
                     "aero.downforce": 10
                 },
@@ -106,8 +107,8 @@
                 "description": "Balanced rear stability improvements.",
                 "rp_cost": 400,
                 "base_workload": 150,
-                "state": "AVAILABLE",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 150.0,
                 "effects": {
                     "aero.downforce": 9
                 },
@@ -122,8 +123,8 @@
                 "description": "Aggressive undercut to improve airflow to the floor.",
                 "rp_cost": 450,
                 "base_workload": 200,
-                "state": "LOCKED",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 200.0,
                 "effects": {
                     "aero.drag_efficiency": 6
                 },
@@ -138,7 +139,7 @@
                 "description": "Tighter packaging for reduced bodywork drag.",
                 "rp_cost": 500,
                 "base_workload": 200,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "aero.drag_efficiency": 8
@@ -154,7 +155,7 @@
                 "description": "Maximum cornering grip configuration.",
                 "rp_cost": 700,
                 "base_workload": 200,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "aero.downforce": 20,
@@ -174,7 +175,7 @@
                 "description": "Streamlined aero for top-speed circuits.",
                 "rp_cost": 700,
                 "base_workload": 200,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "aero.drag_efficiency": 18,
@@ -228,8 +229,8 @@
                 "description": "Maximizing ground effect efficiency.",
                 "rp_cost": 800,
                 "base_workload": 250,
-                "state": "LOCKED",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 250.0,
                 "effects": {
                     "aero.downforce": 22
                 },
@@ -244,7 +245,7 @@
                 "description": "Stability upgrades to control ride oscillations.",
                 "rp_cost": 600,
                 "base_workload": 150,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "chassis.tire_preservation": 10
@@ -260,8 +261,8 @@
                 "description": "Refined composite layering for lighter chassis.",
                 "rp_cost": 500,
                 "base_workload": 200,
-                "state": "AVAILABLE",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 200.0,
                 "effects": {
                     "chassis.weight_reduction": 8
                 },
@@ -274,8 +275,8 @@
                 "description": "Exotic fasteners shave critical grams.",
                 "rp_cost": 650,
                 "base_workload": 200,
-                "state": "LOCKED",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 200.0,
                 "effects": {
                     "chassis.weight_reduction": 12
                 },
@@ -290,8 +291,8 @@
                 "description": "Improved mechanical grip through kinematic redesign.",
                 "rp_cost": 550,
                 "base_workload": 200,
-                "state": "AVAILABLE",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 200.0,
                 "effects": {
                     "chassis.tire_preservation": 12
                 },
@@ -304,7 +305,7 @@
                 "description": "Lower center of gravity rear packaging.",
                 "rp_cost": 800,
                 "base_workload": 300,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "chassis.weight_reduction": 6,
@@ -321,8 +322,8 @@
                 "description": "Reduced drag with better cooling balance.",
                 "rp_cost": 300,
                 "base_workload": 100,
-                "state": "AVAILABLE",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 100.0,
                 "effects": {
                     "aero.drag_efficiency": 6
                 },
@@ -337,8 +338,8 @@
                 "description": "Refined combustion chamber for better efficiency.",
                 "rp_cost": 700,
                 "base_workload": 250,
-                "state": "AVAILABLE",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 250.0,
                 "effects": {
                     "powertrain.power_output": 15
                 },
@@ -351,7 +352,7 @@
                 "description": "Smarter hybrid energy deployment.",
                 "rp_cost": 600,
                 "base_workload": 200,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "powertrain.power_output": 10
@@ -367,7 +368,7 @@
                 "description": "Higher compression and fuel flow optimization.",
                 "rp_cost": 900,
                 "base_workload": 300,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "powertrain.power_output": 25,
@@ -384,7 +385,7 @@
                 "description": "Reduced turbo lag and better boost curve.",
                 "rp_cost": 850,
                 "base_workload": 250,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "powertrain.power_output": 18
@@ -400,7 +401,7 @@
                 "description": "Strengthened internals for endurance.",
                 "rp_cost": 500,
                 "base_workload": 200,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "powertrain.reliability": 12
@@ -432,8 +433,8 @@
                 "description": "Reduced mass at rear of the car.",
                 "rp_cost": 600,
                 "base_workload": 200,
-                "state": "LOCKED",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 200.0,
                 "effects": {
                     "chassis.weight_reduction": 10
                 },
@@ -448,7 +449,7 @@
                 "description": "Sharper traction control on corner exit.",
                 "rp_cost": 400,
                 "base_workload": 150,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "chassis.tire_preservation": 8
@@ -464,8 +465,8 @@
                 "description": "Enhanced rear flow conditioning.",
                 "rp_cost": 650,
                 "base_workload": 200,
-                "state": "LOCKED",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 200.0,
                 "effects": {
                     "aero.downforce": 12
                 },
@@ -567,8 +568,8 @@
                 "description": "Mass redistribution for ideal weight balance.",
                 "rp_cost": 850,
                 "base_workload": 250,
-                "state": "LOCKED",
-                "invested_work": 0.0,
+                "state": "COMPLETED",
+                "invested_work": 250.0,
                 "effects": {
                     "chassis.weight_reduction": 6,
                     "chassis.tire_preservation": 10
@@ -602,7 +603,7 @@
                 "description": "Simulation-driven degradation management.",
                 "rp_cost": 500,
                 "base_workload": 150,
-                "state": "LOCKED",
+                "state": "AVAILABLE",
                 "invested_work": 0.0,
                 "effects": {
                     "chassis.tire_preservation": 15
@@ -675,282 +676,505 @@
     },
     "drivers": [
         {
-            "id": "2f73c04d-edc6-4cda-a5ab-ab11ae170ccc",
-            "name": "Pierre Gasly",
-            "salary": 6000000,
-            "rating": 86,
-            "age": 25.0,
+            "id": "814ab167-a69e-43f6-8a80-0a7ccc435924",
+            "name": "Kimi Antonelli",
+            "salary": 1800000,
+            "rating": 82,
+            "age": 18.0,
             "contract_length_years": 2,
-            "speed": 87,
-            "consistency": 86,
-            "tire_management": 84
+            "speed": 84,
+            "consistency": 72,
+            "tire_management": 72
         },
         {
-            "id": "de85ed73-bb3b-4842-8fe4-7f2f1698bf66",
-            "name": "Esteban Ocon",
-            "salary": 6000000,
-            "rating": 86,
-            "age": 25.0,
+            "id": "40df76c3-b9e8-4c55-96b3-2fc705534bf4",
+            "name": "Oliver Bearman",
+            "salary": 1200000,
+            "rating": 79,
+            "age": 20.0,
             "contract_length_years": 2,
-            "speed": 86,
-            "consistency": 85,
-            "tire_management": 86
+            "speed": 82,
+            "consistency": 73,
+            "tire_management": 73
         }
     ],
-    "technical_director": null,
-    "head_of_aero": null,
-    "powertrain_lead": null,
+    "technical_director": {
+        "id": "29cb1926-b93e-42b3-8bb1-ce1b97c9231c",
+        "name": "Adrian Newey",
+        "salary": 15000000,
+        "rating": 98,
+        "age": 66.0,
+        "contract_length_years": 3,
+        "aero_expertise": 96,
+        "chassis_expertise": 98,
+        "powertrain_expertise": 85
+    },
+    "head_of_aero": {
+        "id": "bd3ab9f3-16f2-43ee-8a68-bf295312c5f3",
+        "name": "Enrico Cardile",
+        "salary": 5000000,
+        "rating": 87,
+        "age": 50.0,
+        "contract_length_years": 3,
+        "expertise": 90
+    },
+    "powertrain_lead": {
+        "id": "2544f20f-cf35-41cf-adec-ef1b1e20a84c",
+        "name": "Andy Cowell",
+        "salary": 9000000,
+        "rating": 95,
+        "age": 55.0,
+        "contract_length_years": 2,
+        "expertise": 98
+    },
     "staff_market": {
         "drivers": [
             {
-                "id": "88e5e2fd-f59a-4baa-848e-12f4d11977f1",
+                "id": "0a0e2644-6e2c-4186-abff-6fb8c6fb35ed",
                 "name": "Franco Colapinto",
                 "salary": 1800000,
-                "rating": 78,
-                "age": 25.0,
+                "rating": 80,
+                "age": 22.0,
                 "contract_length_years": 2,
-                "speed": 80,
-                "consistency": 77,
-                "tire_management": 75
+                "speed": 82,
+                "consistency": 78,
+                "tire_management": 78
             },
             {
-                "id": "53e9f6b3-d902-48c6-ae1b-67bb1ddeb8b1",
+                "id": "2cb44925-7ec5-4fd6-aec1-27969c4c1604",
                 "name": "Liam Lawson",
                 "salary": 1500000,
-                "rating": 78,
-                "age": 25.0,
-                "contract_length_years": 2,
-                "speed": 80,
-                "consistency": 75,
-                "tire_management": 74
-            },
-            {
-                "id": "e89bc213-0577-43da-ac5d-30f67eaa9067",
-                "name": "Oliver Bearman",
-                "salary": 1200000,
-                "rating": 76,
-                "age": 25.0,
-                "contract_length_years": 2,
-                "speed": 79,
-                "consistency": 72,
-                "tire_management": 70
-            },
-            {
-                "id": "10a20abb-6ca7-4373-a700-5504eb22da4a",
-                "name": "Kimi Antonelli",
-                "salary": 1800000,
                 "rating": 79,
-                "age": 25.0,
+                "age": 23.0,
                 "contract_length_years": 2,
-                "speed": 83,
-                "consistency": 70,
-                "tire_management": 71
-            },
-            {
-                "id": "dfbd6023-3d12-44fd-b637-9a5e7f94a68b",
-                "name": "Jack Doohan",
-                "salary": 1000000,
-                "rating": 75,
-                "age": 25.0,
-                "contract_length_years": 2,
-                "speed": 76,
-                "consistency": 74,
+                "speed": 81,
+                "consistency": 75,
                 "tire_management": 75
             },
             {
-                "id": "1afbd4f6-7098-430f-ac36-245556f427f4",
-                "name": "Theo Pourchaire",
-                "salary": 1100000,
-                "rating": 77,
-                "age": 25.0,
-                "contract_length_years": 2,
-                "speed": 78,
-                "consistency": 76,
-                "tire_management": 74
-            },
-            {
-                "id": "4c722735-fbae-4541-8987-78492e942ec8",
-                "name": "Felipe Drugovich",
+                "id": "0a5366a0-1793-4cec-bd01-5cb11c904e5e",
+                "name": "Jack Doohan",
                 "salary": 1000000,
                 "rating": 76,
-                "age": 25.0,
+                "age": 22.0,
                 "contract_length_years": 2,
-                "speed": 75,
-                "consistency": 78,
+                "speed": 79,
+                "consistency": 77,
+                "tire_management": 76
+            },
+            {
+                "id": "ad767693-28da-40c8-8a99-7cdccbc763dc",
+                "name": "Theo Pourchaire",
+                "salary": 1100000,
+                "rating": 80,
+                "age": 21.0,
+                "contract_length_years": 2,
+                "speed": 81,
+                "consistency": 77,
                 "tire_management": 77
             },
             {
-                "id": "276c6f19-d8ea-4cec-b1df-ee97fdb8fd5e",
-                "name": "Mick Schumacher",
-                "salary": 1500000,
+                "id": "762b7561-896e-414e-bd01-afd1b24a4ace",
+                "name": "Felipe Drugovich",
+                "salary": 1000000,
                 "rating": 77,
                 "age": 25.0,
                 "contract_length_years": 2,
                 "speed": 77,
+                "consistency": 80,
+                "tire_management": 78
+            },
+            {
+                "id": "3cfc1f63-5b23-4625-aea2-98520c2bd67b",
+                "name": "Mick Schumacher",
+                "salary": 1500000,
+                "rating": 77,
+                "age": 26.0,
+                "contract_length_years": 2,
+                "speed": 77,
                 "consistency": 78,
                 "tire_management": 76
+            },
+            {
+                "id": "6988146a-a95b-4701-ac55-d537cd7fd9cc",
+                "name": "Isack Hadjar",
+                "salary": 900000,
+                "rating": 75,
+                "age": 20.0,
+                "contract_length_years": 2,
+                "speed": 79,
+                "consistency": 71,
+                "tire_management": 77
+            },
+            {
+                "id": "95eeae10-ac73-4bcd-9210-6ad1e22da18b",
+                "name": "Paul Aron",
+                "salary": 850000,
+                "rating": 75,
+                "age": 21.0,
+                "contract_length_years": 2,
+                "speed": 79,
+                "consistency": 74,
+                "tire_management": 73
+            },
+            {
+                "id": "720003a4-0707-4957-9857-0350e3fb0e49",
+                "name": "Zane Maloney",
+                "salary": 800000,
+                "rating": 75,
+                "age": 21.0,
+                "contract_length_years": 2,
+                "speed": 77,
+                "consistency": 70,
+                "tire_management": 76
+            },
+            {
+                "id": "de54ffc0-9b3d-4888-9d1e-ce134794550e",
+                "name": "Gabriel Bortoleto",
+                "salary": 950000,
+                "rating": 77,
+                "age": 21.0,
+                "contract_length_years": 2,
+                "speed": 81,
+                "consistency": 74,
+                "tire_management": 75
+            },
+            {
+                "id": "625e6146-c406-4a3c-bbcb-5e6a6d07c31d",
+                "name": "Alex Palou",
+                "salary": 2500000,
+                "rating": 81,
+                "age": 28.0,
+                "contract_length_years": 2,
+                "speed": 82,
+                "consistency": 85,
+                "tire_management": 78
+            },
+            {
+                "id": "3fbe1996-279d-4856-a9dd-b8b5e4e0cf37",
+                "name": "Pato O'Ward",
+                "salary": 2000000,
+                "rating": 80,
+                "age": 26.0,
+                "contract_length_years": 2,
+                "speed": 82,
+                "consistency": 78,
+                "tire_management": 80
+            },
+            {
+                "id": "02e8372e-7284-46e7-8630-cf4820de5e11",
+                "name": "Colton Herta",
+                "salary": 1800000,
+                "rating": 79,
+                "age": 25.0,
+                "contract_length_years": 2,
+                "speed": 84,
+                "consistency": 77,
+                "tire_management": 77
+            },
+            {
+                "id": "c98088ab-f7ab-47da-b663-91dc337a837b",
+                "name": "Robert Shwartzman",
+                "salary": 1200000,
+                "rating": 77,
+                "age": 25.0,
+                "contract_length_years": 2,
+                "speed": 76,
+                "consistency": 77,
+                "tire_management": 75
+            },
+            {
+                "id": "36c59caf-cfb4-49e1-9337-384820dc9f36",
+                "name": "Callum Ilott",
+                "salary": 1100000,
+                "rating": 76,
+                "age": 26.0,
+                "contract_length_years": 2,
+                "speed": 76,
+                "consistency": 77,
+                "tire_management": 75
+            },
+            {
+                "id": "9eda9b82-6f6d-4b54-ad8a-19029b7c78d8",
+                "name": "Valtteri Bottas",
+                "salary": 10000000,
+                "rating": 86,
+                "age": 35.0,
+                "contract_length_years": 2,
+                "speed": 88,
+                "consistency": 85,
+                "tire_management": 84
+            },
+            {
+                "id": "a79d7adc-5aea-40d1-b7b1-4c395bf38899",
+                "name": "Zhou Guanyu",
+                "salary": 2000000,
+                "rating": 80,
+                "age": 26.0,
+                "contract_length_years": 2,
+                "speed": 81,
+                "consistency": 83,
+                "tire_management": 84
             }
         ],
         "technical_directors": [
             {
-                "id": "4768efe5-80e7-4dd6-bb11-3829971e7da0",
-                "name": "Adrian Newey",
-                "salary": 15000000,
-                "rating": 98,
-                "age": 65.0,
-                "contract_length_years": 3,
-                "aero_expertise": 96,
-                "chassis_expertise": 98,
-                "powertrain_expertise": 85
-            },
-            {
-                "id": "dc42764a-d602-4033-b169-1853ef3c1d19",
+                "id": "79795c59-aca3-48fd-a012-8bb723d11220",
                 "name": "James Allison",
                 "salary": 12000000,
-                "rating": 94,
-                "age": 56.0,
+                "rating": 93,
+                "age": 57.0,
                 "contract_length_years": 3,
                 "aero_expertise": 94,
                 "chassis_expertise": 92,
                 "powertrain_expertise": 88
             },
             {
-                "id": "c895b228-a75b-4105-a767-a23a9bb53a9f",
+                "id": "75e34ff0-f4c1-4cc4-a9d2-9d9806331514",
                 "name": "Pierre Wache",
                 "salary": 10000000,
-                "rating": 92,
-                "age": 49.0,
+                "rating": 91,
+                "age": 50.0,
                 "contract_length_years": 4,
                 "aero_expertise": 90,
                 "chassis_expertise": 95,
                 "powertrain_expertise": 86
             },
             {
-                "id": "45c0d1ac-7df4-4daf-b41e-af64e47f8398",
+                "id": "ad812e92-f22a-43ce-87f3-4f5c0b574c32",
                 "name": "Dan Fallows",
                 "salary": 8000000,
                 "rating": 88,
-                "age": 50.0,
+                "age": 51.0,
                 "contract_length_years": 4,
                 "aero_expertise": 92,
                 "chassis_expertise": 85,
                 "powertrain_expertise": 80
             },
             {
-                "id": "d47a46bf-8306-4614-9a2d-7203820652a7",
+                "id": "a5977804-2d4d-404b-9673-17eb67835886",
                 "name": "Pat Fry",
                 "salary": 6000000,
                 "rating": 85,
-                "age": 60.0,
+                "age": 61.0,
                 "contract_length_years": 2,
                 "aero_expertise": 84,
                 "chassis_expertise": 86,
                 "powertrain_expertise": 82
             },
             {
-                "id": "8b984324-98ff-4a55-b8ab-b1339c402788",
+                "id": "b76d4d22-2782-45e0-acce-114a54398643",
                 "name": "Mattia Binotto",
                 "salary": 9000000,
-                "rating": 89,
-                "age": 54.0,
+                "rating": 88,
+                "age": 55.0,
                 "contract_length_years": 3,
                 "aero_expertise": 85,
                 "chassis_expertise": 82,
                 "powertrain_expertise": 95
+            },
+            {
+                "id": "50caf8dd-c681-4a47-aaed-df48b82ec880",
+                "name": "James Key",
+                "salary": 7000000,
+                "rating": 86,
+                "age": 53.0,
+                "contract_length_years": 3,
+                "aero_expertise": 88,
+                "chassis_expertise": 84,
+                "powertrain_expertise": 80
+            },
+            {
+                "id": "d97bca31-8cad-46bd-b4eb-42514279976d",
+                "name": "Jody Egginton",
+                "salary": 5500000,
+                "rating": 82,
+                "age": 49.0,
+                "contract_length_years": 4,
+                "aero_expertise": 85,
+                "chassis_expertise": 84,
+                "powertrain_expertise": 78
+            },
+            {
+                "id": "02d18a57-c6c2-41fd-af90-48e2fac9ebb5",
+                "name": "Jan Monchaux",
+                "salary": 6500000,
+                "rating": 83,
+                "age": 46.0,
+                "contract_length_years": 3,
+                "aero_expertise": 86,
+                "chassis_expertise": 85,
+                "powertrain_expertise": 81
+            },
+            {
+                "id": "e4b66b06-6dea-4f98-b1fd-4fb9776dae33",
+                "name": "Aldo Costa",
+                "salary": 11000000,
+                "rating": 93,
+                "age": 63.0,
+                "contract_length_years": 2,
+                "aero_expertise": 90,
+                "chassis_expertise": 94,
+                "powertrain_expertise": 91
+            },
+            {
+                "id": "511b554c-1ac8-424b-8ddc-117732ee0e1f",
+                "name": "Paddy Lowe",
+                "salary": 8500000,
+                "rating": 87,
+                "age": 62.0,
+                "contract_length_years": 2,
+                "aero_expertise": 85,
+                "chassis_expertise": 88,
+                "powertrain_expertise": 89
             }
         ],
         "head_of_aero": [
             {
-                "id": "3a1e7021-9abe-414f-ac5f-e13e0384c1ca",
-                "name": "Enrico Cardile",
-                "salary": 5000000,
-                "rating": 89,
-                "age": 49.0,
-                "contract_length_years": 3,
-                "expertise": 90
-            },
-            {
-                "id": "a8221a8e-a747-4475-9e81-649e870f2e47",
+                "id": "512b1454-d513-43ab-b50a-1a94decdb730",
                 "name": "Diego Tondi",
                 "salary": 4000000,
-                "rating": 85,
-                "age": 45.0,
+                "rating": 83,
+                "age": 46.0,
                 "contract_length_years": 4,
                 "expertise": 87
             },
             {
-                "id": "679a6e0c-360c-4f56-842b-c172874b09e4",
+                "id": "71f63149-b187-4598-84ac-351e578ded27",
                 "name": "Dirk de Beer",
                 "salary": 3500000,
-                "rating": 82,
-                "age": 55.0,
+                "rating": 80,
+                "age": 56.0,
                 "contract_length_years": 2,
                 "expertise": 84
             },
             {
-                "id": "91791d1b-4fbb-426c-af7f-2428dc802da9",
+                "id": "4fb986d4-e4d1-438e-aaab-da049a8d1b47",
                 "name": "Peter Prodromou",
                 "salary": 6000000,
-                "rating": 90,
-                "age": 55.0,
+                "rating": 89,
+                "age": 56.0,
                 "contract_length_years": 3,
                 "expertise": 92
             },
             {
-                "id": "a3b2835a-e7a6-4ddb-92fe-bee2ae4365ab",
+                "id": "66b2f58b-7d55-492d-8413-717a7747324b",
                 "name": "Simon Rennie",
                 "salary": 4500000,
                 "rating": 86,
+                "age": 45.0,
+                "contract_length_years": 4,
+                "expertise": 89
+            },
+            {
+                "id": "60d03cf9-48c5-407d-aaa5-ff1df82922e7",
+                "name": "Eric Blandin",
+                "salary": 5500000,
+                "rating": 86,
+                "age": 49.0,
+                "contract_length_years": 3,
+                "expertise": 91
+            },
+            {
+                "id": "d249adcc-665d-4e3d-a9e3-8d94b4675b41",
+                "name": "David Sanchez",
+                "salary": 5200000,
+                "rating": 87,
                 "age": 44.0,
                 "contract_length_years": 4,
                 "expertise": 88
+            },
+            {
+                "id": "ab2c2976-7ba8-4500-8a7e-79c4bcb3037e",
+                "name": "Andrew Shovlin",
+                "salary": 6500000,
+                "rating": 91,
+                "age": 51.0,
+                "contract_length_years": 3,
+                "expertise": 92
+            },
+            {
+                "id": "638ea5ea-1233-41a1-9146-6f5ae524d8c3",
+                "name": "Guillaume Rocquelin",
+                "salary": 4800000,
+                "rating": 84,
+                "age": 53.0,
+                "contract_length_years": 2,
+                "expertise": 86
             }
         ],
         "powertrain_leads": [
             {
-                "id": "c41cd873-2ec3-4fe1-b0d1-2b0c06dae299",
+                "id": "80408379-b528-45c5-ba77-6a103693acb7",
                 "name": "Hywel Thomas",
                 "salary": 6000000,
                 "rating": 92,
-                "age": 52.0,
+                "age": 53.0,
                 "contract_length_years": 3,
                 "expertise": 95
             },
             {
-                "id": "f610d2fc-7438-4b4e-89c5-f325a223296f",
+                "id": "870fec7c-1c73-45e4-ba0c-828f04a15fdc",
                 "name": "Enrico Gualtieri",
                 "salary": 5500000,
-                "rating": 88,
-                "age": 50.0,
+                "rating": 87,
+                "age": 51.0,
                 "contract_length_years": 4,
                 "expertise": 91
             },
             {
-                "id": "d3156e06-8539-4511-a8f3-1a9ab54f5f91",
+                "id": "34fda780-d264-4859-9cd4-242e1da5d46e",
                 "name": "Toyoharu Tanabe",
                 "salary": 7000000,
                 "rating": 93,
-                "age": 63.0,
+                "age": 64.0,
                 "contract_length_years": 2,
                 "expertise": 94
             },
             {
-                "id": "7b3d6bf5-ad0c-4bd2-9f53-53c38997b16d",
+                "id": "c8c8799f-98dc-4091-9f2c-28b6f0c6d5ec",
                 "name": "Mario Illien",
                 "salary": 4000000,
-                "rating": 85,
-                "age": 74.0,
+                "rating": 82,
+                "age": 75.0,
                 "contract_length_years": 1,
-                "expertise": 85
+                "expertise": 83
             },
             {
-                "id": "83444010-512e-4b99-a38d-5a57dcf77f02",
+                "id": "f5ee84e4-1980-4043-9cf0-e4497b6e4e83",
                 "name": "Gilles Simon",
                 "salary": 4500000,
-                "rating": 84,
-                "age": 65.0,
+                "rating": 82,
+                "age": 66.0,
                 "contract_length_years": 2,
-                "expertise": 86
+                "expertise": 83
+            },
+            {
+                "id": "c45f4b39-cd05-4dfe-b1ff-0ca11be5f5d7",
+                "name": "Benoit Poulet",
+                "salary": 4800000,
+                "rating": 86,
+                "age": 49.0,
+                "contract_length_years": 3,
+                "expertise": 87
+            },
+            {
+                "id": "f8a057c9-68fc-495d-9d41-80b4dd5214da",
+                "name": "Tetsushi Kakuda",
+                "salary": 5200000,
+                "rating": 89,
+                "age": 56.0,
+                "contract_length_years": 4,
+                "expertise": 90
+            },
+            {
+                "id": "28137eff-5881-4a46-9b52-140f6da25ca6",
+                "name": "Phil Prew",
+                "salary": 6200000,
+                "rating": 88,
+                "age": 59.0,
+                "contract_length_years": 2,
+                "expertise": 92
             }
         ]
     },
@@ -962,32 +1186,32 @@
                     "drag_efficiency": 95
                 },
                 "chassis": {
-                    "weight_reduction": 95,
+                    "weight_reduction": 103,
                     "tire_preservation": 90
                 },
                 "powertrain": {
-                    "power_output": 95,
-                    "reliability": 90
+                    "power_output": 120,
+                    "reliability": 102
                 }
             },
             "drivers": [
                 {
-                    "id": "d4c4e945-a694-48c9-9057-51cd77e4c1a8",
+                    "id": "bbccdb99-d530-4787-bd66-8702bd691abd",
                     "name": "Max Verstappen",
                     "salary": 55000000,
                     "rating": 98,
-                    "age": 25.0,
+                    "age": 27.0,
                     "contract_length_years": 2,
                     "speed": 99,
                     "consistency": 98,
                     "tire_management": 95
                 },
                 {
-                    "id": "825f3f03-0776-46ca-a5b4-ed5734fd3265",
+                    "id": "e6d0f83e-197a-4042-8119-efedca64bb9e",
                     "name": "Sergio Perez",
                     "salary": 10000000,
                     "rating": 85,
-                    "age": 25.0,
+                    "age": 35.0,
                     "contract_length_years": 2,
                     "speed": 86,
                     "consistency": 80,
@@ -997,11 +1221,17 @@
             "rd_manager": {
                 "is_ai": true,
                 "difficulty": "Easy",
-                "resource_points": 111,
+                "resource_points": 2086,
                 "total_engineers": 50,
                 "active_projects": {
-                    "aero_research_l1": 100,
-                    "suspension_geo_v1": 0
+                    "aero_research_l1": 0,
+                    "suspension_geo_v1": 0,
+                    "gearbox_casing_l1": 0,
+                    "chassis_weight_l2": 0,
+                    "turbo_efficiency": 0,
+                    "power_unit_l2": 0,
+                    "reliability_l2": 0,
+                    "hybrid_efficiency_mastery": 50
                 },
                 "nodes": [
                     {
@@ -1011,7 +1241,7 @@
                         "rp_cost": 200,
                         "base_workload": 100,
                         "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
+                        "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 5
                         },
@@ -1210,8 +1440,8 @@
                         "description": "Refined composite layering for lighter chassis.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.weight_reduction": 8
                         },
@@ -1224,7 +1454,7 @@
                         "description": "Exotic fasteners shave critical grams.",
                         "rp_cost": 650,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 12
@@ -1287,8 +1517,8 @@
                         "description": "Refined combustion chamber for better efficiency.",
                         "rp_cost": 700,
                         "base_workload": 250,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 259.0,
                         "effects": {
                             "powertrain.power_output": 15
                         },
@@ -1301,8 +1531,8 @@
                         "description": "Smarter hybrid energy deployment.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "powertrain.power_output": 10
                         },
@@ -1317,7 +1547,7 @@
                         "description": "Higher compression and fuel flow optimization.",
                         "rp_cost": 900,
                         "base_workload": 300,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 25,
@@ -1334,7 +1564,7 @@
                         "description": "Reduced turbo lag and better boost curve.",
                         "rp_cost": 850,
                         "base_workload": 250,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 18
@@ -1350,8 +1580,8 @@
                         "description": "Strengthened internals for endurance.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "powertrain.reliability": 12
                         },
@@ -1366,7 +1596,7 @@
                         "description": "Advanced metallurgy in key components.",
                         "rp_cost": 750,
                         "base_workload": 250,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.reliability": 20
@@ -1382,7 +1612,7 @@
                         "description": "Reduced mass at rear of the car.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 10
@@ -1500,8 +1730,8 @@
                         "description": "Optimized energy harvesting systems.",
                         "rp_cost": 1000,
                         "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 37.0,
                         "effects": {
                             "powertrain.power_output": 20,
                             "powertrain.reliability": 10
@@ -1627,8 +1857,8 @@
         "Ferrari": {
             "car": {
                 "aero": {
-                    "downforce": 92,
-                    "drag_efficiency": 90
+                    "downforce": 107,
+                    "drag_efficiency": 96
                 },
                 "chassis": {
                     "weight_reduction": 88,
@@ -1641,22 +1871,22 @@
             },
             "drivers": [
                 {
-                    "id": "12c5e6ef-cb1b-40e5-addc-c121a714d06e",
+                    "id": "0bb36820-4c7a-490a-8859-4ee1f6b05970",
                     "name": "Charles Leclerc",
                     "salary": 34000000,
                     "rating": 94,
-                    "age": 25.0,
+                    "age": 27.0,
                     "contract_length_years": 2,
                     "speed": 97,
                     "consistency": 88,
                     "tire_management": 88
                 },
                 {
-                    "id": "7ae2ed5c-91a3-4269-9488-76e84de4e283",
+                    "id": "1b403544-53da-4bf2-8a68-448438c59074",
                     "name": "Carlos Sainz",
                     "salary": 12000000,
                     "rating": 90,
-                    "age": 25.0,
+                    "age": 30.0,
                     "contract_length_years": 2,
                     "speed": 90,
                     "consistency": 92,
@@ -1666,11 +1896,15 @@
             "rd_manager": {
                 "is_ai": true,
                 "difficulty": "Easy",
-                "resource_points": 112,
+                "resource_points": 5962,
                 "total_engineers": 50,
                 "active_projects": {
-                    "aero_research_l1": 100,
-                    "suspension_geo_v1": 0
+                    "suspension_geo_v1": 0,
+                    "floor_edge_v1": 0,
+                    "rear_wing_v1": 0,
+                    "power_unit_l1": 0,
+                    "micro_aero_details": 0,
+                    "chassis_weight_l1": 0
                 },
                 "nodes": [
                     {
@@ -1679,8 +1913,8 @@
                         "description": "Comprehensive wind tunnel correlation program.",
                         "rp_cost": 200,
                         "base_workload": 100,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
                         "effects": {
                             "aero.downforce": 5
                         },
@@ -1693,7 +1927,7 @@
                         "description": "Improved sealing of floor edges for cleaner airflow.",
                         "rp_cost": 350,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 8
@@ -1709,8 +1943,8 @@
                         "description": "Enhanced front-end load for improved turn-in.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 185.0,
                         "effects": {
                             "aero.downforce": 10
                         },
@@ -1725,7 +1959,7 @@
                         "description": "Balanced rear stability improvements.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 9
@@ -1879,7 +2113,7 @@
                         "description": "Refined composite layering for lighter chassis.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "AVAILABLE",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 8
@@ -1940,8 +2174,8 @@
                         "description": "Reduced drag with better cooling balance.",
                         "rp_cost": 300,
                         "base_workload": 100,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
                         "effects": {
                             "aero.drag_efficiency": 6
                         },
@@ -1956,7 +2190,7 @@
                         "description": "Refined combustion chamber for better efficiency.",
                         "rp_cost": 700,
                         "base_workload": 250,
-                        "state": "AVAILABLE",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 15
@@ -2099,7 +2333,7 @@
                         "description": "Refined bargeboards and small winglets.",
                         "rp_cost": 550,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 10,
@@ -2296,11 +2530,11 @@
         "McLaren": {
             "car": {
                 "aero": {
-                    "downforce": 94,
-                    "drag_efficiency": 92
+                    "downforce": 118,
+                    "drag_efficiency": 98
                 },
                 "chassis": {
-                    "weight_reduction": 90,
+                    "weight_reduction": 98,
                     "tire_preservation": 93
                 },
                 "powertrain": {
@@ -2310,36 +2544,42 @@
             },
             "drivers": [
                 {
-                    "id": "91d9a07e-bfe5-4ecb-b66b-f77f6e3f04a9",
+                    "id": "ba85c389-6baa-49c5-947d-3fcafeeb65d7",
                     "name": "Lando Norris",
                     "salary": 20000000,
-                    "rating": 93,
+                    "rating": 95,
                     "age": 25.0,
                     "contract_length_years": 2,
-                    "speed": 95,
-                    "consistency": 93,
-                    "tire_management": 91
+                    "speed": 97,
+                    "consistency": 94,
+                    "tire_management": 93
                 },
                 {
-                    "id": "7eb498fa-0269-4e72-8d5b-c63dfc520acf",
+                    "id": "561a786a-3a56-42f4-92f7-97569da7522f",
                     "name": "Oscar Piastri",
                     "salary": 8000000,
                     "rating": 89,
-                    "age": 25.0,
+                    "age": 24.0,
                     "contract_length_years": 2,
                     "speed": 92,
-                    "consistency": 88,
-                    "tire_management": 85
+                    "consistency": 90,
+                    "tire_management": 87
                 }
             ],
             "rd_manager": {
                 "is_ai": true,
                 "difficulty": "Easy",
-                "resource_points": 161,
+                "resource_points": 3338,
                 "total_engineers": 50,
                 "active_projects": {
-                    "aero_research_l1": 100,
-                    "chassis_weight_l1": 0
+                    "power_unit_l1": 0,
+                    "floor_edge_v1": 0,
+                    "micro_aero_details": 0,
+                    "chassis_weight_l2": 0,
+                    "suspension_geo_v1": 0,
+                    "beam_wing_v2": 0,
+                    "gearbox_casing_l1": 0,
+                    "high_df_package_l1": 0
                 },
                 "nodes": [
                     {
@@ -2348,8 +2588,8 @@
                         "description": "Comprehensive wind tunnel correlation program.",
                         "rp_cost": 200,
                         "base_workload": 100,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
                         "effects": {
                             "aero.downforce": 5
                         },
@@ -2362,7 +2602,7 @@
                         "description": "Improved sealing of floor edges for cleaner airflow.",
                         "rp_cost": 350,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 8
@@ -2378,8 +2618,8 @@
                         "description": "Enhanced front-end load for improved turn-in.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 185.0,
                         "effects": {
                             "aero.downforce": 10
                         },
@@ -2394,8 +2634,8 @@
                         "description": "Balanced rear stability improvements.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 185.0,
                         "effects": {
                             "aero.downforce": 9
                         },
@@ -2442,7 +2682,7 @@
                         "description": "Maximum cornering grip configuration.",
                         "rp_cost": 700,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 20,
@@ -2462,7 +2702,7 @@
                         "description": "Streamlined aero for top-speed circuits.",
                         "rp_cost": 700,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "MUTUALLY_LOCKED",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.drag_efficiency": 18,
@@ -2548,8 +2788,8 @@
                         "description": "Refined composite layering for lighter chassis.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.weight_reduction": 8
                         },
@@ -2562,7 +2802,7 @@
                         "description": "Exotic fasteners shave critical grams.",
                         "rp_cost": 650,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 12
@@ -2578,7 +2818,7 @@
                         "description": "Improved mechanical grip through kinematic redesign.",
                         "rp_cost": 550,
                         "base_workload": 200,
-                        "state": "AVAILABLE",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.tire_preservation": 12
@@ -2609,8 +2849,8 @@
                         "description": "Reduced drag with better cooling balance.",
                         "rp_cost": 300,
                         "base_workload": 100,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
                         "effects": {
                             "aero.drag_efficiency": 6
                         },
@@ -2625,7 +2865,7 @@
                         "description": "Refined combustion chamber for better efficiency.",
                         "rp_cost": 700,
                         "base_workload": 250,
-                        "state": "AVAILABLE",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 15
@@ -2720,7 +2960,7 @@
                         "description": "Reduced mass at rear of the car.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 10
@@ -2752,7 +2992,7 @@
                         "description": "Enhanced rear flow conditioning.",
                         "rp_cost": 650,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 12
@@ -2768,7 +3008,7 @@
                         "description": "Refined bargeboards and small winglets.",
                         "rp_cost": 550,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 10,
@@ -2965,36 +3205,36 @@
         "Mercedes": {
             "car": {
                 "aero": {
-                    "downforce": 88,
+                    "downforce": 93,
                     "drag_efficiency": 93
                 },
                 "chassis": {
-                    "weight_reduction": 85,
+                    "weight_reduction": 103,
                     "tire_preservation": 88
                 },
                 "powertrain": {
-                    "power_output": 94,
+                    "power_output": 109,
                     "reliability": 96
                 }
             },
             "drivers": [
                 {
-                    "id": "556fecb1-0143-40ee-b0a3-9bd3c37290bd",
+                    "id": "cde7e19f-2a55-4b8d-8849-c49483438f53",
                     "name": "Lewis Hamilton",
                     "salary": 45000000,
                     "rating": 95,
-                    "age": 25.0,
+                    "age": 40.0,
                     "contract_length_years": 2,
-                    "speed": 94,
-                    "consistency": 96,
+                    "speed": 91,
+                    "consistency": 95,
                     "tire_management": 98
                 },
                 {
-                    "id": "c3105800-5176-4c02-8c52-78fb035d3fad",
+                    "id": "7e073773-1678-4189-8fdf-5ec9ef1e1ab9",
                     "name": "George Russell",
                     "salary": 18000000,
                     "rating": 91,
-                    "age": 25.0,
+                    "age": 27.0,
                     "contract_length_years": 2,
                     "speed": 92,
                     "consistency": 90,
@@ -3004,11 +3244,21 @@
             "rd_manager": {
                 "is_ai": true,
                 "difficulty": "Easy",
-                "resource_points": 113,
+                "resource_points": 1488,
                 "total_engineers": 50,
                 "active_projects": {
-                    "aero_research_l1": 100,
-                    "suspension_geo_v1": 0
+                    "suspension_geo_v1": 0,
+                    "chassis_weight_l2": 0,
+                    "turbo_efficiency": 0,
+                    "power_unit_l2": 0,
+                    "reliability_l1": 0,
+                    "floor_edge_v1": 0,
+                    "brake_ducts_v1": 0,
+                    "front_wing_v1": 0,
+                    "rear_wing_v1": 0,
+                    "ers_deploy_l1": 0,
+                    "micro_aero_details": 0,
+                    "active_diff_mapping": 50
                 },
                 "nodes": [
                     {
@@ -3017,8 +3267,8 @@
                         "description": "Comprehensive wind tunnel correlation program.",
                         "rp_cost": 200,
                         "base_workload": 100,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
                         "effects": {
                             "aero.downforce": 5
                         },
@@ -3031,7 +3281,7 @@
                         "description": "Improved sealing of floor edges for cleaner airflow.",
                         "rp_cost": 350,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 8
@@ -3047,7 +3297,7 @@
                         "description": "Enhanced front-end load for improved turn-in.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 10
@@ -3063,7 +3313,7 @@
                         "description": "Balanced rear stability improvements.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 9
@@ -3217,8 +3467,8 @@
                         "description": "Refined composite layering for lighter chassis.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.weight_reduction": 8
                         },
@@ -3231,7 +3481,7 @@
                         "description": "Exotic fasteners shave critical grams.",
                         "rp_cost": 650,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 12
@@ -3278,7 +3528,7 @@
                         "description": "Reduced drag with better cooling balance.",
                         "rp_cost": 300,
                         "base_workload": 100,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.drag_efficiency": 6
@@ -3294,8 +3544,8 @@
                         "description": "Refined combustion chamber for better efficiency.",
                         "rp_cost": 700,
                         "base_workload": 250,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 259.0,
                         "effects": {
                             "powertrain.power_output": 15
                         },
@@ -3308,7 +3558,7 @@
                         "description": "Smarter hybrid energy deployment.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 10
@@ -3324,7 +3574,7 @@
                         "description": "Higher compression and fuel flow optimization.",
                         "rp_cost": 900,
                         "base_workload": 300,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 25,
@@ -3341,7 +3591,7 @@
                         "description": "Reduced turbo lag and better boost curve.",
                         "rp_cost": 850,
                         "base_workload": 250,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 18
@@ -3357,7 +3607,7 @@
                         "description": "Strengthened internals for endurance.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.reliability": 12
@@ -3389,8 +3639,8 @@
                         "description": "Reduced mass at rear of the car.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.weight_reduction": 10
                         },
@@ -3405,8 +3655,8 @@
                         "description": "Sharper traction control on corner exit.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 148.0,
                         "effects": {
                             "chassis.tire_preservation": 8
                         },
@@ -3437,7 +3687,7 @@
                         "description": "Refined bargeboards and small winglets.",
                         "rp_cost": 550,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 10,
@@ -3634,12 +3884,12 @@
         "Aston Martin": {
             "car": {
                 "aero": {
-                    "downforce": 85,
+                    "downforce": 105,
                     "drag_efficiency": 87
                 },
                 "chassis": {
-                    "weight_reduction": 82,
-                    "tire_preservation": 85
+                    "weight_reduction": 88,
+                    "tire_preservation": 97
                 },
                 "powertrain": {
                     "power_output": 93,
@@ -3648,22 +3898,22 @@
             },
             "drivers": [
                 {
-                    "id": "ac63be4f-ec88-45c3-af15-65e5b6821db1",
+                    "id": "403f8372-118b-4529-9aa0-1b2a4388c491",
                     "name": "Fernando Alonso",
                     "salary": 18000000,
-                    "rating": 92,
-                    "age": 25.0,
+                    "rating": 90,
+                    "age": 43.0,
                     "contract_length_years": 2,
-                    "speed": 90,
-                    "consistency": 95,
-                    "tire_management": 94
+                    "speed": 89,
+                    "consistency": 93,
+                    "tire_management": 93
                 },
                 {
-                    "id": "d5d99254-c8b3-4834-991c-bfbfef9cc8e3",
+                    "id": "e7f47a6c-82c8-4484-97b5-5acb92676b17",
                     "name": "Lance Stroll",
                     "salary": 3000000,
                     "rating": 81,
-                    "age": 25.0,
+                    "age": 26.0,
                     "contract_length_years": 2,
                     "speed": 82,
                     "consistency": 75,
@@ -3673,11 +3923,17 @@
             "rd_manager": {
                 "is_ai": true,
                 "difficulty": "Easy",
-                "resource_points": 106,
+                "resource_points": 3854,
                 "total_engineers": 50,
                 "active_projects": {
-                    "aero_research_l1": 100,
-                    "suspension_geo_v1": 0
+                    "micro_aero_details": 0,
+                    "front_wing_v1": 0,
+                    "brake_ducts_v1": 0,
+                    "chassis_weight_l1": 0,
+                    "floor_edge_v1": 0,
+                    "power_unit_l1": 0,
+                    "tyre_wear_modeling": 0,
+                    "beam_wing_v2": 0
                 },
                 "nodes": [
                     {
@@ -3686,8 +3942,8 @@
                         "description": "Comprehensive wind tunnel correlation program.",
                         "rp_cost": 200,
                         "base_workload": 100,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
                         "effects": {
                             "aero.downforce": 5
                         },
@@ -3700,7 +3956,7 @@
                         "description": "Improved sealing of floor edges for cleaner airflow.",
                         "rp_cost": 350,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 8
@@ -3716,7 +3972,7 @@
                         "description": "Enhanced front-end load for improved turn-in.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 10
@@ -3732,8 +3988,8 @@
                         "description": "Balanced rear stability improvements.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 185.0,
                         "effects": {
                             "aero.downforce": 9
                         },
@@ -3886,7 +4142,7 @@
                         "description": "Refined composite layering for lighter chassis.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "AVAILABLE",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 8
@@ -3916,8 +4172,8 @@
                         "description": "Improved mechanical grip through kinematic redesign.",
                         "rp_cost": 550,
                         "base_workload": 200,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.tire_preservation": 12
                         },
@@ -3930,8 +4186,8 @@
                         "description": "Lower center of gravity rear packaging.",
                         "rp_cost": 800,
                         "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 333.0,
                         "effects": {
                             "chassis.weight_reduction": 6,
                             "aero.downforce": 6
@@ -3947,7 +4203,7 @@
                         "description": "Reduced drag with better cooling balance.",
                         "rp_cost": 300,
                         "base_workload": 100,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.drag_efficiency": 6
@@ -3963,7 +4219,7 @@
                         "description": "Refined combustion chamber for better efficiency.",
                         "rp_cost": 700,
                         "base_workload": 250,
-                        "state": "AVAILABLE",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 15
@@ -4090,6 +4346,685 @@
                         "description": "Enhanced rear flow conditioning.",
                         "rp_cost": 650,
                         "base_workload": 200,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 12
+                        },
+                        "dependencies": [
+                            "rear_wing_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "micro_aero_details",
+                        "name": "Micro-Aero Detailing",
+                        "description": "Refined bargeboards and small winglets.",
+                        "rp_cost": 550,
+                        "base_workload": 150,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 10,
+                            "aero.drag_efficiency": 4
+                        },
+                        "dependencies": [
+                            "aero_research_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "ultimate_df_spec",
+                        "name": "Ultimate Downforce Spec",
+                        "description": "Extreme Monaco-level aero configuration.",
+                        "rp_cost": 1200,
+                        "base_workload": 300,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 40,
+                            "aero.drag_efficiency": -15
+                        },
+                        "dependencies": [
+                            "high_df_package_l2",
+                            "floor_tunnel_v2"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "ultimate_slipstream_spec",
+                        "name": "Ultimate Slipstream Spec",
+                        "description": "Low-drag Monza-focused package.",
+                        "rp_cost": 1200,
+                        "base_workload": 300,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.drag_efficiency": 40,
+                            "aero.downforce": -10
+                        },
+                        "dependencies": [
+                            "low_drag_package_l2",
+                            "cooling_layout_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "power_unit_l3",
+                        "name": "ICE Ultimate Evolution",
+                        "description": "Peak power qualifying engine mode.",
+                        "rp_cost": 1400,
+                        "base_workload": 350,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "powertrain.power_output": 40,
+                            "powertrain.reliability": -10
+                        },
+                        "dependencies": [
+                            "power_unit_l2"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "hybrid_efficiency_mastery",
+                        "name": "Hybrid Efficiency Mastery",
+                        "description": "Optimized energy harvesting systems.",
+                        "rp_cost": 1000,
+                        "base_workload": 300,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "powertrain.power_output": 20,
+                            "powertrain.reliability": 10
+                        },
+                        "dependencies": [
+                            "ers_deploy_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "chassis_balance_suite",
+                        "name": "Chassis Balance Optimization",
+                        "description": "Mass redistribution for ideal weight balance.",
+                        "rp_cost": 850,
+                        "base_workload": 250,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.weight_reduction": 6,
+                            "chassis.tire_preservation": 10
+                        },
+                        "dependencies": [
+                            "chassis_weight_l2",
+                            "suspension_geo_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "adaptive_cooling",
+                        "name": "Adaptive Cooling Louvres",
+                        "description": "Dynamic bodywork cooling solutions.",
+                        "rp_cost": 750,
+                        "base_workload": 200,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.drag_efficiency": 12,
+                            "powertrain.reliability": 8
+                        },
+                        "dependencies": [
+                            "cooling_layout_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "tyre_wear_modeling",
+                        "name": "Advanced Tyre Wear Modeling",
+                        "description": "Simulation-driven degradation management.",
+                        "rp_cost": 500,
+                        "base_workload": 150,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.tire_preservation": 15
+                        },
+                        "dependencies": [
+                            "suspension_geo_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "ultimate_mech_grip",
+                        "name": "Ultimate Mechanical Grip Package",
+                        "description": "Maximum traction and tire longevity setup.",
+                        "rp_cost": 1100,
+                        "base_workload": 300,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.tire_preservation": 30,
+                            "chassis.weight_reduction": 5
+                        },
+                        "dependencies": [
+                            "pullrod_conversion",
+                            "tyre_wear_modeling"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "lightweight_battery_pack",
+                        "name": "Lightweight Battery Pack",
+                        "description": "Reduced ERS mass with advanced cells.",
+                        "rp_cost": 900,
+                        "base_workload": 250,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.weight_reduction": 10,
+                            "powertrain.power_output": 8
+                        },
+                        "dependencies": [
+                            "hybrid_efficiency_mastery"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "final_championship_spec",
+                        "name": "Championship Final Evolution",
+                        "description": "Full-system integration for peak performance.",
+                        "rp_cost": 2000,
+                        "base_workload": 400,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 25,
+                            "aero.drag_efficiency": 20,
+                            "chassis.weight_reduction": 15,
+                            "chassis.tire_preservation": 20,
+                            "powertrain.power_output": 30,
+                            "powertrain.reliability": 15
+                        },
+                        "dependencies": [
+                            "ultimate_df_spec",
+                            "ultimate_mech_grip",
+                            "power_unit_l3",
+                            "lightweight_battery_pack"
+                        ],
+                        "mutually_exclusive": []
+                    }
+                ]
+            }
+        },
+        "Alpine": {
+            "car": {
+                "aero": {
+                    "downforce": 101,
+                    "drag_efficiency": 84
+                },
+                "chassis": {
+                    "weight_reduction": 88,
+                    "tire_preservation": 80
+                },
+                "powertrain": {
+                    "power_output": 100,
+                    "reliability": 88
+                }
+            },
+            "drivers": [
+                {
+                    "id": "76df7de3-a8f2-4063-a5a5-c3f7b3f2d77d",
+                    "name": "Pierre Gasly",
+                    "salary": 6000000,
+                    "rating": 86,
+                    "age": 29.0,
+                    "contract_length_years": 2,
+                    "speed": 87,
+                    "consistency": 86,
+                    "tire_management": 84
+                },
+                {
+                    "id": "1e1b294e-4686-495e-96f1-8a652e7fd21b",
+                    "name": "Esteban Ocon",
+                    "salary": 6000000,
+                    "rating": 86,
+                    "age": 28.0,
+                    "contract_length_years": 2,
+                    "speed": 86,
+                    "consistency": 85,
+                    "tire_management": 86
+                }
+            ],
+            "rd_manager": {
+                "is_ai": true,
+                "difficulty": "Easy",
+                "resource_points": 456,
+                "total_engineers": 50,
+                "active_projects": {
+                    "brake_ducts_v1": 50,
+                    "rear_wing_v1": 0,
+                    "suspension_geo_v1": 0,
+                    "front_wing_v1": 0,
+                    "chassis_weight_l2": 0,
+                    "gearbox_casing_l1": 0,
+                    "floor_tunnel_v2": 0,
+                    "sidepod_v1": 0,
+                    "power_unit_l2": 0,
+                    "reliability_l1": 0,
+                    "ers_deploy_l1": 0,
+                    "turbo_efficiency": 0
+                },
+                "nodes": [
+                    {
+                        "node_id": "aero_research_l1",
+                        "name": "Baseline Aero Mapping",
+                        "description": "Comprehensive wind tunnel correlation program.",
+                        "rp_cost": 200,
+                        "base_workload": 100,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
+                        "effects": {
+                            "aero.downforce": 5
+                        },
+                        "dependencies": [],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "floor_edge_v1",
+                        "name": "Floor Edge Refinement",
+                        "description": "Improved sealing of floor edges for cleaner airflow.",
+                        "rp_cost": 350,
+                        "base_workload": 150,
+                        "state": "COMPLETED",
+                        "invested_work": 185.0,
+                        "effects": {
+                            "aero.downforce": 8
+                        },
+                        "dependencies": [
+                            "aero_research_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "front_wing_v1",
+                        "name": "Front Wing Revision 1",
+                        "description": "Enhanced front-end load for improved turn-in.",
+                        "rp_cost": 400,
+                        "base_workload": 150,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 10
+                        },
+                        "dependencies": [
+                            "aero_research_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "rear_wing_v1",
+                        "name": "Rear Wing Efficiency Pass",
+                        "description": "Balanced rear stability improvements.",
+                        "rp_cost": 400,
+                        "base_workload": 150,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 9
+                        },
+                        "dependencies": [
+                            "aero_research_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "sidepod_v1",
+                        "name": "Sidepod Undercut Concept",
+                        "description": "Aggressive undercut to improve airflow to the floor.",
+                        "rp_cost": 450,
+                        "base_workload": 200,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.drag_efficiency": 6
+                        },
+                        "dependencies": [
+                            "floor_edge_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "cooling_layout_v1",
+                        "name": "Compact Cooling Layout",
+                        "description": "Tighter packaging for reduced bodywork drag.",
+                        "rp_cost": 500,
+                        "base_workload": 200,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.drag_efficiency": 8
+                        },
+                        "dependencies": [
+                            "sidepod_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "high_df_package_l1",
+                        "name": "High Downforce Package I",
+                        "description": "Maximum cornering grip configuration.",
+                        "rp_cost": 700,
+                        "base_workload": 200,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 20,
+                            "aero.drag_efficiency": -8
+                        },
+                        "dependencies": [
+                            "front_wing_v1",
+                            "rear_wing_v1"
+                        ],
+                        "mutually_exclusive": [
+                            "low_drag_package_l1"
+                        ]
+                    },
+                    {
+                        "node_id": "low_drag_package_l1",
+                        "name": "Low Drag Package I",
+                        "description": "Streamlined aero for top-speed circuits.",
+                        "rp_cost": 700,
+                        "base_workload": 200,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.drag_efficiency": 18,
+                            "aero.downforce": -5
+                        },
+                        "dependencies": [
+                            "front_wing_v1",
+                            "rear_wing_v1"
+                        ],
+                        "mutually_exclusive": [
+                            "high_df_package_l1"
+                        ]
+                    },
+                    {
+                        "node_id": "high_df_package_l2",
+                        "name": "High Downforce Package II",
+                        "description": "Refined vortex control for peak grip.",
+                        "rp_cost": 900,
+                        "base_workload": 250,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 28,
+                            "aero.drag_efficiency": -10
+                        },
+                        "dependencies": [
+                            "high_df_package_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "low_drag_package_l2",
+                        "name": "Low Drag Package II",
+                        "description": "Ultra-slim rear bodywork and beam wing.",
+                        "rp_cost": 900,
+                        "base_workload": 250,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.drag_efficiency": 25,
+                            "aero.downforce": -6
+                        },
+                        "dependencies": [
+                            "low_drag_package_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "floor_tunnel_v2",
+                        "name": "Venturi Tunnel Optimization",
+                        "description": "Maximizing ground effect efficiency.",
+                        "rp_cost": 800,
+                        "base_workload": 250,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.downforce": 22
+                        },
+                        "dependencies": [
+                            "floor_edge_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "porpoising_fix",
+                        "name": "Porpoising Suppression Kit",
+                        "description": "Stability upgrades to control ride oscillations.",
+                        "rp_cost": 600,
+                        "base_workload": 150,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.tire_preservation": 10
+                        },
+                        "dependencies": [
+                            "floor_tunnel_v2"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "chassis_weight_l1",
+                        "name": "Carbon Layup Optimization",
+                        "description": "Refined composite layering for lighter chassis.",
+                        "rp_cost": 500,
+                        "base_workload": 200,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
+                        "effects": {
+                            "chassis.weight_reduction": 8
+                        },
+                        "dependencies": [],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "chassis_weight_l2",
+                        "name": "Titanium Fastener Program",
+                        "description": "Exotic fasteners shave critical grams.",
+                        "rp_cost": 650,
+                        "base_workload": 200,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.weight_reduction": 12
+                        },
+                        "dependencies": [
+                            "chassis_weight_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "suspension_geo_v1",
+                        "name": "Suspension Geometry Revamp",
+                        "description": "Improved mechanical grip through kinematic redesign.",
+                        "rp_cost": 550,
+                        "base_workload": 200,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.tire_preservation": 12
+                        },
+                        "dependencies": [],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "pullrod_conversion",
+                        "name": "Pullrod Rear Suspension",
+                        "description": "Lower center of gravity rear packaging.",
+                        "rp_cost": 800,
+                        "base_workload": 300,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.weight_reduction": 6,
+                            "aero.downforce": 6
+                        },
+                        "dependencies": [
+                            "suspension_geo_v1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "brake_ducts_v1",
+                        "name": "Brake Duct Optimization",
+                        "description": "Reduced drag with better cooling balance.",
+                        "rp_cost": 300,
+                        "base_workload": 100,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "aero.drag_efficiency": 6
+                        },
+                        "dependencies": [
+                            "aero_research_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "power_unit_l1",
+                        "name": "ICE Combustion Upgrade I",
+                        "description": "Refined combustion chamber for better efficiency.",
+                        "rp_cost": 700,
+                        "base_workload": 250,
+                        "state": "COMPLETED",
+                        "invested_work": 259.0,
+                        "effects": {
+                            "powertrain.power_output": 15
+                        },
+                        "dependencies": [],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "ers_deploy_l1",
+                        "name": "ERS Deployment Mapping",
+                        "description": "Smarter hybrid energy deployment.",
+                        "rp_cost": 600,
+                        "base_workload": 200,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "powertrain.power_output": 10
+                        },
+                        "dependencies": [
+                            "power_unit_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "power_unit_l2",
+                        "name": "ICE Combustion Upgrade II",
+                        "description": "Higher compression and fuel flow optimization.",
+                        "rp_cost": 900,
+                        "base_workload": 300,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "powertrain.power_output": 25,
+                            "powertrain.reliability": -5
+                        },
+                        "dependencies": [
+                            "power_unit_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "turbo_efficiency",
+                        "name": "Turbo Efficiency Program",
+                        "description": "Reduced turbo lag and better boost curve.",
+                        "rp_cost": 850,
+                        "base_workload": 250,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "powertrain.power_output": 18
+                        },
+                        "dependencies": [
+                            "power_unit_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "reliability_l1",
+                        "name": "Reliability Reinforcement I",
+                        "description": "Strengthened internals for endurance.",
+                        "rp_cost": 500,
+                        "base_workload": 200,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "powertrain.reliability": 12
+                        },
+                        "dependencies": [
+                            "power_unit_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "reliability_l2",
+                        "name": "Reliability Reinforcement II",
+                        "description": "Advanced metallurgy in key components.",
+                        "rp_cost": 750,
+                        "base_workload": 250,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "powertrain.reliability": 20
+                        },
+                        "dependencies": [
+                            "reliability_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "gearbox_casing_l1",
+                        "name": "Lightweight Gearbox Casing",
+                        "description": "Reduced mass at rear of the car.",
+                        "rp_cost": 600,
+                        "base_workload": 200,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.weight_reduction": 10
+                        },
+                        "dependencies": [
+                            "chassis_weight_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "active_diff_mapping",
+                        "name": "Differential Mapping Suite",
+                        "description": "Sharper traction control on corner exit.",
+                        "rp_cost": 400,
+                        "base_workload": 150,
+                        "state": "LOCKED",
+                        "invested_work": 0.0,
+                        "effects": {
+                            "chassis.tire_preservation": 8
+                        },
+                        "dependencies": [
+                            "gearbox_casing_l1"
+                        ],
+                        "mutually_exclusive": []
+                    },
+                    {
+                        "node_id": "beam_wing_v2",
+                        "name": "Beam Wing Evolution",
+                        "description": "Enhanced rear flow conditioning.",
+                        "rp_cost": 650,
+                        "base_workload": 200,
                         "state": "LOCKED",
                         "invested_work": 0.0,
                         "effects": {
@@ -4106,8 +5041,8 @@
                         "description": "Refined bargeboards and small winglets.",
                         "rp_cost": 550,
                         "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 185.0,
                         "effects": {
                             "aero.downforce": 10,
                             "aero.drag_efficiency": 4
@@ -4303,50 +5238,60 @@
         "Williams": {
             "car": {
                 "aero": {
-                    "downforce": 75,
+                    "downforce": 80,
                     "drag_efficiency": 88
                 },
                 "chassis": {
-                    "weight_reduction": 75,
+                    "weight_reduction": 93,
                     "tire_preservation": 78
                 },
                 "powertrain": {
-                    "power_output": 93,
+                    "power_output": 108,
                     "reliability": 85
                 }
             },
             "drivers": [
                 {
-                    "id": "b76c1a9c-686b-47f8-9825-2d8b82171779",
+                    "id": "c6319974-5699-4571-9f0a-81696a6a5ea1",
                     "name": "Alex Albon",
                     "salary": 3000000,
                     "rating": 87,
-                    "age": 25.0,
+                    "age": 29.0,
                     "contract_length_years": 2,
                     "speed": 89,
                     "consistency": 85,
                     "tire_management": 87
                 },
                 {
-                    "id": "b221fa60-4d09-4c8a-9cfd-1c938428a505",
+                    "id": "4f3f6d43-6e3d-4e8d-9ff7-f65c5004f543",
                     "name": "Logan Sargeant",
                     "salary": 1000000,
-                    "rating": 75,
-                    "age": 25.0,
+                    "rating": 77,
+                    "age": 24.0,
                     "contract_length_years": 2,
                     "speed": 76,
-                    "consistency": 70,
-                    "tire_management": 72
+                    "consistency": 72,
+                    "tire_management": 74
                 }
             ],
             "rd_manager": {
                 "is_ai": true,
                 "difficulty": "Easy",
-                "resource_points": 151,
+                "resource_points": 1178,
                 "total_engineers": 50,
                 "active_projects": {
-                    "chassis_weight_l1": 100,
-                    "aero_research_l1": 0
+                    "suspension_geo_v1": 50,
+                    "chassis_weight_l2": 0,
+                    "active_diff_mapping": 0,
+                    "brake_ducts_v1": 0,
+                    "floor_edge_v1": 0,
+                    "front_wing_v1": 0,
+                    "rear_wing_v1": 0,
+                    "micro_aero_details": 0,
+                    "power_unit_l2": 0,
+                    "turbo_efficiency": 0,
+                    "ers_deploy_l1": 0,
+                    "reliability_l1": 0
                 },
                 "nodes": [
                     {
@@ -4355,8 +5300,8 @@
                         "description": "Comprehensive wind tunnel correlation program.",
                         "rp_cost": 200,
                         "base_workload": 100,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
                         "effects": {
                             "aero.downforce": 5
                         },
@@ -4369,7 +5314,7 @@
                         "description": "Improved sealing of floor edges for cleaner airflow.",
                         "rp_cost": 350,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 8
@@ -4385,7 +5330,7 @@
                         "description": "Enhanced front-end load for improved turn-in.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 10
@@ -4401,7 +5346,7 @@
                         "description": "Balanced rear stability improvements.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 9
@@ -4555,8 +5500,8 @@
                         "description": "Refined composite layering for lighter chassis.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.weight_reduction": 8
                         },
@@ -4569,7 +5514,7 @@
                         "description": "Exotic fasteners shave critical grams.",
                         "rp_cost": 650,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 12
@@ -4585,8 +5530,8 @@
                         "description": "Improved mechanical grip through kinematic redesign.",
                         "rp_cost": 550,
                         "base_workload": 200,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 148.0,
                         "effects": {
                             "chassis.tire_preservation": 12
                         },
@@ -4616,7 +5561,7 @@
                         "description": "Reduced drag with better cooling balance.",
                         "rp_cost": 300,
                         "base_workload": 100,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.drag_efficiency": 6
@@ -4632,8 +5577,8 @@
                         "description": "Refined combustion chamber for better efficiency.",
                         "rp_cost": 700,
                         "base_workload": 250,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 259.0,
                         "effects": {
                             "powertrain.power_output": 15
                         },
@@ -4646,7 +5591,7 @@
                         "description": "Smarter hybrid energy deployment.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 10
@@ -4662,7 +5607,7 @@
                         "description": "Higher compression and fuel flow optimization.",
                         "rp_cost": 900,
                         "base_workload": 300,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 25,
@@ -4679,7 +5624,7 @@
                         "description": "Reduced turbo lag and better boost curve.",
                         "rp_cost": 850,
                         "base_workload": 250,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 18
@@ -4695,7 +5640,7 @@
                         "description": "Strengthened internals for endurance.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.reliability": 12
@@ -4727,8 +5672,8 @@
                         "description": "Reduced mass at rear of the car.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.weight_reduction": 10
                         },
@@ -4743,7 +5688,7 @@
                         "description": "Sharper traction control on corner exit.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.tire_preservation": 8
@@ -4775,7 +5720,7 @@
                         "description": "Refined bargeboards and small winglets.",
                         "rp_cost": 550,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 10,
@@ -4972,36 +5917,36 @@
         "RB": {
             "car": {
                 "aero": {
-                    "downforce": 80,
+                    "downforce": 95,
                     "drag_efficiency": 80
                 },
                 "chassis": {
-                    "weight_reduction": 80,
+                    "weight_reduction": 88,
                     "tire_preservation": 80
                 },
                 "powertrain": {
-                    "power_output": 95,
+                    "power_output": 110,
                     "reliability": 90
                 }
             },
             "drivers": [
                 {
-                    "id": "f873d1cf-fa4a-46e3-a566-086c58fa33db",
+                    "id": "502dce64-2baa-4bba-a146-e188a190eb10",
                     "name": "Yuki Tsunoda",
                     "salary": 2000000,
-                    "rating": 84,
+                    "rating": 85,
                     "age": 25.0,
                     "contract_length_years": 2,
-                    "speed": 87,
-                    "consistency": 78,
-                    "tire_management": 82
+                    "speed": 89,
+                    "consistency": 80,
+                    "tire_management": 83
                 },
                 {
-                    "id": "6a78556a-7699-467f-9e11-2d0ddc5bcdd6",
+                    "id": "5ee27475-2f2e-4419-896e-d7f10966f1e8",
                     "name": "Daniel Ricciardo",
                     "salary": 2000000,
                     "rating": 83,
-                    "age": 25.0,
+                    "age": 35.0,
                     "contract_length_years": 2,
                     "speed": 84,
                     "consistency": 83,
@@ -5011,11 +5956,20 @@
             "rd_manager": {
                 "is_ai": true,
                 "difficulty": "Easy",
-                "resource_points": 153,
+                "resource_points": 1630,
                 "total_engineers": 50,
                 "active_projects": {
-                    "chassis_weight_l1": 100,
-                    "aero_research_l1": 0
+                    "brake_ducts_v1": 0,
+                    "micro_aero_details": 0,
+                    "floor_edge_v1": 0,
+                    "rear_wing_v1": 0,
+                    "suspension_geo_v1": 0,
+                    "gearbox_casing_l1": 0,
+                    "chassis_weight_l2": 0,
+                    "power_unit_l2": 50,
+                    "ers_deploy_l1": 0,
+                    "reliability_l1": 0,
+                    "turbo_efficiency": 0
                 },
                 "nodes": [
                     {
@@ -5024,8 +5978,8 @@
                         "description": "Comprehensive wind tunnel correlation program.",
                         "rp_cost": 200,
                         "base_workload": 100,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 111.0,
                         "effects": {
                             "aero.downforce": 5
                         },
@@ -5038,7 +5992,7 @@
                         "description": "Improved sealing of floor edges for cleaner airflow.",
                         "rp_cost": 350,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 8
@@ -5054,8 +6008,8 @@
                         "description": "Enhanced front-end load for improved turn-in.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 185.0,
                         "effects": {
                             "aero.downforce": 10
                         },
@@ -5070,7 +6024,7 @@
                         "description": "Balanced rear stability improvements.",
                         "rp_cost": 400,
                         "base_workload": 150,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 9
@@ -5224,8 +6178,8 @@
                         "description": "Refined composite layering for lighter chassis.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.weight_reduction": 8
                         },
@@ -5238,7 +6192,7 @@
                         "description": "Exotic fasteners shave critical grams.",
                         "rp_cost": 650,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 12
@@ -5254,7 +6208,7 @@
                         "description": "Improved mechanical grip through kinematic redesign.",
                         "rp_cost": 550,
                         "base_workload": 200,
-                        "state": "AVAILABLE",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.tire_preservation": 12
@@ -5285,7 +6239,7 @@
                         "description": "Reduced drag with better cooling balance.",
                         "rp_cost": 300,
                         "base_workload": 100,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.drag_efficiency": 6
@@ -5301,8 +6255,8 @@
                         "description": "Refined combustion chamber for better efficiency.",
                         "rp_cost": 700,
                         "base_workload": 250,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 259.0,
                         "effects": {
                             "powertrain.power_output": 15
                         },
@@ -5315,7 +6269,7 @@
                         "description": "Smarter hybrid energy deployment.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 10
@@ -5331,8 +6285,8 @@
                         "description": "Higher compression and fuel flow optimization.",
                         "rp_cost": 900,
                         "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 185.0,
                         "effects": {
                             "powertrain.power_output": 25,
                             "powertrain.reliability": -5
@@ -5348,7 +6302,7 @@
                         "description": "Reduced turbo lag and better boost curve.",
                         "rp_cost": 850,
                         "base_workload": 250,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 18
@@ -5364,7 +6318,7 @@
                         "description": "Strengthened internals for endurance.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.reliability": 12
@@ -5396,7 +6350,7 @@
                         "description": "Reduced mass at rear of the car.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 10
@@ -5444,676 +6398,7 @@
                         "description": "Refined bargeboards and small winglets.",
                         "rp_cost": 550,
                         "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 10,
-                            "aero.drag_efficiency": 4
-                        },
-                        "dependencies": [
-                            "aero_research_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "ultimate_df_spec",
-                        "name": "Ultimate Downforce Spec",
-                        "description": "Extreme Monaco-level aero configuration.",
-                        "rp_cost": 1200,
-                        "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 40,
-                            "aero.drag_efficiency": -15
-                        },
-                        "dependencies": [
-                            "high_df_package_l2",
-                            "floor_tunnel_v2"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "ultimate_slipstream_spec",
-                        "name": "Ultimate Slipstream Spec",
-                        "description": "Low-drag Monza-focused package.",
-                        "rp_cost": 1200,
-                        "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.drag_efficiency": 40,
-                            "aero.downforce": -10
-                        },
-                        "dependencies": [
-                            "low_drag_package_l2",
-                            "cooling_layout_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "power_unit_l3",
-                        "name": "ICE Ultimate Evolution",
-                        "description": "Peak power qualifying engine mode.",
-                        "rp_cost": 1400,
-                        "base_workload": 350,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "powertrain.power_output": 40,
-                            "powertrain.reliability": -10
-                        },
-                        "dependencies": [
-                            "power_unit_l2"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "hybrid_efficiency_mastery",
-                        "name": "Hybrid Efficiency Mastery",
-                        "description": "Optimized energy harvesting systems.",
-                        "rp_cost": 1000,
-                        "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "powertrain.power_output": 20,
-                            "powertrain.reliability": 10
-                        },
-                        "dependencies": [
-                            "ers_deploy_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "chassis_balance_suite",
-                        "name": "Chassis Balance Optimization",
-                        "description": "Mass redistribution for ideal weight balance.",
-                        "rp_cost": 850,
-                        "base_workload": 250,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.weight_reduction": 6,
-                            "chassis.tire_preservation": 10
-                        },
-                        "dependencies": [
-                            "chassis_weight_l2",
-                            "suspension_geo_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "adaptive_cooling",
-                        "name": "Adaptive Cooling Louvres",
-                        "description": "Dynamic bodywork cooling solutions.",
-                        "rp_cost": 750,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.drag_efficiency": 12,
-                            "powertrain.reliability": 8
-                        },
-                        "dependencies": [
-                            "cooling_layout_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "tyre_wear_modeling",
-                        "name": "Advanced Tyre Wear Modeling",
-                        "description": "Simulation-driven degradation management.",
-                        "rp_cost": 500,
-                        "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.tire_preservation": 15
-                        },
-                        "dependencies": [
-                            "suspension_geo_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "ultimate_mech_grip",
-                        "name": "Ultimate Mechanical Grip Package",
-                        "description": "Maximum traction and tire longevity setup.",
-                        "rp_cost": 1100,
-                        "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.tire_preservation": 30,
-                            "chassis.weight_reduction": 5
-                        },
-                        "dependencies": [
-                            "pullrod_conversion",
-                            "tyre_wear_modeling"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "lightweight_battery_pack",
-                        "name": "Lightweight Battery Pack",
-                        "description": "Reduced ERS mass with advanced cells.",
-                        "rp_cost": 900,
-                        "base_workload": 250,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.weight_reduction": 10,
-                            "powertrain.power_output": 8
-                        },
-                        "dependencies": [
-                            "hybrid_efficiency_mastery"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "final_championship_spec",
-                        "name": "Championship Final Evolution",
-                        "description": "Full-system integration for peak performance.",
-                        "rp_cost": 2000,
-                        "base_workload": 400,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 25,
-                            "aero.drag_efficiency": 20,
-                            "chassis.weight_reduction": 15,
-                            "chassis.tire_preservation": 20,
-                            "powertrain.power_output": 30,
-                            "powertrain.reliability": 15
-                        },
-                        "dependencies": [
-                            "ultimate_df_spec",
-                            "ultimate_mech_grip",
-                            "power_unit_l3",
-                            "lightweight_battery_pack"
-                        ],
-                        "mutually_exclusive": []
-                    }
-                ]
-            }
-        },
-        "Sauber": {
-            "car": {
-                "aero": {
-                    "downforce": 70,
-                    "drag_efficiency": 75
-                },
-                "chassis": {
-                    "weight_reduction": 75,
-                    "tire_preservation": 75
-                },
-                "powertrain": {
-                    "power_output": 85,
-                    "reliability": 88
-                }
-            },
-            "drivers": [
-                {
-                    "id": "c3f82194-4a5f-4180-924d-b9f39b920f58",
-                    "name": "Valtteri Bottas",
-                    "salary": 10000000,
-                    "rating": 86,
-                    "age": 25.0,
-                    "contract_length_years": 2,
-                    "speed": 88,
-                    "consistency": 85,
-                    "tire_management": 84
-                },
-                {
-                    "id": "71b5a1fa-34c2-4534-9f25-3dc07cabe5a5",
-                    "name": "Zhou Guanyu",
-                    "salary": 2000000,
-                    "rating": 80,
-                    "age": 25.0,
-                    "contract_length_years": 2,
-                    "speed": 81,
-                    "consistency": 83,
-                    "tire_management": 84
-                }
-            ],
-            "rd_manager": {
-                "is_ai": true,
-                "difficulty": "Easy",
-                "resource_points": 153,
-                "total_engineers": 50,
-                "active_projects": {
-                    "chassis_weight_l1": 100,
-                    "aero_research_l1": 0
-                },
-                "nodes": [
-                    {
-                        "node_id": "aero_research_l1",
-                        "name": "Baseline Aero Mapping",
-                        "description": "Comprehensive wind tunnel correlation program.",
-                        "rp_cost": 200,
-                        "base_workload": 100,
                         "state": "IN_PROGRESS",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 5
-                        },
-                        "dependencies": [],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "floor_edge_v1",
-                        "name": "Floor Edge Refinement",
-                        "description": "Improved sealing of floor edges for cleaner airflow.",
-                        "rp_cost": 350,
-                        "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 8
-                        },
-                        "dependencies": [
-                            "aero_research_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "front_wing_v1",
-                        "name": "Front Wing Revision 1",
-                        "description": "Enhanced front-end load for improved turn-in.",
-                        "rp_cost": 400,
-                        "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 10
-                        },
-                        "dependencies": [
-                            "aero_research_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "rear_wing_v1",
-                        "name": "Rear Wing Efficiency Pass",
-                        "description": "Balanced rear stability improvements.",
-                        "rp_cost": 400,
-                        "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 9
-                        },
-                        "dependencies": [
-                            "aero_research_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "sidepod_v1",
-                        "name": "Sidepod Undercut Concept",
-                        "description": "Aggressive undercut to improve airflow to the floor.",
-                        "rp_cost": 450,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.drag_efficiency": 6
-                        },
-                        "dependencies": [
-                            "floor_edge_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "cooling_layout_v1",
-                        "name": "Compact Cooling Layout",
-                        "description": "Tighter packaging for reduced bodywork drag.",
-                        "rp_cost": 500,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.drag_efficiency": 8
-                        },
-                        "dependencies": [
-                            "sidepod_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "high_df_package_l1",
-                        "name": "High Downforce Package I",
-                        "description": "Maximum cornering grip configuration.",
-                        "rp_cost": 700,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 20,
-                            "aero.drag_efficiency": -8
-                        },
-                        "dependencies": [
-                            "front_wing_v1",
-                            "rear_wing_v1"
-                        ],
-                        "mutually_exclusive": [
-                            "low_drag_package_l1"
-                        ]
-                    },
-                    {
-                        "node_id": "low_drag_package_l1",
-                        "name": "Low Drag Package I",
-                        "description": "Streamlined aero for top-speed circuits.",
-                        "rp_cost": 700,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.drag_efficiency": 18,
-                            "aero.downforce": -5
-                        },
-                        "dependencies": [
-                            "front_wing_v1",
-                            "rear_wing_v1"
-                        ],
-                        "mutually_exclusive": [
-                            "high_df_package_l1"
-                        ]
-                    },
-                    {
-                        "node_id": "high_df_package_l2",
-                        "name": "High Downforce Package II",
-                        "description": "Refined vortex control for peak grip.",
-                        "rp_cost": 900,
-                        "base_workload": 250,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 28,
-                            "aero.drag_efficiency": -10
-                        },
-                        "dependencies": [
-                            "high_df_package_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "low_drag_package_l2",
-                        "name": "Low Drag Package II",
-                        "description": "Ultra-slim rear bodywork and beam wing.",
-                        "rp_cost": 900,
-                        "base_workload": 250,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.drag_efficiency": 25,
-                            "aero.downforce": -6
-                        },
-                        "dependencies": [
-                            "low_drag_package_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "floor_tunnel_v2",
-                        "name": "Venturi Tunnel Optimization",
-                        "description": "Maximizing ground effect efficiency.",
-                        "rp_cost": 800,
-                        "base_workload": 250,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 22
-                        },
-                        "dependencies": [
-                            "floor_edge_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "porpoising_fix",
-                        "name": "Porpoising Suppression Kit",
-                        "description": "Stability upgrades to control ride oscillations.",
-                        "rp_cost": 600,
-                        "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.tire_preservation": 10
-                        },
-                        "dependencies": [
-                            "floor_tunnel_v2"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "chassis_weight_l1",
-                        "name": "Carbon Layup Optimization",
-                        "description": "Refined composite layering for lighter chassis.",
-                        "rp_cost": 500,
-                        "base_workload": 200,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
-                        "effects": {
-                            "chassis.weight_reduction": 8
-                        },
-                        "dependencies": [],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "chassis_weight_l2",
-                        "name": "Titanium Fastener Program",
-                        "description": "Exotic fasteners shave critical grams.",
-                        "rp_cost": 650,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.weight_reduction": 12
-                        },
-                        "dependencies": [
-                            "chassis_weight_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "suspension_geo_v1",
-                        "name": "Suspension Geometry Revamp",
-                        "description": "Improved mechanical grip through kinematic redesign.",
-                        "rp_cost": 550,
-                        "base_workload": 200,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.tire_preservation": 12
-                        },
-                        "dependencies": [],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "pullrod_conversion",
-                        "name": "Pullrod Rear Suspension",
-                        "description": "Lower center of gravity rear packaging.",
-                        "rp_cost": 800,
-                        "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.weight_reduction": 6,
-                            "aero.downforce": 6
-                        },
-                        "dependencies": [
-                            "suspension_geo_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "brake_ducts_v1",
-                        "name": "Brake Duct Optimization",
-                        "description": "Reduced drag with better cooling balance.",
-                        "rp_cost": 300,
-                        "base_workload": 100,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.drag_efficiency": 6
-                        },
-                        "dependencies": [
-                            "aero_research_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "power_unit_l1",
-                        "name": "ICE Combustion Upgrade I",
-                        "description": "Refined combustion chamber for better efficiency.",
-                        "rp_cost": 700,
-                        "base_workload": 250,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "powertrain.power_output": 15
-                        },
-                        "dependencies": [],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "ers_deploy_l1",
-                        "name": "ERS Deployment Mapping",
-                        "description": "Smarter hybrid energy deployment.",
-                        "rp_cost": 600,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "powertrain.power_output": 10
-                        },
-                        "dependencies": [
-                            "power_unit_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "power_unit_l2",
-                        "name": "ICE Combustion Upgrade II",
-                        "description": "Higher compression and fuel flow optimization.",
-                        "rp_cost": 900,
-                        "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "powertrain.power_output": 25,
-                            "powertrain.reliability": -5
-                        },
-                        "dependencies": [
-                            "power_unit_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "turbo_efficiency",
-                        "name": "Turbo Efficiency Program",
-                        "description": "Reduced turbo lag and better boost curve.",
-                        "rp_cost": 850,
-                        "base_workload": 250,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "powertrain.power_output": 18
-                        },
-                        "dependencies": [
-                            "power_unit_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "reliability_l1",
-                        "name": "Reliability Reinforcement I",
-                        "description": "Strengthened internals for endurance.",
-                        "rp_cost": 500,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "powertrain.reliability": 12
-                        },
-                        "dependencies": [
-                            "power_unit_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "reliability_l2",
-                        "name": "Reliability Reinforcement II",
-                        "description": "Advanced metallurgy in key components.",
-                        "rp_cost": 750,
-                        "base_workload": 250,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "powertrain.reliability": 20
-                        },
-                        "dependencies": [
-                            "reliability_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "gearbox_casing_l1",
-                        "name": "Lightweight Gearbox Casing",
-                        "description": "Reduced mass at rear of the car.",
-                        "rp_cost": 600,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.weight_reduction": 10
-                        },
-                        "dependencies": [
-                            "chassis_weight_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "active_diff_mapping",
-                        "name": "Differential Mapping Suite",
-                        "description": "Sharper traction control on corner exit.",
-                        "rp_cost": 400,
-                        "base_workload": 150,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "chassis.tire_preservation": 8
-                        },
-                        "dependencies": [
-                            "gearbox_casing_l1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "beam_wing_v2",
-                        "name": "Beam Wing Evolution",
-                        "description": "Enhanced rear flow conditioning.",
-                        "rp_cost": 650,
-                        "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
-                        "effects": {
-                            "aero.downforce": 12
-                        },
-                        "dependencies": [
-                            "rear_wing_v1"
-                        ],
-                        "mutually_exclusive": []
-                    },
-                    {
-                        "node_id": "micro_aero_details",
-                        "name": "Micro-Aero Detailing",
-                        "description": "Refined bargeboards and small winglets.",
-                        "rp_cost": 550,
-                        "base_workload": 150,
-                        "state": "LOCKED",
                         "invested_work": 0.0,
                         "effects": {
                             "aero.downforce": 10,
@@ -6314,32 +6599,32 @@
                     "drag_efficiency": 80
                 },
                 "chassis": {
-                    "weight_reduction": 78,
+                    "weight_reduction": 86,
                     "tire_preservation": 70
                 },
                 "powertrain": {
-                    "power_output": 88,
-                    "reliability": 80
+                    "power_output": 128,
+                    "reliability": 75
                 }
             },
             "drivers": [
                 {
-                    "id": "3300ec37-f961-419a-a8ca-f999420b8ee3",
+                    "id": "4f4bd757-0662-44e1-a93f-8f0077240110",
                     "name": "Nico Hulkenberg",
                     "salary": 2000000,
                     "rating": 85,
-                    "age": 25.0,
+                    "age": 37.0,
                     "contract_length_years": 2,
                     "speed": 88,
                     "consistency": 84,
                     "tire_management": 81
                 },
                 {
-                    "id": "d26742b0-935a-43ce-8761-7b89edfe7a36",
+                    "id": "6f1120bc-88f8-437b-a560-7ae15b094e3a",
                     "name": "Kevin Magnussen",
                     "salary": 5000000,
                     "rating": 82,
-                    "age": 25.0,
+                    "age": 32.0,
                     "contract_length_years": 2,
                     "speed": 84,
                     "consistency": 78,
@@ -6349,11 +6634,17 @@
             "rd_manager": {
                 "is_ai": true,
                 "difficulty": "Easy",
-                "resource_points": 153,
+                "resource_points": 2228,
                 "total_engineers": 50,
                 "active_projects": {
-                    "chassis_weight_l1": 100,
-                    "aero_research_l1": 0
+                    "aero_research_l1": 0,
+                    "suspension_geo_v1": 0,
+                    "chassis_weight_l2": 0,
+                    "gearbox_casing_l1": 50,
+                    "reliability_l1": 0,
+                    "ers_deploy_l1": 0,
+                    "turbo_efficiency": 0,
+                    "power_unit_l3": 0
                 },
                 "nodes": [
                     {
@@ -6562,8 +6853,8 @@
                         "description": "Refined composite layering for lighter chassis.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "IN_PROGRESS",
-                        "invested_work": 75.0,
+                        "state": "COMPLETED",
+                        "invested_work": 222.0,
                         "effects": {
                             "chassis.weight_reduction": 8
                         },
@@ -6576,7 +6867,7 @@
                         "description": "Exotic fasteners shave critical grams.",
                         "rp_cost": 650,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.weight_reduction": 12
@@ -6592,7 +6883,7 @@
                         "description": "Improved mechanical grip through kinematic redesign.",
                         "rp_cost": 550,
                         "base_workload": 200,
-                        "state": "AVAILABLE",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "chassis.tire_preservation": 12
@@ -6639,8 +6930,8 @@
                         "description": "Refined combustion chamber for better efficiency.",
                         "rp_cost": 700,
                         "base_workload": 250,
-                        "state": "AVAILABLE",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 259.0,
                         "effects": {
                             "powertrain.power_output": 15
                         },
@@ -6653,7 +6944,7 @@
                         "description": "Smarter hybrid energy deployment.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 10
@@ -6669,8 +6960,8 @@
                         "description": "Higher compression and fuel flow optimization.",
                         "rp_cost": 900,
                         "base_workload": 300,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "COMPLETED",
+                        "invested_work": 333.0,
                         "effects": {
                             "powertrain.power_output": 25,
                             "powertrain.reliability": -5
@@ -6686,7 +6977,7 @@
                         "description": "Reduced turbo lag and better boost curve.",
                         "rp_cost": 850,
                         "base_workload": 250,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 18
@@ -6702,7 +6993,7 @@
                         "description": "Strengthened internals for endurance.",
                         "rp_cost": 500,
                         "base_workload": 200,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.reliability": 12
@@ -6734,8 +7025,8 @@
                         "description": "Reduced mass at rear of the car.",
                         "rp_cost": 600,
                         "base_workload": 200,
-                        "state": "LOCKED",
-                        "invested_work": 0.0,
+                        "state": "IN_PROGRESS",
+                        "invested_work": 148.0,
                         "effects": {
                             "chassis.weight_reduction": 10
                         },
@@ -6835,7 +7126,7 @@
                         "description": "Peak power qualifying engine mode.",
                         "rp_cost": 1400,
                         "base_workload": 350,
-                        "state": "LOCKED",
+                        "state": "IN_PROGRESS",
                         "invested_work": 0.0,
                         "effects": {
                             "powertrain.power_output": 40,

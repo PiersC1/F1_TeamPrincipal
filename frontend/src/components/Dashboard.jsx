@@ -36,12 +36,27 @@ const Dashboard = ({ gameState, onNavigate, refreshState }) => {
         ...Object.keys(rawAiTeams).map(name => ({ name, pts: teamPoints[name] || 0 }))
     ].sort((a, b) => b.pts - a.pts);
 
-    const getOverallPerf = () => {
-        const aero = car.aero.downforce + car.aero.drag_efficiency;
-        const chass = car.chassis.weight_reduction + car.chassis.tire_preservation;
-        const power = car.powertrain.power_output + car.powertrain.reliability;
+    const getOverallPerf = (targetCar) => {
+        if (!targetCar) return 0;
+        const aero = targetCar.aero.downforce + targetCar.aero.drag_efficiency;
+        const chass = targetCar.chassis.weight_reduction + targetCar.chassis.tire_preservation;
+        const power = targetCar.powertrain.power_output + targetCar.powertrain.reliability;
         return Math.round((aero + chass + power) / 6);
     };
+
+    const getGridMaxPerf = () => {
+        let maxPerf = getOverallPerf(car);
+        Object.values(rawAiTeams).forEach(team => {
+            const teamPerf = getOverallPerf(team.car);
+            if (teamPerf > maxPerf) {
+                maxPerf = teamPerf;
+            }
+        });
+        return maxPerf;
+    };
+
+    const playerPerf = getOverallPerf(car);
+    const gridMax = getGridMaxPerf();
 
     return (
         <div className="flex flex-col h-full space-y-6">
@@ -119,11 +134,17 @@ const Dashboard = ({ gameState, onNavigate, refreshState }) => {
                     </div>
                     <div className="mt-auto">
                         <div className="flex items-end gap-2 mb-2">
-                            <p className="text-4xl font-bold text-white">{getOverallPerf()}</p>
-                            <p className="text-lg text-slate-400 mb-1">/ 100</p>
+                            <p className="text-4xl font-bold text-white">{playerPerf}</p>
+                            <p className="text-lg text-slate-400 mb-1">/ {gridMax}</p>
                         </div>
                         <p className="text-sm text-slate-500">Estimated Grid Competitiveness</p>
                     </div>
+                    <button
+                        onClick={() => onNavigate('car_rankings')}
+                        className="w-full mt-4 bg-f1accent/10 hover:bg-f1accent/20 border border-f1accent/30 text-f1accent py-2 rounded-lg text-sm font-bold transition-colors"
+                    >
+                        View Grid Rankings
+                    </button>
                 </div>
 
                 {/* Drivers Card */}

@@ -8,9 +8,11 @@ class Track:
                  chassis_weight: float = 1.0, 
                  powertrain_weight: float = 1.0):
         self.name = name
+        self.name = name
         self.country = country
         self.laps = laps
-        self.base_lap_time = base_lap_time # Average lap time in seconds
+        self.base_lap_time = base_lap_time
+        self.tire_wear_multiplier = 1.0
         
         # Multipliers for car performance. e.g., Monza powertrain_weight = 1.5
         self.aero_weight = aero_weight
@@ -24,6 +26,7 @@ class Track:
             "country": self.country,
             "laps": self.laps,
             "base_lap_time": self.base_lap_time,
+            "tire_wear_multiplier": self.tire_wear_multiplier,
             "aero_weight": self.aero_weight,
             "chassis_weight": self.chassis_weight,
             "powertrain_weight": self.powertrain_weight

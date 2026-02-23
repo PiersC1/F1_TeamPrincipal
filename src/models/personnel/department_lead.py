@@ -10,18 +10,18 @@ class DepartmentLead(StaffMember):
         super().__init__(name, salary, rating, age, contract_length_years)
         self.expertise = expertise # Specialized rating for their department (1-100)
         
-    def process_weekly_aging(self):
+    def process_yearly_aging(self):
         """Engineers peak late in their careers."""
-        super().process_weekly_aging()
+        super().process_yearly_aging()
         import random
         
         # Determine dynamic stat growth or decline
         if self.age < 50.0:
-            if random.random() < 0.05:
-                self.expertise = min(100, self.expertise + 1)
-        elif self.age > 60.0:
-            if random.random() < 0.07:
-                self.expertise = max(1, self.expertise - 1)
+            if random.random() < 0.7:
+                self.expertise = min(100, self.expertise + random.randint(1, 3))
+        elif self.age >= 65.0:
+            if random.random() < 0.8:
+                self.expertise = max(1, self.expertise - random.randint(1, 3))
                 
     def get_rd_bonus(self) -> int:
         """Returns the flat bonus to apply to a completed R&D node.

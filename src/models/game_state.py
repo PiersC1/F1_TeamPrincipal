@@ -31,6 +31,7 @@ class GameState:
         self.season = 1
         self.current_race_index = 0
         self.difficulty = "Normal"
+        self.save_slot = "slot1"
         self.ai_teams: Dict[str, Dict[str, Any]] = {} # Populated later
         self.staff_market: Dict[str, List[Any]] = {}
         
@@ -52,6 +53,15 @@ class GameState:
             ai_car = data["car"]
             ai_rd = RDManager(ai_car, is_ai=True)
             ai_rd.difficulty = self.difficulty
+            
+            # Apply Difficulty Scales to AI Engineering Workforce
+            if self.difficulty.lower() == "easy":
+                ai_rd.total_engineers = 50
+            elif self.difficulty.lower() == "hard":
+                ai_rd.total_engineers = 150
+            else:
+                ai_rd.total_engineers = 100
+                
             # AI teams immediately check for available projects
             ai_rd.update_availability() 
             self.ai_teams[team_name]["rd_manager"] = ai_rd
@@ -85,21 +95,7 @@ class GameState:
             
         self.rd_manager.resource_points += int(rp_gained)
         
-        # 2. Age the personnel
-        for d in self.drivers:
-            d.process_weekly_aging()
-            
-        if self.technical_director:
-            self.technical_director.process_weekly_aging()
-            
-        if self.head_of_aero:
-            self.head_of_aero.process_weekly_aging()
-            
-            
-        if self.powertrain_lead:
-            self.powertrain_lead.process_weekly_aging()
-            
-        # 3. Advance Player R&D
+        # 2. Advance Player R&D
         self.rd_manager.advance_time(1)
         
         # 4. Advance AI R&D and generate their Resource Points
@@ -116,6 +112,28 @@ class GameState:
                 # Advance active projects and execute autonomous project selection
                 ai_rd.advance_time(1)
                 ai_rd.update_availability()
+                
+    def process_yearly_aging(self):
+        """Processes end-of-season aging for every staff member in the simulation."""
+        # Player Team
+        for d in self.drivers:
+            d.process_yearly_aging()
+        if self.technical_director:
+            self.technical_director.process_yearly_aging()
+        if self.head_of_aero:
+            self.head_of_aero.process_yearly_aging()
+        if self.powertrain_lead:
+            self.powertrain_lead.process_yearly_aging()
+            
+        # AI Teams
+        for team_name, data in self.ai_teams.items():
+            for d in data.get("drivers", []):
+                d.process_yearly_aging()
+                
+        # Free Agent Market
+        for role, staff_list in self.staff_market.items():
+            for s in staff_list:
+                s.process_yearly_aging()
         
     def to_dict(self) -> Dict[str, Any]:
         """Serialize the entire game state into a dictionary."""
@@ -128,6 +146,7 @@ class GameState:
             "team_name": self.team_name,
             "season": self.season,
             "difficulty": self.difficulty,
+            "save_slot": self.save_slot,
             "current_race_index": self.current_race_index,
             "finance_manager": self.finance_manager.to_dict(),
             "championship_manager": self.championship_manager.to_dict(),
@@ -156,6 +175,7 @@ class GameState:
         self.team_name = data.get("team_name", "Player Racing")
         self.season = data.get("season", 1)
         self.difficulty = data.get("difficulty", "Normal")
+        self.save_slot = data.get("save_slot", "slot1")
         self.current_race_index = data.get("current_race_index", 0)
         
         # Only build first-time if not in data
@@ -168,7 +188,15 @@ class GameState:
                 ai_rd = RDManager(ai_car, is_ai=True)
                 if "rd_manager" in team_data and team_data["rd_manager"]:
                     ai_rd.load_from_dict(team_data["rd_manager"])
+                
                 ai_rd.difficulty = self.difficulty
+                if self.difficulty.lower() == "easy":
+                    ai_rd.total_engineers = 50
+                elif self.difficulty.lower() == "hard":
+                    ai_rd.total_engineers = 150
+                else:
+                    ai_rd.total_engineers = 100
+                    
                 
                 self.ai_teams[name] = {
                     "car": ai_car,

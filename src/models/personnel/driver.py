@@ -10,29 +10,38 @@ class Driver(StaffMember):
         self.consistency = consistency # Ability to string together similar lap times
         self.tire_management = tire_management # Reduces tire wear per lap during simulation
         
-    def process_weekly_aging(self):
-        """Drivers develop speed fast when young, but maintain consistency later into their careers."""
-        super().process_weekly_aging()
+    def process_yearly_aging(self):
+        """Drivers develop speed fast when young, but maintain tire management later."""
+        super().process_yearly_aging()
         import random
         
         # Determine dynamic stat growth or decline
-        if self.age < 26.0:
-            if random.random() < 0.05:
-                self.speed = min(100, self.speed + 1)
-            if random.random() < 0.03:
-                self.tire_management = min(100, self.tire_management + 1)
-        elif self.age > 33.0:
-            if random.random() < 0.06:
+        if self.age <= 22.0:
+            # Massive growth for rookies
+            self.speed = min(100, self.speed + random.randint(1, 4))
+            self.tire_management = min(100, self.tire_management + random.randint(1, 3))
+            self.consistency = min(100, self.consistency + random.randint(1, 3))
+        elif self.age < 26.0:
+            if random.random() < 0.8:
+                self.speed = min(100, self.speed + random.randint(1, 2))
+            if random.random() < 0.7:
+                self.tire_management = min(100, self.tire_management + random.randint(1, 2))
+            if random.random() < 0.8:
+                self.consistency = min(100, self.consistency + random.randint(1, 2))
+        elif self.age > 33.0 and self.age < 38.0:
+            if random.random() < 0.4:
                 self.speed = max(1, self.speed - 1)
             # Consistency tends to hold on longer, maybe even goes up slightly in 30s
-            if random.random() < 0.02:
+            if random.random() < 0.3:
                 self.consistency = min(100, self.consistency + 1)
-        
-        if self.age > 38.0:
+        elif self.age >= 38.0:
             # Drop off a cliff
-            if random.random() < 0.1:
-                self.consistency = max(1, self.consistency - 1)
-                self.tire_management = max(1, self.tire_management - 1)
+            if random.random() < 0.8:
+                self.speed = max(1, self.speed - random.randint(1, 3))
+            if random.random() < 0.6:
+                self.consistency = max(1, self.consistency - random.randint(1, 2))
+            if random.random() < 0.6:
+                self.tire_management = max(1, self.tire_management - random.randint(1, 2))
         
     def to_dict(self) -> Dict[str, Any]:
         data = super().to_dict()

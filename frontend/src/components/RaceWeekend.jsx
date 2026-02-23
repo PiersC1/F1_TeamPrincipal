@@ -4,9 +4,14 @@ import { Flag, Settings, ArrowRight, Activity, ArrowLeft, Play, Pause, FastForwa
 const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
     const [calendar, setCalendar] = useState(null);
     const [simResults, setSimResults] = useState(null);
-    const [d1Strategy, setD1Strategy] = useState(["Soft", "Hard"]);
-    const [d2Strategy, setD2Strategy] = useState(["Medium", "Hard"]);
+    const [tireEstimates, setTireEstimates] = useState(null);
+    const [d1Strategy, setD1Strategy] = useState([]);
+    const [d2Strategy, setD2Strategy] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    // Stint Builder State
+    const [newStintD1, setNewStintD1] = useState({ compound: 'Soft', laps: 15 });
+    const [newStintD2, setNewStintD2] = useState({ compound: 'Medium', laps: 25 });
 
     // Playback state
     const [currentLap, setCurrentLap] = useState(0);
@@ -32,9 +37,22 @@ const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
     }, [isPlaying, simResults, playbackSpeed]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/calendar')
-            .then(res => res.json())
-            .then(data => setCalendar(data.tracks));
+        const loadInitialData = async () => {
+            try {
+                const calRes = await fetch('http://localhost:8000/api/calendar');
+                const calData = await calRes.json();
+                setCalendar(calData.tracks);
+
+                const estRes = await fetch('http://localhost:8000/api/race/tire_estimates');
+                const estData = await estRes.json();
+                if (estData.status === 'success') {
+                    setTireEstimates(estData);
+                }
+            } catch (err) {
+                console.error("Failed to load pre-race info", err);
+            }
+        };
+        loadInitialData();
     }, []);
 
     if (!gameState || !calendar) return <div className="p-8 text-center animate-pulse">Loading Track Data...</div>;
@@ -57,7 +75,13 @@ const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
     const currentTrack = calendar[gameState.current_race_index];
 
     // Failsafe if calendar hasn't re-rendered with new data yet
-    if (!currentTrack) return <div className="p-8 text-center animate-pulse">Synchronizing Grid Data...</div>;
+    if (!currentTrack || !tireEstimates) return <div className="p-8 text-center animate-pulse">Synchronizing Grid Data...</div>;
+
+    const getStrategyLaps = (strat) => strat.reduce((sum, s) => sum + s.laps, 0);
+    const d1TotalLaps = getStrategyLaps(d1Strategy);
+    const d2TotalLaps = getStrategyLaps(d2Strategy);
+
+    const isValidStrategy = d1TotalLaps >= currentTrack.laps && d2TotalLaps >= currentTrack.laps;
 
     const handleSimulate = async () => {
         setLoading(true);
@@ -239,60 +263,168 @@ const RaceWeekend = ({ gameState, onNavigate, refreshState }) => {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="mt-6 pt-4 border-t border-slate-800">
+                            <div className="flex items-center justify-between mb-3 text-sm">
+                                <span className="text-slate-400 font-bold uppercase tracking-wider">Tire Degradation</span>
+                                <span className={`font-bold px-2 py-0.5 rounded ${tireEstimates.multiplier > 1.2 ? 'bg-f1red text-white' : tireEstimates.multiplier < 0.9 ? 'bg-f1green text-white' : 'bg-yellow-500 text-slate-900'}`}>{tireEstimates.multiplier.toFixed(2)}x Wear Rate</span>
+                            </div>
+
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center text-sm p-2 bg-slate-800/50 rounded border border-slate-700">
+                                    <div className="flex gap-2 items-center"><span className="w-3 h-3 rounded-full bg-f1red"></span> <span className="text-slate-300">Soft</span></div>
+                                    <div className="text-right"><span className="text-white font-bold">{tireEstimates.estimates.Soft.laps} Laps</span> <span className="text-f1accent text-xs ml-2">-{tireEstimates.estimates.Soft.pace}s pace</span></div>
+                                </div>
+                                <div className="flex justify-between items-center text-sm p-2 bg-slate-800/50 rounded border border-slate-700">
+                                    <div className="flex gap-2 items-center"><span className="w-3 h-3 rounded-full bg-yellow-500"></span> <span className="text-slate-300">Medium</span></div>
+                                    <div className="text-right"><span className="text-white font-bold">{tireEstimates.estimates.Medium.laps} Laps</span> <span className="text-f1accent text-xs ml-2">-{tireEstimates.estimates.Medium.pace}s pace</span></div>
+                                </div>
+                                <div className="flex justify-between items-center text-sm p-2 bg-slate-800/50 rounded border border-slate-700">
+                                    <div className="flex gap-2 items-center"><span className="w-3 h-3 rounded-full bg-white"></span> <span className="text-slate-300">Hard</span></div>
+                                    <div className="text-right"><span className="text-white font-bold">{tireEstimates.estimates.Hard.laps} Laps</span> <span className="text-slate-500 text-xs ml-2">Baseline Pace</span></div>
+                                </div>
+                            </div>
+                            <p className="text-[10px] text-slate-500 mt-2 text-center uppercase tracking-widest italic">Laps before severe cliff drop-off</p>
+                        </div>
                     </div>
 
                     <div className="bg-f1panel rounded-2xl p-6 border border-slate-800 shadow-xl flex flex-col items-start gap-4">
-                        <div className="flex items-center gap-3 w-full text-slate-400 font-medium uppercase tracking-wider text-sm">
-                            <Settings size={18} className="text-slate-300" /> Tire Strategies
+                        <div className="flex items-center justify-between w-full">
+                            <div className="flex items-center gap-3 text-slate-400 font-medium uppercase tracking-wider text-sm">
+                                <Settings size={18} className="text-slate-300" /> Custom Strategy Builder
+                            </div>
+                            <span className="text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded">Target Laps: {currentTrack.laps}</span>
                         </div>
 
                         {/* Strategy Driver 1 */}
-                        <div className="w-full bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                            <h3 className="text-white font-bold mb-3">{gameState.drivers[0]?.name || "Driver 1"}</h3>
-                            <div className="flex flex-wrap gap-2 mb-3">
-                                {d1Strategy.map((tire, i) => (
-                                    <div key={i} className="flex items-center">
-                                        <span className={`px-2 py-1 text-xs font-bold rounded ${tire === 'Soft' ? 'bg-f1red text-white' : tire === 'Medium' ? 'bg-yellow-500 text-slate-900' : 'bg-white text-slate-900'}`}>
-                                            {tire.charAt(0)}
-                                        </span>
-                                        {i < d1Strategy.length - 1 && <ArrowRight size={12} className="text-slate-500 mx-1" />}
+                        <div className="w-full bg-slate-800/60 p-4 rounded-xl border border-slate-700">
+                            <div className="flex justify-between items-center mb-3">
+                                <h3 className="text-white font-bold">{gameState.drivers[0]?.name || "Driver 1"}</h3>
+                                <span className={`text-xs font-bold px-2 py-1 rounded ${d1TotalLaps === currentTrack.laps ? 'bg-f1green text-white' : d1TotalLaps > currentTrack.laps ? 'bg-yellow-500 text-slate-900' : 'bg-f1red/20 text-f1red'}`}>
+                                    {d1TotalLaps} / {currentTrack.laps} Laps
+                                </span>
+                            </div>
+
+                            {/* Visual Bar */}
+                            <div className="w-full h-2 bg-slate-900 rounded-full mb-4 flex overflow-hidden">
+                                {d1Strategy.map((s, i) => (
+                                    <div key={i} className={`h-full border-r border-slate-900 ${s.compound === 'Soft' ? 'bg-f1red' : s.compound === 'Medium' ? 'bg-yellow-500' : 'bg-white'}`} style={{ width: `${(s.laps / currentTrack.laps) * 100}%` }}></div>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-col gap-2 mb-4">
+                                {d1Strategy.map((stint, i) => (
+                                    <div key={i} className="flex justify-between items-center bg-slate-700/50 p-2 rounded text-sm border border-slate-600">
+                                        <div className="flex items-center gap-2">
+                                            <span className={`w-3 h-3 rounded-full ${stint.compound === 'Soft' ? 'bg-f1red' : stint.compound === 'Medium' ? 'bg-yellow-500' : 'bg-white'}`}></span>
+                                            <span className="text-white font-bold">Stint {i + 1}</span>
+                                        </div>
+                                        <span className="text-slate-300 font-mono">{stint.laps} Laps</span>
                                     </div>
                                 ))}
-                                {d1Strategy.length === 0 && <span className="text-sm text-slate-500 italic">No tires equipped (DNS)</span>}
+                                {d1Strategy.length === 0 && <span className="text-sm text-slate-500 italic text-center py-2">No Stints Built. DNS Warning.</span>}
                             </div>
+
                             <div className="flex gap-2">
-                                <button onClick={() => setD1Strategy([...d1Strategy, "Soft"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-f1red">Soft</button>
-                                <button onClick={() => setD1Strategy([...d1Strategy, "Medium"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-yellow-500">Med</button>
-                                <button onClick={() => setD1Strategy([...d1Strategy, "Hard"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-white">Hard</button>
-                                <button onClick={() => setD1Strategy(d1Strategy.slice(0, -1))} disabled={d1Strategy.length === 0} className="flex-1 py-1 bg-slate-800 hover:bg-slate-700 text-xs text-slate-400 rounded disabled:opacity-50">Undo</button>
+                                <select
+                                    value={newStintD1.compound}
+                                    onChange={(e) => setNewStintD1({ ...newStintD1, compound: e.target.value })}
+                                    className="bg-slate-700 text-white rounded p-2 text-sm flex-1 border border-slate-600 outline-none focus:border-f1accent"
+                                >
+                                    <option value="Soft">Soft</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Hard">Hard</option>
+                                </select>
+                                <input
+                                    type="number"
+                                    min="1"
+                                    max={currentTrack.laps}
+                                    value={newStintD1.laps}
+                                    onChange={(e) => setNewStintD1({ ...newStintD1, laps: parseInt(e.target.value) || 0 })}
+                                    className="w-20 bg-slate-700 text-center text-white rounded p-2 text-sm border border-slate-600 outline-none focus:border-f1accent"
+                                />
+                                <button
+                                    onClick={() => setD1Strategy([...d1Strategy, { ...newStintD1 }])}
+                                    className="bg-f1accent hover:bg-blue-400 text-slate-900 font-bold px-3 py-2 rounded text-sm transition-colors"
+                                >
+                                    Add Stint
+                                </button>
+                                <button
+                                    onClick={() => setD1Strategy(d1Strategy.slice(0, -1))}
+                                    disabled={d1Strategy.length === 0}
+                                    className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold px-3 py-2 rounded text-sm disabled:opacity-50 transition-colors"
+                                >
+                                    Undo
+                                </button>
                             </div>
                         </div>
 
                         {/* Strategy Driver 2 */}
-                        <div className="w-full bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                            <h3 className="text-white font-bold mb-3">{gameState.drivers[1]?.name || "Driver 2"}</h3>
-                            <div className="flex flex-wrap gap-2 mb-3">
-                                {d2Strategy.map((tire, i) => (
-                                    <div key={i} className="flex items-center">
-                                        <span className={`px-2 py-1 text-xs font-bold rounded ${tire === 'Soft' ? 'bg-f1red text-white' : tire === 'Medium' ? 'bg-yellow-500 text-slate-900' : 'bg-white text-slate-900'}`}>
-                                            {tire.charAt(0)}
-                                        </span>
-                                        {i < d2Strategy.length - 1 && <ArrowRight size={12} className="text-slate-500 mx-1" />}
+                        <div className="w-full bg-slate-800/60 p-4 rounded-xl border border-slate-700">
+                            <div className="flex justify-between items-center mb-3">
+                                <h3 className="text-white font-bold">{gameState.drivers[1]?.name || "Driver 2"}</h3>
+                                <span className={`text-xs font-bold px-2 py-1 rounded ${d2TotalLaps === currentTrack.laps ? 'bg-f1green text-white' : d2TotalLaps > currentTrack.laps ? 'bg-yellow-500 text-slate-900' : 'bg-f1red/20 text-f1red'}`}>
+                                    {d2TotalLaps} / {currentTrack.laps} Laps
+                                </span>
+                            </div>
+
+                            {/* Visual Bar */}
+                            <div className="w-full h-2 bg-slate-900 rounded-full mb-4 flex overflow-hidden">
+                                {d2Strategy.map((s, i) => (
+                                    <div key={i} className={`h-full border-r border-slate-900 ${s.compound === 'Soft' ? 'bg-f1red' : s.compound === 'Medium' ? 'bg-yellow-500' : 'bg-white'}`} style={{ width: `${(s.laps / currentTrack.laps) * 100}%` }}></div>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-col gap-2 mb-4">
+                                {d2Strategy.map((stint, i) => (
+                                    <div key={i} className="flex justify-between items-center bg-slate-700/50 p-2 rounded text-sm border border-slate-600">
+                                        <div className="flex items-center gap-2">
+                                            <span className={`w-3 h-3 rounded-full ${stint.compound === 'Soft' ? 'bg-f1red' : stint.compound === 'Medium' ? 'bg-yellow-500' : 'bg-white'}`}></span>
+                                            <span className="text-white font-bold">Stint {i + 1}</span>
+                                        </div>
+                                        <span className="text-slate-300 font-mono">{stint.laps} Laps</span>
                                     </div>
                                 ))}
-                                {d2Strategy.length === 0 && <span className="text-sm text-slate-500 italic">No tires equipped (DNS)</span>}
+                                {d2Strategy.length === 0 && <span className="text-sm text-slate-500 italic text-center py-2">No Stints Built. DNS Warning.</span>}
                             </div>
+
                             <div className="flex gap-2">
-                                <button onClick={() => setD2Strategy([...d2Strategy, "Soft"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-f1red">Soft</button>
-                                <button onClick={() => setD2Strategy([...d2Strategy, "Medium"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-yellow-500">Med</button>
-                                <button onClick={() => setD2Strategy([...d2Strategy, "Hard"])} className="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-xs font-bold rounded text-white border-b-2 border-white">Hard</button>
-                                <button onClick={() => setD2Strategy(d2Strategy.slice(0, -1))} disabled={d2Strategy.length === 0} className="flex-1 py-1 bg-slate-800 hover:bg-slate-700 text-xs text-slate-400 rounded disabled:opacity-50">Undo</button>
+                                <select
+                                    value={newStintD2.compound}
+                                    onChange={(e) => setNewStintD2({ ...newStintD2, compound: e.target.value })}
+                                    className="bg-slate-700 text-white rounded p-2 text-sm flex-1 border border-slate-600 outline-none focus:border-f1accent"
+                                >
+                                    <option value="Soft">Soft</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Hard">Hard</option>
+                                </select>
+                                <input
+                                    type="number"
+                                    min="1"
+                                    max={currentTrack.laps}
+                                    value={newStintD2.laps}
+                                    onChange={(e) => setNewStintD2({ ...newStintD2, laps: parseInt(e.target.value) || 0 })}
+                                    className="w-20 bg-slate-700 text-center text-white rounded p-2 text-sm border border-slate-600 outline-none focus:border-f1accent"
+                                />
+                                <button
+                                    onClick={() => setD2Strategy([...d2Strategy, { ...newStintD2 }])}
+                                    className="bg-f1accent hover:bg-blue-400 text-slate-900 font-bold px-3 py-2 rounded text-sm transition-colors"
+                                >
+                                    Add Stint
+                                </button>
+                                <button
+                                    onClick={() => setD2Strategy(d2Strategy.slice(0, -1))}
+                                    disabled={d2Strategy.length === 0}
+                                    className="bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold px-3 py-2 rounded text-sm disabled:opacity-50 transition-colors"
+                                >
+                                    Undo
+                                </button>
                             </div>
                         </div>
 
                         <button
                             onClick={handleSimulate}
-                            disabled={loading || d1Strategy.length === 0 || d2Strategy.length === 0}
+                            disabled={loading || !isValidStrategy}
                             className="w-full flex justify-center items-center gap-2 bg-f1accent hover:bg-blue-400 disabled:bg-slate-700 disabled:text-slate-500 text-slate-900 font-bold px-6 py-4 rounded-xl transition-all shadow-lg mt-4"
                         >
                             {loading ? <Activity className="animate-spin" /> : <><Flag size={20} /> Start Race Simulation</>}

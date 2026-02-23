@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import RDTree from './components/RDTree';
 import RaceWeekend from './components/RaceWeekend';
 import StaffMarket from './components/StaffMarket';
+import CarRankings from './components/CarRankings';
 
 function App() {
   const [gameState, setGameState] = useState(null);
@@ -33,6 +34,15 @@ function App() {
     fetchState();
   }, []);
 
+  const handleSave = async () => {
+    await fetch('http://localhost:8000/api/save', { method: 'POST' });
+  };
+
+  const handleQuit = async () => {
+    await fetch('http://localhost:8000/api/quit', { method: 'POST' });
+    fetchState();
+  };
+
   const handleCheat = async () => {
     await fetch('http://localhost:8000/api/cheat/money', { method: 'POST' });
     fetchState();
@@ -48,9 +58,17 @@ function App() {
         </div>
         <div className="flex items-center gap-4">
           {gameState && (
-            <span className="text-slate-400 text-sm border-r border-slate-700 pr-4">
-              {gameState.team_name}
-            </span>
+            <>
+              <span className="text-slate-400 text-sm border-r border-slate-700 pr-4">
+                {gameState.team_name} - {gameState.save_slot}
+              </span>
+              <button onClick={handleSave} className="text-xs text-f1accent hover:text-white border border-f1accent/30 px-3 py-1 rounded transition-colors">
+                Save Game
+              </button>
+              <button onClick={handleQuit} className="text-xs text-f1red hover:text-white border border-f1red/30 px-3 py-1 rounded transition-colors mr-4 border-r border-slate-700">
+                Quit
+              </button>
+            </>
           )}
           <button onClick={handleCheat} className="text-xs text-yellow-500 hover:text-white border border-yellow-500/30 px-3 py-1 rounded">
             Cheat (+10M)
@@ -65,6 +83,7 @@ function App() {
         {currentView === 'rd' && <RDTree gameState={gameState} onNavigate={setCurrentView} refreshState={fetchState} />}
         {currentView === 'race' && <RaceWeekend gameState={gameState} onNavigate={setCurrentView} refreshState={fetchState} />}
         {currentView === 'staff' && <StaffMarket gameState={gameState} onNavigate={setCurrentView} refreshState={fetchState} />}
+        {currentView === 'car_rankings' && <CarRankings gameState={gameState} onNavigate={setCurrentView} />}
       </main>
     </div>
   );

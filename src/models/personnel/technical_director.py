@@ -10,18 +10,24 @@ class TechnicalDirector(StaffMember):
         self.chassis_expertise = chassis_expertise
         self.powertrain_expertise = powertrain_expertise
         
-    def process_weekly_aging(self):
+    def process_yearly_aging(self):
         """Technical Directors acquire knowledge long into their careers before retiring."""
-        super().process_weekly_aging()
+        super().process_yearly_aging()
         import random
         
         # Determine dynamic stat growth or decline
         if self.age < 55.0:
-            if random.random() < 0.04:
-                self.rating = min(100, self.rating + 1)
-        elif self.age > 65.0:
-            if random.random() < 0.08:
-                self.rating = max(1, self.rating - 1)
+            if random.random() < 0.6:
+                self.rating = min(100, self.rating + random.randint(1, 2))
+                self.aero_expertise = min(100, self.aero_expertise + random.randint(0, 2))
+                self.chassis_expertise = min(100, self.chassis_expertise + random.randint(0, 2))
+                self.powertrain_expertise = min(100, self.powertrain_expertise + random.randint(0, 2))
+        elif self.age >= 65.0:
+            if random.random() < 0.8:
+                self.rating = max(1, self.rating - random.randint(1, 3))
+                self.aero_expertise = max(1, self.aero_expertise - random.randint(0, 2))
+                self.chassis_expertise = max(1, self.chassis_expertise - random.randint(0, 2))
+                self.powertrain_expertise = max(1, self.powertrain_expertise - random.randint(0, 2))
         
     def to_dict(self) -> Dict[str, Any]:
         data = super().to_dict()

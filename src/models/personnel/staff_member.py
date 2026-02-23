@@ -13,21 +13,27 @@ class StaffMember:
         self.age = float(age) # Stored as a float to allow fractional aging mid-season
         self.contract_length_years = contract_length_years
         
-    def process_weekly_aging(self):
+    def process_yearly_aging(self):
         """
-        Simulates time passing. Staff members age by roughly 1/52nd of a year per week.
-        Young staff develop, old staff decline.
+        Simulates time passing across a full season.
+        Young staff develop faster the younger they are, old staff decline.
         """
         import random
-        self.age += (1.0 / 52.0)
+        self.age += 1.0
         
-        # Determine dynamic stat growth or decline
-        if self.age < 25.0:
-            if random.random() < 0.05: # 5% chance per week to gain a small stat boost
-                self.rating = min(100, self.rating + 1)
-        elif self.age > 35.0:
-            if random.random() < 0.08: # 8% chance per week to decline
-                self.rating = max(1, self.rating - 1)
+        # Base generic rating changes (Subclasses handle specialized stats)
+        if self.age <= 22.0:
+            if random.random() < 0.9: # 90% chance
+                self.rating = min(100, self.rating + random.randint(1, 3))
+        elif self.age < 26.0:
+            if random.random() < 0.7: # 70% chance
+                self.rating = min(100, self.rating + random.randint(1, 2))
+        elif self.age >= 38.0 and self.age < 65.0:
+            if random.random() < 0.6: # 60% chance to decline
+                self.rating = max(1, self.rating - random.randint(1, 2))
+        elif self.age >= 65.0:
+            if random.random() < 0.8: # 80% chance for rapid decline in old age
+                self.rating = max(1, self.rating - random.randint(1, 3))
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize core attributes for save/load. Subclasses should call this and extend."""
